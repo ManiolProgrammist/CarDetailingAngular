@@ -1,0 +1,89 @@
+<!-- ng form - dla formu angulara -->
+<!-- autocomplete="off" - zeby wylaczyc zapelnianie z poprzednich danych itp -->
+<!-- #form-nazwa naszego pola do angulara (onSubmit(form)) 
+    ="ngForm" typ tego submita -->
+<!-- (submit)="onSubmit(form)" - czyli jeśli klikniemy submit to wykonaj "onSubmit(form)" - z pliku payment-detail.component.ts -->
+<form #form="ngForm" autocomplete="off">
+    <div class="form-group">
+        <!-- grupa inputu - tutaj razem zgrupowana np ikona jakaś -->
+        <div class="row input-group">
+
+            <!-- [co się dzieje z klasą]="warunek" -->
+            <div class="col-md-2 bg-info input-group-text" width="100%">
+                Nazwa
+            </div>
+
+            <!-- #Nazwa - local reference -->
+            <!-- two way data binding [(ngModel)]="userService.Nazwa" nazwa z property "userService" w payment-detail.component.ts (to co dajemy w konstruktorze) -->
+            <div name="Nazwa" class="col-md-3 myCSS ">
+                {{orderTemplateService.orderTemplateToOrder.Name}}
+            </div>
+        </div>
+        <!-- grupa inputu - tutaj razem zgrupowana np ikona jakaś -->
+        <div class="row input-group">
+
+            <!-- [co się dzieje z klasą]="warunek" -->
+            <div class="col-md-2 bg-info  input-group-text">
+                Koszt Minimalny
+            </div>
+
+
+            <div class="myCSS col-md-3" name="MinCost">
+
+                {{orderTemplateService.orderTemplateToOrder.MinCost}}
+            </div>
+        </div>
+
+        <div class="row input-group">
+
+            <div class="col-md-2 input-group-text bg-info">
+                Koszt Maxymalny
+            </div>
+
+            <div name="MaxCost" class="col-md-3 myCSS">
+                {{orderTemplateService.orderTemplateToOrder.MaxCost}}
+            </div>
+        </div>
+        <div class="row input-group">
+
+            <!-- [co się dzieje z klasą]="warunek" -->
+            <div class="col-md-2 bg-info input-group-text">
+                Informacje Dodatkowe
+            </div>
+
+
+            <div name="AdditionalInformation" class="col-md-3 myCSS" required>
+                {{orderTemplateService.orderTemplateToOrder.AdditionalInformation}}
+            </div>
+        </div>
+        <div class="row input-group">
+
+            <!-- [co się dzieje z klasą]="warunek" -->
+            <div class="col-md-2 input-group-text bg-info">
+                ExpectedTime
+            </div>
+
+            <div class="col-md-2">godziny:minuty:sekundy</div>
+            <div name="ExpectedTimeHours" class="col-md-1 myCSS" height="100%">
+                {{orderTemplateService.orderTemplateToOrder.ExpectedTime}}
+            </div>
+
+
+        </div>
+
+
+        <!-- [co się dzieje z klasą]="warunek" -->
+
+
+
+        <div class="row">
+
+
+            <button class="col-md-5 btn btn-success btn-lg btn-block" (click)=OrderThis() type="submit"
+                [disabled]="form.invalid">
+                Złóż Zamówienie</button>
+
+
+        </div>
+    </div>
+</form>
