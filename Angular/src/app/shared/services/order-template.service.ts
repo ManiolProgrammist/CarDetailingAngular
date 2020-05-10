@@ -18,6 +18,7 @@ export class OrderTemplateService {
   }
 
   refreshList() {
+    
     var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
     this.http.get(StaticInfo.getRootUrl() + 'OrderTemplate',{ headers: reqHeader }).toPromise().then(
       res => {

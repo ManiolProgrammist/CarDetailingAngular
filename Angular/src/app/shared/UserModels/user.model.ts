@@ -1,6 +1,11 @@
 import { UserType } from './user-type.model';
+import { Deserializable } from '../deserializable.model';
 
-export class User {
+export class User implements Deserializable  {
+    deserialize(input: any): User {
+        var ret=<User>input;
+        return ret;
+    }
     UserId: number;
     Login: string;
     Password: string;

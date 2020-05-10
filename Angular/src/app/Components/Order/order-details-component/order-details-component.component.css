@@ -1,0 +1,11 @@
+div.hoverable:hover{
+    cursor:pointer;
+    opacity:0.9;
+    font-weight:bold !important;
+    }
+    div{
+       font-weight: inherit; 
+    }
+/* div.hoverable{
+    opacity:1;
+} */

@@ -1,0 +1,15 @@
+div.hoverable:hover{
+    cursor:pointer;
+    opacity:1;
+    font-weight:bold;
+    }
+div.hoverable{
+    opacity:0.7;
+}
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+div{
+    word-break: keep-all;
+}

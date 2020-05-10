@@ -8,7 +8,7 @@ import { StaticInfo } from '../static-info';
 })
 export class AuthGuard implements CanActivate {
   constructor(private router: Router) { }
-  //TODO: obsłuż dokładnie prawa związane z routingiem w zalezości od admina/employa itp
+
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
