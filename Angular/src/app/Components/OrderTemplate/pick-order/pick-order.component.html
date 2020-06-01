@@ -1,0 +1,37 @@
+
+
+
+<!-- edit -->
+<app-order-template-details-component *ngIf="ShowEditFlag" [EditChangeFlag]="changeShowEditFlag.bind(this)"
+    [pickedOrderTemplate]="pickedOrderTemplate"></app-order-template-details-component>
+    
+<!-- details -->
+<div *ngIf="showInfoFlag">
+
+
+    <app-date-picker-component *ngIf="pickFromDateFlag" [CustomPickDateBehaviour]="PickDate.bind(this)">
+    </app-date-picker-component>
+    <app-user-list-component *ngIf="pickFromUserListFlag" [CustomPickUserBehaviour]="PickUserToOrder.bind(this)">
+    </app-user-list-component>
+
+    <app-order-template-component 
+        [pickedOrderTemplate]="pickedOrderTemplate"></app-order-template-component>
+    <div class="row" *ngIf="IsAtLeastEmploye()">
+
+
+
+
+        <button class="col-md-3 btn btn-success btn-lg btn-block" (click)=OrderThis() type="submit"
+            style="margin-left: 5px;">
+            Złóż Zamówienie</button>
+        <button class="col-md-2 btn btn-info btn-lg btn-block" (click)=changeShowEditFlag(true) type="submit"
+            style="margin-left: 20px;">
+            Edytuj</button>
+    </div>
+    <button *ngIf="!IsAtLeastEmploye()" class="col-md-5 btn btn-success btn-lg btn-block" (click)=OrderThis()
+        type="submit">
+        Złóż Zamówienie</button>
+
+
+</div>
+<app-order-template-list-component [ShowDetailsBehaviour]="ShowDetails.bind(this)"></app-order-template-list-component>

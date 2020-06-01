@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { OrderTemplateService } from 'src/app/shared/services/order-template.service';
 import { OrderTemplate } from 'src/app/shared/order-template.model';
 import { Router } from '@angular/router';
@@ -12,28 +12,37 @@ import { UserRights } from 'src/app/shared/Enums/UserRightsEnum';
 })
 export class OrderTemplateListComponentComponent implements OnInit {
 
-  constructor(private orderTemplateService:OrderTemplateService,private userService:UserService, private router:Router) { }
+  @Input() ShowDetailsBehaviour:(orderT: OrderTemplate)=>void
+  pickedOrderTemplate:OrderTemplate;
+  constructor(public orderTemplateService: OrderTemplateService, public userService: UserService, public router: Router) {
+    this.showInfoFlag = false;
+    this.showEditFlag = false;
+  }
+
+  public showInfoFlag: boolean;
+  private showEditFlag: boolean;
+  get ShowEditFlag(): boolean {
+    return this.showEditFlag;
+  }
+  set ShowEditFlag(flag: boolean) {
+    this.showEditFlag=this.userService.shouldIShownItem(UserRights.EmployeeUser)?flag:false;
+  }
+
+  changeShowEditFlag(flag:boolean){
+    this.showInfoFlag=false;
+    this.ShowEditFlag=flag;
+  }
 
   ngOnInit() {
+
     this.orderTemplateService.refreshList();
   }
 
-  ShowDetails(orderT:OrderTemplate){
 
-    this.orderTemplateService.orderTemplateToOrder=Object.assign({},orderT);
-    this.router.navigate(['Order_Template_List','Order_Order_Template']);
-
-
-    // if(this.userService.GetUserRights()>=UserRights.EmployeeUser){
-    // this.orderTemplateService.orderTemplateDetails=Object.assign({}, orderT);
-    // this.router.navigate(['Order_Template_List','Order_Template_Detail']);
-    // }else{
-
-    //   //do zamawiania
-
-    //     //zapytaj się czy ma konto czy stworzyć nowe?
-
-    // }
+  ShowDetails(orderT: OrderTemplate) {
+    if(this.ShowDetailsBehaviour){
+      this.ShowDetailsBehaviour(orderT);
+    }
   }
 
 }

@@ -37,24 +37,20 @@ export class UserService {
     this.userLog = new LoginUser();
     this.IsLoggedIn = false;
     this.IsDontLoggMeOut = false;
-
-    this.regexEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-    this.regexPhoneNumber = /(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)/;
+    this.LoggedUser=new User();
+    this.regexEmail =/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+    this.regexPhoneNumber =  /([(+]*[0-9]+[()+. -]*)/;
     if (localStorage.getItem(StaticInfo.getDontLogMeOutPath())) {
-      if (localStorage.getItem(StaticInfo.getDontLogMeOutPath()) == 'true') {
-        var ul = new LoginUser();
-        ul.Login = localStorage.getItem(StaticInfo.getLoginPath());
-        ul.Password = localStorage.getItem(StaticInfo.getPasswordPath());
-        this.UserLogin(ul);
+      if (localStorage.getItem(StaticInfo.getDontLogMeOutPath()) == 'true'&&localStorage.getItem(StaticInfo.getTokenPath())!=null) {
         this.IsDontLoggMeOut = true;
+        this.userSetInfo();
+      
+     
       } else {
-        localStorage.clear();
+        this.UserLogOut();
         this.IsDontLoggMeOut = false;
       }
     }
-    this.userLog
-    // const source = "abcd";
-    // const subscribe = source.subscribe(val => console.log(val));
 
   }
 
@@ -90,10 +86,7 @@ export class UserService {
   GetUserById(id: number): Observable<Result<User>> {
     return this.http.get<Result<User>>(StaticInfo.getRootUrl + 'User/' + id).pipe(catchError(this.errorHandler));
   }
-  // AddUser():Observable<Result<User>>{
-  //     var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
-  //   return this.http.post<Result<User>>(StaticInfo.getRootUrl() + 'User', this.userFormData, { headers: reqHeader }).pipe(catchError(this.errorHandler));
-  // }
+
 
   errorHandler(error: HttpErrorResponse) {
     return observableThrowError(error.message || "Server Error");
@@ -151,91 +144,76 @@ export class UserService {
         }
       );
   }
+  userAuthentication(loginUser: LoginUser) {
 
-  UserLogin(loginUser: LoginUser) {
-    var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
-    return this.http.get(StaticInfo.getRootUrl() + 'LoginUser/' + loginUser.Login + '/' + loginUser.Password, { headers: reqHeader })
-      .toPromise()
-      .then(
-        res => {
-          if (res['status'] as boolean == true) {
-            this.LoggedUser = res['value'] as User;
-
-            localStorage.setItem(StaticInfo.getLoginPath(), loginUser.Login);
-            localStorage.setItem(StaticInfo.getPasswordPath(), loginUser.Password);
-            this.IsLoggedIn = true;
-            if (this.IsDontLoggMeOut) {
-              localStorage.setItem(StaticInfo.getDontLogMeOutPath(), 'true');
-            }
-            this.route.navigate(['']);
-
-          } else {
-            console.log(res);
-            console.log("error UserLogin", res);
-          }
-        },
-        (err: HttpErrorResponse) => {
-          console.log("ERROR UserLogin err", err);
-        }
-      );
-
-
+    var data = "username=" + loginUser.Login + "&password=" + loginUser.Password + "&grant_type=password";
+    var reqHeader = new HttpHeaders({ 'No-Auth': 'True','Content-Type':'application/x-www-urlencoded'});
+    return this.http.post(StaticInfo.getRootUrl()+'login',data,{headers:reqHeader}).pipe(catchError(this.errorHandler));;
   }
+
+  userLogin(Log:LoginUser){
+    this.userAuthentication(Log).subscribe((data: any) => {
+      localStorage.setItem(StaticInfo.getTokenPath(), data.access_token);
+      this.userSetInfo();
+      // this.LoginUser();
+    }, (err: HttpErrorResponse) => {
+      console.log("blad logowania");
+      console.log(err);
+    }
+
+    )
+  }
+
+  userSetInfo(){
+    this.getLogUserInfo().subscribe((data2: Result<User>) => {
+      if (data2.status) {
+        console.log(data2);
+        this.LoggedUser = data2.value;
+        this.IsLoggedIn = true;
+        if (this.IsDontLoggMeOut) {
+          localStorage.setItem(StaticInfo.getDontLogMeOutPath(), 'true');
+
+        }
+      }
+    }, (err: HttpErrorResponse) => {
+      this.UserLogOut();
+      console.log("DatabaseError", err);
+    }
+
+    )
+  }
+
+  getLogUserInfo():Observable<Result<User>>{
+    return this.http.get<Result<User>>(StaticInfo.getRootUrl()+'LogInfo').pipe(catchError(this.errorHandler));
+  }
+
+
   UserLogOut() {
     localStorage.clear();
     this.IsLoggedIn = false;
     this.userLog.Login = "";
     this.userLog.Password = "";
     this.IsDontLoggMeOut = false;
-
     this.ResetLoggedUser();
     this.route.navigate(['']);
   }
   ResetLoggedUser() {
-    this.LoggedUser = null;
-    //{
-    //   UserId: 0,
-    //   Login: '',
-    //   Password: '',
-    //   Email: '',
-    //   FirstName: '',
-    //   Surname: '',
-    //   PhoneNumber: '',
-    //   AccoutCreateDate: new Date(),
-    //   UserTypeId:0,
-    //   UserType:{UserTypeId:0,Name:'',AccessRights:0},
-    //   // IsAdmin: false,
-    //   // IsEmployee: false,
-    //   // IsTemporary: false,
-    //   InformationId: null,
-    // }
+    this.LoggedUser = new User();
   }
 
   UserRegister(form: NgForm): Observable<Result<User>> {
     var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
     return this.http.post<Result<User>>(StaticInfo.getRootUrl() + 'User', this.userRegister, { headers: reqHeader }).pipe(catchError(this.errorHandler));//
-    //.toPromise()
-    //   .then(res => {
-    //     if (res['status'] as boolean == true) {
-    //       console.log("udało się zarejestrować");
-    //       this.route.navigate(['']);
 
-    //     } else {
-    //       console.log("error error", res['info'], res);
-    //     }
-    //   },
-    //     (err: HttpErrorResponse) => {
-    //       // console.clear();
-    //       console.log("ERROR UserLogin", err);
-    //     }
-    //   );
   }
 
 
   GetUserRights(): UserRights {
 
-    if (this.LoggedUser != null && this.LoggedUser != undefined) {
-
+    if (this.IsLoggedIn) {
+      if(!this.LoggedUser.UserType){//if somethings go wrong
+        this.userSetInfo()
+      }
       if (this.LoggedUser.UserType.AccessRights == UserRights.AdminUser) {
         // console.log("rights:" +UserRights.AdminUser);
         return UserRights.AdminUser;
@@ -259,7 +237,45 @@ export class UserService {
       return UserRights.NotExistUser;
     }
   }
+  shouldIShownItem(neededAuth: number | UserRights): boolean {
+
+    if (this.GetUserRights() >= neededAuth) {
+      return true;
+    }
+    return false;
+  }
 
 
 }
 
+
+
+  // UserLogin(loginUser: LoginUser) {
+
+  //   var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
+
+  //   return this.http.get(StaticInfo.getRootUrl() + 'LoginUser/' + loginUser.Login + '/' + loginUser.Password, { headers: reqHeader })
+  //     .toPromise()
+  //     .then(
+  //       res => {
+  //         if (res['status'] as boolean == true) {
+  //           this.LoggedUser = res['value'] as User;
+
+  //           localStorage.setItem(StaticInfo.getLoginPath(), loginUser.Login);
+  //           localStorage.setItem(StaticInfo.getPasswordPath(), loginUser.Password);
+  //           this.IsLoggedIn = true;
+  //           if (this.IsDontLoggMeOut) {
+  //             localStorage.setItem(StaticInfo.getDontLogMeOutPath(), 'true');
+  //           }
+  //           this.route.navigate(['']);
+
+  //         } else {
+  //           console.log(res);
+  //           console.log("error UserLogin", res);
+  //         }
+  //       },
+  //       (err: HttpErrorResponse) => {
+  //         console.log("ERROR UserLogin err", err);
+  //       }
+  //     );
+  // }

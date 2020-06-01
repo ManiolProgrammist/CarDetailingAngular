@@ -1,5 +1,5 @@
 <div *ngIf="!isLoggedIn()">
-    <form #form="ngForm" autocomplete="off" (submit)="LoginUser()" name="loginUserForm">
+    <form #form="ngForm" autocomplete="off" (submit)="onSubmitToken()" name="loginUserForm">
 
         <div class="input">
             <label for="Login">Login</label>
@@ -25,7 +25,7 @@
 
         </div>
     <div class="form-check" name="DontLogMeOut">
-            <input type="checkbox" class="form-check-input" [(ngModel)]="userService.IsDontLoggMeOut"
+            <input type="checkbox" class="form-check-input" [(ngModel)]="IsDontLoggMeOut"
                 id="DontLogMeOut" />
             <label class="form-check-label" for="DontLogMeOut">dont Log Me
                 Out</label>

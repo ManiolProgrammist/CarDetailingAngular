@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges,OnChanges} from '@angular/core';
 import { OrderTemplateService } from 'src/app/shared/services/order-template.service';
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 import { OrderTemplate } from 'src/app/shared/order-template.model';
 import { Router } from '@angular/router';
+import { UtilityService } from 'src/app/shared/services/utility.service';
 @Component({
   selector: 'app-order-template-details-component',
   templateUrl: './order-template-details-component.component.html',
@@ -11,70 +12,89 @@ import { Router } from '@angular/router';
 
 
 export class OrderTemplateDetailsComponentComponent implements OnInit {
+  @Input() set pickedOrderTemplate(value:OrderTemplate){
 
-  constructor(private orderTemplateService: OrderTemplateService,private router:Router) { }
+    this.EditOrderTemplate=Object.assign({}, value);
+  }
+  EditOrderTemplate:OrderTemplate;
+  @Input() EditChangeFlag:(flag:boolean)=>void;
+  constructor(public orderTemplateService: OrderTemplateService,private utilityService:UtilityService,public router:Router) {
+    this.EditOrderTemplate = this.orderTemplateService.ResetOrderTemplateDetails();
+   }
+
   get hours(): number | string {
-    if (this.orderTemplateService.orderTemplateDetails.ExpectedTime) {
-      return this.orderTemplateService.getHours(this.orderTemplateService.orderTemplateDetails.ExpectedTime);
+    if (this.EditOrderTemplate.ExpectedTime) {
+      return this.utilityService.getHours(this.EditOrderTemplate.ExpectedTime);
     } else {
       return 0;
     }
   };
   get minutes(): number | string {
-    if (this.orderTemplateService.orderTemplateDetails.ExpectedTime) {
-      return this.orderTemplateService.getMinutes(this.orderTemplateService.orderTemplateDetails.ExpectedTime);
+    if (this.EditOrderTemplate.ExpectedTime) {
+      return this.utilityService.getMinutes(this.EditOrderTemplate.ExpectedTime);
     } else {
       return 0;
     }
   };
   set hours(h: number | string) {
     if(Number(h)>=0){
-    this.orderTemplateService.orderTemplateDetails.ExpectedTime =
-      this.orderTemplateService.setExpectedTime(h, this.orderTemplateService.orderTemplateDetails.ExpectedTime, 0);
+    this.EditOrderTemplate.ExpectedTime =
+      this.utilityService.setExpectedTime(h, this.EditOrderTemplate.ExpectedTime, 0);
     }else{
-      this.orderTemplateService.orderTemplateDetails.ExpectedTime =
-      this.orderTemplateService.setExpectedTime(0, this.orderTemplateService.orderTemplateDetails.ExpectedTime, 0);
+      this.EditOrderTemplate.ExpectedTime =
+      this.utilityService.setExpectedTime(0, this.EditOrderTemplate.ExpectedTime, 0);
     }
   }
   set minutes(m: number | string) {
     if(Number(m)>=0){
-    this.orderTemplateService.orderTemplateDetails.ExpectedTime =
-      this.orderTemplateService.setExpectedTime(m, this.orderTemplateService.orderTemplateDetails.ExpectedTime, 1);
+    this.EditOrderTemplate.ExpectedTime =
+      this.utilityService.setExpectedTime(m, this.EditOrderTemplate.ExpectedTime, 1);
     }else{
-      this.orderTemplateService.orderTemplateDetails.ExpectedTime =
-      this.orderTemplateService.setExpectedTime(0, this.orderTemplateService.orderTemplateDetails.ExpectedTime, 1);
+      this.EditOrderTemplate.ExpectedTime =
+      this.utilityService.setExpectedTime(0, this.EditOrderTemplate.ExpectedTime, 1);
     }
   }
   ngOnInit() {
   }
 
-  OrderThis(){
-    this.orderTemplateService.orderTemplateToOrder=this.orderTemplateService.orderTemplateDetails;
-    this.router.navigate(['Order_Template_List','Order_Order_Template']);
-  }
   ResetDetails() {
-    this.orderTemplateService.orderTemplateDetails = this.orderTemplateService.ResetOrderTemplateDetails();
+    this.EditOrderTemplate = this.orderTemplateService.ResetOrderTemplateDetails();
   }
   MinMaxValid() {
-    return (this.orderTemplateService.orderTemplateDetails.MaxCost >= this.orderTemplateService.orderTemplateDetails.MinCost)&&this.orderTemplateService.orderTemplateDetails.MinCost>=0;
+    return (this.EditOrderTemplate.MaxCost >= this.EditOrderTemplate.MinCost)&&this.EditOrderTemplate.MinCost>=0;
   }
   AddOrdTemplate() {
-    this.orderTemplateService.AddOrderTemplate(this.orderTemplateService.orderTemplateDetails);
+    this.orderTemplateService.AddOrderTemplate(this.EditOrderTemplate);
   }
   RemoveOrderTemplate() {
-    if (this.orderTemplateService.orderTemplateDetails.OrderTemplateId != 0) {
-      this.orderTemplateService.RemoveOrderTemplate(this.orderTemplateService.orderTemplateDetails.OrderTemplateId);
+    if (this.EditOrderTemplate.OrderTemplateId != 0) {
+      this.orderTemplateService.RemoveOrderTemplate(this.EditOrderTemplate.OrderTemplateId);
     }else{
       console.log("nie da się usunąć Order Template bez jego ID");
     }
   }
 
-  AcceptEditOrdTemp() {
+  CheckOrder():boolean{
     if (this.MinMaxValid()) {
-      this.orderTemplateService.PutOrderTemplate(this.orderTemplateService.orderTemplateDetails);
-    } else {
-      alert("koszt Minimalny musi być mniejszy lub równy kosztowi maksymalnemu")
+      if(Number(this.utilityService.getHours( this.EditOrderTemplate.ExpectedTime))!=0||this.utilityService.getMinutes(this.EditOrderTemplate.ExpectedTime)!=0){
+        return true;
+      }else{
+        alert("usługa musi trwać conajmniej 15 minut");
+        return false;
+      }
+    }else{
+      alert("koszt Minimalny musi być mniejszy lub równy kosztowi maksymalnemu");
+    return false;
     }
+  }
+
+  AcceptEditOrdTemp() {
+    if (  this.CheckOrder()) {
+      this.orderTemplateService.PutOrderTemplate(this.EditOrderTemplate);
+      if(this.EditChangeFlag){
+        this.EditChangeFlag(false);
+      }
+    } 
   }
   ngOnDestroy() {
     this.ResetDetails();

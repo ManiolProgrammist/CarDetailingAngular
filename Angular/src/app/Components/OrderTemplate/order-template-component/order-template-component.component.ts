@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { OrderTemplateService } from 'src/app/shared/services/order-template.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { UserRights } from 'src/app/shared/Enums/UserRightsEnum';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { User } from 'src/app/shared/UserModels/user.model';
+import { OrderTemplate } from 'src/app/shared/order-template.model';
 
 @Component({
   selector: 'app-order-template-component',
@@ -10,8 +12,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./order-template-component.component.css']
 })
 export class OrderTemplateComponentComponent implements OnInit {
-
-  constructor(private orderTemplateService:OrderTemplateService,private userService:UserService,private router:Router) { }
+  pickFromUserListFlag:boolean;
+  pickFromDateFlag:boolean;
+  pickedUserToOrder:User;
+  PickedDate:Date;
+  @Input() pickedOrderTemplate:OrderTemplate;
+  @Input() EditChangeFlag:(flag:boolean)=>void;
+  constructor(public orderTemplateService:OrderTemplateService,private userService:UserService,public router:Router) {
+    this.pickFromUserListFlag=false;
+    this.pickFromDateFlag=false;
+   }
 
   ngOnInit() {
   }
@@ -19,20 +29,36 @@ export class OrderTemplateComponentComponent implements OnInit {
   OrderThis(){ //jeśli zamawia pracownik/admin to musi wskazać dla jakiego użytkownika zamawia lub stworzyć tymczasowego użytkownika, 
                // jeśli zamawia klient to od razu dla siebie
     if(this.userService.GetUserRights()>=UserRights.EmployeeUser){
-      //wybierz dla danego klienta
+     
+      this.pickFromUserListFlag=true;
     }else{
+    
+      this.pickFromUserListFlag=false;
+      this.pickFromDateFlag=true;
       //wybierz termin
     }
   }
+
+  PickUserToOrder(user:User){
+     this.pickedUserToOrder=user;
+      this.pickFromDateFlag=true;
+      this.pickFromUserListFlag=false;
+  }
   IsAtLeastEmploye():boolean{
-    return this.userService.GetUserRights()>=UserRights.EmployeeUser;
+    return this.userService.shouldIShownItem(UserRights.EmployeeUser);
   }
   EditThis(){
-
-      // this.orderTemplateService.orderTemplateDetails=Object.assign({}, orderT);
-      this.orderTemplateService.orderTemplateDetails=this.orderTemplateService.orderTemplateToOrder;
-      this.router.navigate(['Order_Template_List','Order_Template_Detail']);
+    if(this.EditChangeFlag){
+      this.EditChangeFlag(true);
+    }
+      // // this.orderTemplateService.orderTemplateDetails=Object.assign({}, orderT);
+      // this.orderTemplateService.orderTemplateDetails=this.orderTemplateService.orderTemplateToOrder;
+      // this.router.navigate(['Order_Template_List','Order_Template_Detail']);
       
   }
+    // PickDate(date:Date){
+    //   this.PickedDate=date;
+    //   console.log("najwyzsza funkcja mowi:",date);
+    // }
 
 }

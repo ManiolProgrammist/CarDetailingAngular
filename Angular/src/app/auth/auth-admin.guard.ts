@@ -13,7 +13,7 @@ export class AuthAdminGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
-      if (localStorage.getItem(StaticInfo.getLoginPath()) != null && localStorage.getItem(StaticInfo.getPasswordPath()) != null) {
+      if (localStorage.getItem(StaticInfo.getTokenPath())  != null) {
         if(this.userService.GetUserRights()==UserRights.AdminUser){
         return true;
         }else{

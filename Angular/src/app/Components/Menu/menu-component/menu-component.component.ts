@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
+import { UtilityService } from 'src/app/shared/services/utility.service';
 
 @Component({
   selector: 'app-menu-component',
@@ -8,16 +9,13 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class MenuComponentComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService:UserService) { }
 
   ngOnInit() {
   }
 
   shouldIShownItem(neededAuth:number):boolean{
-    if(this.userService.GetUserRights()>=neededAuth){
-    return true;
-    }
-    return false;
+   return this.userService.shouldIShownItem(neededAuth);
   }
   
 

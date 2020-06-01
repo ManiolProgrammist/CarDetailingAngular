@@ -1,15 +1,16 @@
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpUserEvent, HttpEvent } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { StaticInfo } from '../static-info';
+import { UserService } from '../shared/services/user.service';
 
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-    constructor(private router: Router) {
+    constructor(private router: Router,private injector:Injector) {
 
     }
 
@@ -33,10 +34,10 @@ export class AuthInterceptor implements HttpInterceptor {
         }
         //jeśli nie ma "noAuth to wykonaj:"
         //weź z cookies username i password i dodaj autoryzacje do headera
-        if (localStorage.getItem(StaticInfo.getLoginPath()) != null && localStorage.getItem(StaticInfo.getPasswordPath()) != null) {
+        if (localStorage.getItem(StaticInfo.getTokenPath())  != null) {
             // console.log("zaczynam request z interceptora");
             const cloneReq = req.clone({
-                headers: req.headers.set('Authorization', 'Basic ' + btoa(localStorage.getItem(StaticInfo.getLoginPath()) + ":" + localStorage.getItem(StaticInfo.getPasswordPath())))
+                headers: req.headers.set('Authorization', 'Bearer ' + (localStorage.getItem(StaticInfo.getTokenPath())))
             });
             return next.handle(cloneReq).pipe(tap(
                 succ => {
@@ -44,16 +45,22 @@ export class AuthInterceptor implements HttpInterceptor {
                     // console.log(cloneReq);
                 },
                 err => {
+                    //timeout
                     console.log("Request nie poszedł - info z auth.inceptor");
                     console.log(cloneReq);
                     if (err.status === 401) {
+                      
+                        localStorage.setItem(localStorage.getItem(StaticInfo.getTokenPath()),null);
+                        localStorage.clear();
+                        this.injector.get(UserService).UserLogOut();
                         this.router.navigateByUrl('');
+
                     }
                 })
             );
 
         }else{
-            console.log("brak w cookies loginu i hasła");
+            console.log("brak tokenu uwierzytelniania");
             this.router.navigateByUrl('');
         }
     }

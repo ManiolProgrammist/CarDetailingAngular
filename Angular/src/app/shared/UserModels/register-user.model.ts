@@ -5,10 +5,10 @@ export class RegisterUser implements Deserializable  {
         var ret=<RegisterUser>input;
         return ret;
     }
-    login: string;
-    password: string;
-    email: string;
-    firstName: string;
-    surname: string;
-    phoneNumber: string;
+    Login: string;
+    Password: string;
+    Email: string;
+    FirstName: string;
+    Surname: string;
+    PhoneNumber: string;
 }

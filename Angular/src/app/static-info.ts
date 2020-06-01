@@ -4,6 +4,7 @@ const rootURL: string = "http://localhost:52951/api/";
 const passwordPath: string = "password";
 const LoginPath: string = "username";
 const DontLogMeOutPath: string = "dontlogmeout";
+const TokenPath:string ="token";
 export class StaticInfo {
     static getRootUrl() {
         return rootURL;
@@ -17,5 +18,11 @@ export class StaticInfo {
     static getDontLogMeOutPath() {
         return DontLogMeOutPath;
     }
+    static getTokenPath(){
+        return TokenPath;
+    }
+    
     static IsUserLogged: boolean;
+    
 }
+

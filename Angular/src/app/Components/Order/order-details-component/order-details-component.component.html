@@ -1,16 +1,16 @@
-<!-- ng form - dla formu angulara -->
-<!-- autocomplete="off" - zeby wylaczyc zapelnianie z poprzednich danych itp -->
-<!-- #form-nazwa naszego pola do angulara (onSubmit(form)) 
-    ="ngForm" typ tego submita -->
-<router-outlet></router-outlet>
 
+
+<app-order-template-details-component *ngIf="orderTemplateToEdit" [pickedOrderTemplate]="pickedOrderTemplate"></app-order-template-details-component>
+
+<app-order-template-component *ngIf="orderTemplateInfo"  [pickedOrderTemplate]="pickedOrderTemplate"></app-order-template-component>
+<button *ngIf="editButton"(click)="EditButtonClick()">Edytuj ten template</button>
 <form #form="ngForm" autocomplete="off">
 
     <div class="form-group">
 
 
         <!-- grupa inputu - tutaj razem zgrupowana np ikona jakaś -->
-        <div class="row input-group  ">
+        <div class="row input-group  " *ngIf="OrderDetails.OrderId">
 
             <!-- [co się dzieje z klasą]="warunek" -->
             <div class="col-md-3 col-md-offset-3"></div>
@@ -22,16 +22,16 @@
             </div>
 
             <!-- #OrdersTemplate.Name - local reference -->
-            <!-- two way data binding [(ngModel)]="orderService.OrdersTemplate.Name" nazwa z property "orderService" w payment-detail.component.ts (to co dajemy w konstruktorze) -->
+            <!-- two way data binding [(ngModel)]=" OrdersTemplate.Name" nazwa z property "orderService" w payment-detail.component.ts (to co dajemy w konstruktorze) -->
             <div class="col-md-3 input-group-text">
-                {{orderService.OrderDetails.OrderId}}
+                {{ OrderDetails.OrderId}}
             </div>
 
-            <!-- <input type="text" name="Login" #Login="ngModel" [(ngModel)]="orderService.OrderDetails.OrderId"
+            <!-- <input type="text" name="Login" #Login="ngModel" [(ngModel)]=" OrderDetails.OrderId"
                     class="col-md-4 form-control" placeholder="Login" [readonly]="true" required />
      -->
         </div>
-        <div class="row input-group hoverable" (click)="ShowOrderTDetails(orderService.OrderDetails.OrdersTemplate)">
+        <div class="row input-group hoverable" (click)="ShowOrderTDetails(OrderDetails.OrdersTemplate)">
 
             <!-- [co się dzieje z klasą]="warunek" -->
             <div class="col-md-3 col-md-offset-3"></div>
@@ -45,13 +45,13 @@
                 </div> -->
 
             <!-- #OrdersTemplate.Name - local reference -->
-            <!-- two way data binding [(ngModel)]="orderService.OrdersTemplate.Name" nazwa z property "orderService" w payment-detail.component.ts (to co dajemy w konstruktorze) -->
+            <!-- two way data binding [(ngModel)]=" OrdersTemplate.Name" nazwa z property "orderService" w payment-detail.component.ts (to co dajemy w konstruktorze) -->
             <div class="col-md-3 input-group-text">
-                {{orderService.OrderDetails.OrdersTemplate.Name}}
+                {{OrderDetails.OrdersTemplate.Name}}
             </div>
 
         </div>
-        <div class="row input-group hoverable" (click)="ShowOrderTDetails(orderService.OrderDetails.OrdersTemplate)">
+        <div class="row input-group hoverable" (click)="ShowOrderTDetails(OrderDetails.OrdersTemplate)">
 
             <!-- [co się dzieje z klasą]="warunek" -->
             <div class="col-md-3 col-md-offset-3"></div>
@@ -65,16 +65,16 @@
                 </div> -->
 
             <!-- #OrdersTemplate.Name - local reference -->
-            <!-- two way data binding [(ngModel)]="orderService.OrdersTemplate.Name" nazwa z property "orderService" w payment-detail.component.ts (to co dajemy w konstruktorze) -->
+            <!-- two way data binding [(ngModel)]=" .OrdersTemplate.Name" nazwa z property " " w payment-detail.component.ts (to co dajemy w konstruktorze) -->
             <div class="col-md-3 input-group-text">
-                {{orderService.OrderDetails.OrdersTemplate.OrderTemplateId}}
+                {{OrderDetails.OrdersTemplate.OrderTemplateId}}
             </div>
 
         </div>
 
 
         <!-- grupa inputu - tutaj razem zgrupowana np ikona jakaś -->
-        <div class="row input-group">
+        <div class="row input-group" *ngIf="OrderDetails.User.Surname">
             <div class="col-md-3 col-md-offset-3"></div>
             <!-- [co się dzieje z klasą]="warunek" -->
             <div class="col-md-3 input-group-text bg-info">
@@ -86,7 +86,7 @@
                     Nazwisko
                 </div> -->
             <div class="col-md-3 input-group-text">
-                {{orderService.OrderDetails.User.FirstName}} {{orderService.OrderDetails.User.Surname}}
+                {{ OrderDetails.User.FirstName}} {{  OrderDetails.User.Surname}}
             </div>
         </div>
         <div class="row input-group">
@@ -101,55 +101,72 @@
                     Nazwisko
                 </div> -->
             <div class="col-md-3 input-group-text">
-                {{orderService.OrderDetails.Cost}}
+                {{  OrderDetails.Cost}}
             </div>
         </div>
-        <div class="row input-group">
-            <div class="col-md-3 col-md-offset-3"></div>
-            <!-- [co się dzieje z klasą]="warunek" -->
-            <div class="col-md-3 input-group-text bg-info">
-                Czy zlecenie zaczęte:
-            </div>
-            <!-- <div *ngIf="IsEdit" class="col-md-2 input-group-text" [class.bg-info]="!Surname.touched"
+        <div *ngIf="OrderDetails.OrderDate">
+            <div class="row input-group">
+                <div class="col-md-3 col-md-offset-3"></div>
+                <!-- [co się dzieje z klasą]="warunek" -->
+                <div class="col-md-3 input-group-text bg-info">
+                    Czy zlecenie opłacone:
+                </div>
+                <!-- <div *ngIf="IsEdit" class="col-md-2 input-group-text" [class.bg-info]="!Surname.touched"
                     [class.bg-success]="Surname.valid && Surname.touched"
                     [class.bg-danger]="Surname.invalid && Surname.touched">
                     Nazwisko
                 </div> -->
-            <div class="col-md-3 input-group-text">
-                {{orderService.OrderDetails.IsOrderStarted}}
+                <div class="col-md-3 input-group-text">
+                    {{  OrderDetails.IsPaid}}
+                </div>
             </div>
-        </div>
-        <div class="row input-group">
-            <div class="col-md-3 col-md-offset-3"></div>
-            <!-- [co się dzieje z klasą]="warunek" -->
-            <div class="col-md-3 input-group-text bg-info">
-                Czy zlecenie zakończone:
-            </div>
-            <!-- <div *ngIf="IsEdit" class="col-md-2 input-group-text" [class.bg-info]="!Surname.touched"
+            <div class="row input-group">
+                <div class="col-md-3 col-md-offset-3"></div>
+                <!-- [co się dzieje z klasą]="warunek" -->
+                <div class="col-md-3 input-group-text bg-info">
+                    Czy zlecenie zaczęte:
+                </div>
+                <!-- <div *ngIf="IsEdit" class="col-md-2 input-group-text" [class.bg-info]="!Surname.touched"
                     [class.bg-success]="Surname.valid && Surname.touched"
                     [class.bg-danger]="Surname.invalid && Surname.touched">
                     Nazwisko
                 </div> -->
-            <div class="col-md-3 input-group-text">
-                {{orderService.OrderDetails.IsOrderCompleted}}
+                <div class="col-md-3 input-group-text">
+                    {{  OrderDetails.IsOrderStarted}}
+                </div>
             </div>
-        </div>
-        <div class="row input-group">
-            <div class="col-md-3 col-md-offset-3"></div>
-            <!-- [co się dzieje z klasą]="warunek" -->
-            <div class="col-md-3 input-group-text bg-info">
-                Data Złożenia zlecenia:
-            </div>
-            <!-- <div *ngIf="IsEdit" class="col-md-2 input-group-text" [class.bg-info]="!Surname.touched"
+            <div class="row input-group">
+                <div class="col-md-3 col-md-offset-3"></div>
+                <!-- [co się dzieje z klasą]="warunek" -->
+                <div class="col-md-3 input-group-text bg-info">
+                    Czy zlecenie zakończone:
+                </div>
+                <!-- <div *ngIf="IsEdit" class="col-md-2 input-group-text" [class.bg-info]="!Surname.touched"
                     [class.bg-success]="Surname.valid && Surname.touched"
                     [class.bg-danger]="Surname.invalid && Surname.touched">
                     Nazwisko
                 </div> -->
-            <div class="col-md-3 input-group-text">
-                {{orderService.OrderDetails.OrderDate}}
+                <div class="col-md-3 input-group-text">
+                    {{  OrderDetails.IsOrderCompleted}}
+                </div>
+            </div>
+            <div class="row input-group">
+                <div class="col-md-3 col-md-offset-3"></div>
+                <!-- [co się dzieje z klasą]="warunek" -->
+                <div class="col-md-3 input-group-text bg-info">
+                    Data Złożenia zlecenia:
+                </div>
+                <!-- <div *ngIf="IsEdit" class="col-md-2 input-group-text" [class.bg-info]="!Surname.touched"
+                    [class.bg-success]="Surname.valid && Surname.touched"
+                    [class.bg-danger]="Surname.invalid && Surname.touched">
+                    Nazwisko
+                </div> -->
+                <div class="col-md-3 input-group-text">
+                    {{  OrderDetails.OrderDate}}
+                </div>
             </div>
         </div>
-        <div *ngIf="orderService.OrderDetails.ExpectedStartOfOrder" class="row input-group">
+        <div *ngIf=" OrderDetails.ExpectedStartOfOrder" class="row input-group">
             <div class="col-md-3 col-md-offset-3"></div>
             <!-- [co się dzieje z klasą]="warunek" -->
             <div class="col-md-3 input-group-text bg-info">
@@ -161,10 +178,10 @@
                         Nazwisko
                     </div> -->
             <div class="col-md-3 input-group-text">
-                {{orderService.OrderDetails.ExpectedStartOfOrder}}
+                {{ OrderDetails.ExpectedStartOfOrder}}
             </div>
         </div>
-        <div *ngIf="orderService.OrderDetails.StartOfOrder" class="row input-group">
+        <div *ngIf=" OrderDetails.StartOfOrder" class="row input-group">
             <div class="col-md-3 col-md-offset-3"></div>
             <!-- [co się dzieje z klasą]="warunek" -->
             <div class="col-md-3 input-group-text bg-info">
@@ -176,12 +193,12 @@
                         Nazwisko
                     </div> -->
             <div class="col-md-3 input-group-text">
-                {{orderService.OrderDetails.StartOfOrder}}
+                {{ OrderDetails.StartOfOrder}}
             </div>
         </div>
 
 
-        <div *ngIf="orderService.OrderDetails.CompletedOrderDate" class="row input-group">
+        <div *ngIf=" OrderDetails.CompletedOrderDate" class="row input-group">
             <div class="col-md-3 col-md-offset-3"></div>
             <!-- [co się dzieje z klasą]="warunek" -->
             <div class="col-md-3 input-group-text bg-info">
@@ -193,11 +210,11 @@
                             Nazwisko
                         </div> -->
             <div class="col-md-3 input-group-text">
-                {{orderService.OrderDetails.CompletedOrderDate}}
+                {{ OrderDetails.CompletedOrderDate}}
             </div>
         </div>
-        <div *ngIf="orderService.OrderDetails.OrderInformations" class="row input-group">
-            <div class="container-fluid" *ngFor="let ul of orderService.OrderDetails.OrderInformations">
+        <div *ngIf=" OrderDetails.OrderInformations" class="row input-group">
+            <div class="container-fluid" *ngFor="let ul of  OrderDetails.OrderInformations">
                 <div class="col-md-3 input-group-text">
                     {{ul}}
                 </div>
@@ -206,33 +223,6 @@
 
         </div>
         <br />
-        <div *ngIf=" CheckIfEmployer()">
-            <div class="row  input-group">
-
-                <div class="col-md-3 col-md-offset-3"></div>
-
-
-                <input *ngIf="!orderService.OrderDetails.IsOrderStarted" type="button" class=" col-md-2  btn btn-success btn-block"
-                    (click)="StartOrder()" value="Zapoczątkuj" />
-
-
-                <input *ngIf="orderService.OrderDetails.IsOrderStarted" type="button"
-                    class="col-md-2 btn btn-success btn-block" (click)="BackStartOrder()" value="Cofnij Zapoczątkowanie" />
-
-
-                <div class="col-md-2 col-md-offset-2"></div>
-
-                <input *ngIf="!orderService.OrderDetails.IsOrderCompleted" type="button"
-                    class="col-md-2 btn btn-success" (click)="EndOrder()" value="Zakończ" />
-
-
-                <input *ngIf="orderService.OrderDetails.IsOrderCompleted" type="button" (click)="BackEndOrder()" class="col-md-2 btn btn-success"
-                    value="Cofnij Zakończenie Zleceina" />
-
-
-            </div>
-
-        </div>
 
     </div>
 

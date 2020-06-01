@@ -1,4 +1,4 @@
-import { TimeSpan } from '../time-span';
+
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { User } from './UserModels/user.model';
 import { OrderInformations } from './order-informations.model';
@@ -19,7 +19,7 @@ export class Order implements Deserializable {
     IsOrderStarted:boolean;
     OrderInformations:OrderInformations[]|null;
     OrdersTemplate:OrderTemplate;
-
+    IsPaid:boolean;
 
     deserialize(value: any): Order {
         var ret=new Order();
@@ -43,7 +43,7 @@ export class Order implements Deserializable {
         ret.IsOrderStarted=value.IsOrderStarted;
         ret.OrderInformations=value.OrderInformations;
         ret.OrdersTemplate=value.OrdersTemplate;
-
+        ret.IsPaid=value.IsPaid;
        return ret;
     }
 }

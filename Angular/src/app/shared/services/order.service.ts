@@ -9,6 +9,7 @@ import { catchError } from 'rxjs/internal/operators/catchError';
 import {throwError as observableThrowError, observable} from 'rxjs';
 import {map} from  'rxjs/operators'; 
 import { Deserializable } from '../deserializable.model';
+import { OrderTemplate } from '../order-template.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +17,7 @@ export class OrderService {
   orderFormData: Order;
   orderList: Order[];
   OrderDetails:Order;
+  NewOrder: {orderTemplate:OrderTemplate,date:Date};
   constructor(private http: HttpClient,private userService: UserService) { }
 
   ngOnInit() {
@@ -32,7 +34,7 @@ export class OrderService {
   }
   postOrder(order:Order){
     //zwraca "observera"
-    return this.http.post(StaticInfo.getRootUrl()+'Order',order).pipe(catchError(this.errorHandler));
+    return this.http.post<Result<Order>>(StaticInfo.getRootUrl()+'Order',order).pipe(catchError(this.errorHandler));
    }
 
   startOrder(order:Order,start:boolean): Observable<Result<Order>>{

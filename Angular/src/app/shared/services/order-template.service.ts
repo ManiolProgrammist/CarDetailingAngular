@@ -3,7 +3,6 @@ import { OrderTemplate } from '../order-template.model';
 import { StaticInfo } from '../../static-info';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { TimeSpan } from 'src/app/time-span';
 
 @Injectable({
   providedIn: 'root'
@@ -32,49 +31,7 @@ export class OrderTemplateService {
       }
     );
   }
-  getHours(ExpectedTime: string): number | string {
-
-    var h = ExpectedTime.split(":");
-
-    return Number(h[0]);
-  }
-  getMinutes(ExpectedTime: string): number | string {
-
-    var h = ExpectedTime.split(":");
-
-    return Number(h[1]);
-  }
-  setExpectedTimeAll(hours: number | string, minutes: number | string = 0) {
-    var ret = hours.toString() + ":" + minutes.toString() + ":" + "00";
-    return ret;
-  }
-  setExpectedTime(hoursOrMin: number | string, ExpectedTime: string, place: number): string {
-    if (ExpectedTime) {
-      var h = ExpectedTime.split(":");
-      if (h.length > 0) {
-        h[place] = hoursOrMin.toString();
-        ExpectedTime = h.join(":");
-        return ExpectedTime;
-      }
-    }
-    switch (place) {
-      case 0:
-        ExpectedTime = hoursOrMin.toString() + ":00:00";
-        break;
-      case 1:
-        ExpectedTime = "00:" + hoursOrMin.toString() + ":00";
-        break;
-      case 2:
-        ExpectedTime = "00:00:" + hoursOrMin.toString();
-        break;
-      default:
-        ExpectedTime = "00:00:00";
-
-    }
-
-
-    return ExpectedTime;
-  }
+ 
 
   ResetOrderTemplateDetails(): OrderTemplate {
     var OTD= new OrderTemplate();
@@ -94,7 +51,7 @@ export class OrderTemplateService {
       .then(res => {
         if (res['status'] as boolean == true) {
           console.log("udało się dodać");
-          this.route.navigate(['Order_Template_List']);
+          this.route.navigate(['Pick_Order_Template']);
 
         } else {
           console.log("error AddOrderTemplate", res['info'], res);
@@ -111,7 +68,7 @@ export class OrderTemplateService {
       if (res['status'] as boolean == true) {
         console.log("udało się edytować orderTemplate");
         this.refreshList();
-        this.route.navigate(['Order_Template_List']);
+        this.route.navigate(['Pick_Order_Template']);
 
       } else {
         console.log("error PutOrderTemplate", res['info'], res);

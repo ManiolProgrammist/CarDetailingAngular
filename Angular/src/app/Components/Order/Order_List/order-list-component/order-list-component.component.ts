@@ -12,7 +12,7 @@ import { Router, Data } from '@angular/router';
 })
 export class OrderListComponentComponent implements OnInit {
 
-  constructor(private orderService:OrderService,private userService:UserService,private router:Router) { }
+  constructor(public orderService:OrderService,public userService:UserService,public router:Router) { }
 
   ngOnInit() {
     this.orderService.refreshList();
@@ -23,7 +23,7 @@ export class OrderListComponentComponent implements OnInit {
         res => {
         this.orderService.OrderDetails = res["value"] as Order;
           console.log(res["value"]);
-          this.router.navigate(['Order_List','Order_Details']);
+          this.router.navigate(['Order_List','Order_Details',order.OrderId] );
         }
       );
 

@@ -1,4 +1,4 @@
-import { TimeSpan } from '../time-span';
+
 
 export class OrderTemplate {
     OrderTemplateId: number;

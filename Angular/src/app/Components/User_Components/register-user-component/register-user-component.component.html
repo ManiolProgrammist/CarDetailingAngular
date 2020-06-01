@@ -1,4 +1,4 @@
-<form #form="ngForm" autocomplete="off" (submit)="userService.UserRegister(form)">
+<form #form="ngForm" autocomplete="off" (submit)="RegisterUser(form)">
     <div class="form-group">
         <!-- grupa inputu - tutaj razem zgrupowana np ikona jakaś -->
         <div class="row input-group">
@@ -9,7 +9,7 @@
             </div>
 
 
-            <input name="LoginR"  autocomplete="off"   #LoginR="ngModel" [(ngModel)]="userService.userRegister.login"
+            <input name="LoginR"  autocomplete="off"   #LoginR="ngModel" [(ngModel)]="userService.userRegister.Login"
                 class="col-md-3 form-control" placeholder="User Login" required />
         </div>
         <div class="row input-group">
@@ -34,7 +34,7 @@
             </div>
 
 
-            <input name="Email" #Email="ngModel"  [(ngModel)]="userService.userRegister.email"
+            <input name="Email" #Email="ngModel"  [(ngModel)]="userService.userRegister.Email"
                 class="col-md-3 form-control" placeholder="User Email"  required [pattern]="userService.regexEmail" />
         </div>
 
@@ -49,7 +49,7 @@
 
             <!-- #FirstName - local reference -->
             <!-- two way data binding [(ngModel)]="userService.FirstName" nazwa z property "userService" w payment-detail.component.ts (to co dajemy w konstruktorze) -->
-            <input name="FirstName" #FirstName="ngModel" [(ngModel)]="userService.userRegister.firstName"
+            <input name="FirstName" #FirstName="ngModel" [(ngModel)]="userService.userRegister.FirstName"
                 class="col-md-3 form-control" placeholder="User First Name" required />
         </div>
         <!-- grupa inputu - tutaj razem zgrupowana np ikona jakaś -->
@@ -63,7 +63,7 @@
             </div>
 
 
-            <input name="Surname" #Surname="ngModel" [(ngModel)]="userService.userRegister.surname"
+            <input name="Surname" #Surname="ngModel" [(ngModel)]="userService.userRegister.Surname"
                 class="col-md-3 form-control" placeholder="User Surname" required />
         </div>
 
@@ -75,9 +75,9 @@
                 Numer Telefonu
             </div>
 
-            <input name="PhoneNumber" #PhoneNumber="ngModel" [(ngModel)]="userService.userRegister.phoneNumber"
+            <input name="PhoneNumber" #PhoneNumber="ngModel" [(ngModel)]="userService.userRegister.PhoneNumber"
                 class="col-md-3 form-control" placeholder="9-11 digit phone number" required 
-                [pattern]="userService.regexPhoneNumber" (change)="addSpacesNumber()" maxlength="15" />
+                [pattern]="userService.regexPhoneNumber" (change)="addSpacesNumber()" maxlength="11" minlength="9" />
         </div>
         <div class="row">
 

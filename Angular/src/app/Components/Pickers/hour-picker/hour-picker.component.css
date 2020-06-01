@@ -1,0 +1,14 @@
+.myCal:nth-child(even){
+    background: rgb(201, 201, 201);
+   }
+   .myCal:nth-child(odd){
+       background: rgb(255, 197, 197);
+      }
+   .myMinute:hover{
+       cursor:pointer;
+       opacity:1;
+       font-weight:bold;
+   }
+   .myMinute{
+       opacity:0.8;
+   }

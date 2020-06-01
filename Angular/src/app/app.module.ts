@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http"
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from './shared/services/user.service';
 import { OrderListComponentComponent } from './Components/Order/Order_List/order-list-component/order-list-component.component';
 import { MenuComponentComponent } from './Components/Menu/menu-component/menu-component.component';
@@ -31,6 +31,10 @@ import { OrderDetailsComponentComponent } from './Components/Order/order-details
 
 import { UserOdersInfoComponent } from './Components/Order/user-oders-info/user-oders-info.component';
 import { OrderTemplateService } from './shared/services/order-template.service';
+import { DatePickerComponentComponent } from './Components/Pickers/date-picker-component/date-picker-component.component';
+import { HourPickerComponent } from './Components/Pickers/hour-picker/hour-picker.component';
+import { PickOrderComponent } from './Components/OrderTemplate/pick-order/pick-order.component';
+import { ManageOrderComponent } from './Components/Order/manage-order/manage-order.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,6 @@ import { OrderTemplateService } from './shared/services/order-template.service';
     UserListComponentComponent,
     UserDetailComponentComponent,
     MenuComponentComponent,
-
     UsersEditorComponent,
     LoginComponentComponent,
     RegisterUserComponentComponent,
@@ -48,10 +51,15 @@ import { OrderTemplateService } from './shared/services/order-template.service';
     OrderTemplateListComponentComponent,
     OrderTemplateDetailsComponentComponent,
     OrderDetailsComponentComponent,
-    UserOdersInfoComponent
+    UserOdersInfoComponent,
+    DatePickerComponentComponent,
+    HourPickerComponent,
+    PickOrderComponent,
+    ManageOrderComponent
 
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     AppRoutingModule,  // forms module importujemy wszędzie gdzie jest ngModule
     FormsModule,
@@ -64,30 +72,21 @@ import { OrderTemplateService } from './shared/services/order-template.service';
       { path: 'Users_editor', component: UsersEditorComponent, canActivate: [AuthEmployeeGuard] },
       { path: '', component: HomeComponentComponent },
       { path: 'Register_user', component: RegisterUserComponentComponent },
+      { path: 'Order_Template_List', component: OrderTemplateListComponentComponent },
+      { path: 'Pick_Order_Template', component: PickOrderComponent },
+      { path: 'Order_Template_Detail', component: OrderTemplateDetailsComponentComponent, canActivate: [AuthEmployeeGuard], },
       {
-        path: 'Order_Template_List', component: OrderTemplateListComponentComponent, children: [
+        path: 'Order_List', component: OrderListComponentComponent, children: [
           {
-            path: 'Order_Template_Detail', component: OrderTemplateDetailsComponentComponent
-          },{
-            path:'Order_Order_Template',component:OrderTemplateComponentComponent
+            path: 'Order_Details/:id', component: ManageOrderComponent
           }
         ]
-      }
-      , { path: 'Order_Template_Detail', component: OrderTemplateDetailsComponentComponent,canActivate: [AuthEmployeeGuard], },
-      {path:'Order_List',component: OrderListComponentComponent,children:[
-        {
-          path:'Order_Details',component:OrderDetailsComponentComponent,
-          children:[
-            {
-              path: 'Order_Template_Detail', component: OrderTemplateDetailsComponentComponent,canActivate: [AuthEmployeeGuard],
-            },{
-              path:'Order_Order_Template',component:OrderTemplateComponentComponent
-            }
-          ]
-        }
-      ]},
-      {path:'Order_Details',component:OrderDetailsComponentComponent},
-      
+      },
+      { path: 'Order_Details', component: OrderDetailsComponentComponent },
+      { path: 'Date_Picker', component: DatePickerComponentComponent },
+      { path: 'Hour_Picker', component: HourPickerComponent }
+
+
       //https://codecraft.tv/courses/angular/routing/nested-routes/
     ]),
     //w konstruktorze w PaymentDetail.service używamy od HttpClientModule HttpClient
@@ -95,7 +94,7 @@ import { OrderTemplateService } from './shared/services/order-template.service';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [UserService,OrderTemplateService, OrderService, AuthGuard, AuthAdminGuard, AuthEmployeeGuard, {
+  providers: [UserService, OrderTemplateService, OrderService, AuthGuard, AuthAdminGuard, AuthEmployeeGuard, {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

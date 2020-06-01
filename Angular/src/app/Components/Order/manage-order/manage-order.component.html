@@ -1,0 +1,30 @@
+<app-order-details-component>
+
+</app-order-details-component>
+<div *ngIf=" CheckIfEmployer()">
+    <div class="row  input-group">
+
+        <div class="col-md-3 col-md-offset-3"></div>
+
+
+        <input *ngIf="! OrderDetails.IsOrderStarted" type="button" class=" col-md-2  btn btn-success btn-block"
+            (click)="StartOrder()" value="Zapoczątkuj" />
+
+
+        <input *ngIf=" OrderDetails.IsOrderStarted" type="button" class="col-md-2 btn btn-success btn-block"
+            (click)="BackStartOrder()" value="Cofnij Zapoczątkowanie" />
+
+
+        <div class="col-md-2 col-md-offset-2"> </div>
+
+        <input *ngIf="! OrderDetails.IsOrderCompleted" type="button" class="col-md-2 btn btn-success"
+            (click)="EndOrder()" value="Zakończ" />
+
+
+        <input *ngIf=" OrderDetails.IsOrderCompleted" type="button" (click)="BackEndOrder()"
+            class="col-md-2 btn btn-success" value="Cofnij Zakończenie Zleceina" />
+
+
+    </div>
+
+</div>

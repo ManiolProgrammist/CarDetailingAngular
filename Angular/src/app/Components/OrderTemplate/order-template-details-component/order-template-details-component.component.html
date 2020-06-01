@@ -17,7 +17,7 @@
 
             <!-- #Nazwa - local reference -->
             <!-- two way data binding [(ngModel)]="userService.Nazwa" nazwa z property "userService" w payment-detail.component.ts (to co dajemy w konstruktorze) -->
-            <input name="Nazwa" #Nazwa="ngModel" [(ngModel)]="orderTemplateService.orderTemplateDetails.Name"
+            <input name="Nazwa" #Nazwa="ngModel" [(ngModel)]="EditOrderTemplate.Name"
                 class="col-md-3 form-control" placeholder="Nazwa" required />
         </div>
         <!-- grupa inputu - tutaj razem zgrupowana np ikona jakaś -->
@@ -32,7 +32,7 @@
 
 
             <input name="MinCost" #MinCost="ngModel" type="number"
-                [(ngModel)]="orderTemplateService.orderTemplateDetails.MinCost" class="col-md-3 form-control"
+                [(ngModel)]="EditOrderTemplate.MinCost" class="col-md-3 form-control"
                 placeholder="0" required  min="0"/>
         </div>
 
@@ -45,7 +45,7 @@
             </div>
 
             <input name="MaxCost" type="number" #MaxCost="ngModel"
-                [(ngModel)]="orderTemplateService.orderTemplateDetails.MaxCost" class="col-md-3 form-control" required
+                [(ngModel)]="EditOrderTemplate.MaxCost" class="col-md-3 form-control" required
                 maxlength="4" min="0" />
         </div>
         <div class="row input-group">
@@ -59,7 +59,7 @@
 
 
             <input name="AdditionalInformation" #AdditionalInformation="ngModel"
-                [(ngModel)]="orderTemplateService.orderTemplateDetails.AdditionalInformation"
+                [(ngModel)]="EditOrderTemplate.AdditionalInformation"
                 class="col-md-3 form-control" placeholder="User AdditionalInformation" required />
         </div>
         <div class="row input-group">
@@ -76,7 +76,7 @@
                 <input type="number" name="ExpectedTimeHours" #ExpectedTimeHours="ngModel" [(ngModel)]="hours"
                     class="col-md-1 form-control" required max="23" min="0" height="100%"/>
                 <input type="number" name="ExpectedTimeMinutes" #ExpectedTimeMinutes="ngModel" [(ngModel)]="minutes"
-                    class="col-md-1 form-control" required max="59" min="0" height="100%" step="10"/>
+                    class="col-md-1 form-control" required max="59" min="0" height="100%" step="15"/>
            
         </div>
 
@@ -84,7 +84,7 @@
         <!-- [co się dzieje z klasą]="warunek" -->
 
 
-        <div class="row" *ngIf="orderTemplateService.orderTemplateDetails.OrderTemplateId==0">
+        <div class="row" *ngIf="EditOrderTemplate.OrderTemplateId==0">
 
 
             <button class="col-md-5 btn btn-success btn-lg btn-block" (click)="AddOrdTemplate()" type="submit"
@@ -92,14 +92,14 @@
                 Dodaj Template</button>
 
         </div>
-        <div class="row" *ngIf="orderTemplateService.orderTemplateDetails.OrderTemplateId!=0">
+        <div class="row" *ngIf="EditOrderTemplate.OrderTemplateId!=0">
 
 
             <button class="col-md-3 btn btn-success btn-lg btn-block" (click)=AcceptEditOrdTemp() type="submit"
                 [disabled]="form.invalid">
                 Zatwierdź zmiany</button>
-                <button class="col-md-3 btn btn-info btn-lg btn-block" type="submit" (click)=OrderThis()>
-                    Złóż zamówienie</button>
+                <!-- <button class="col-md-3 btn btn-info btn-lg btn-block" type="submit" (click)=OrderThis()>
+                    Złóż zamówienie</button> -->
                 <button class="col-md-3 btn btn-danger btn-lg btn-block" (click)=RemoveOrderTemplate() type="submit"
                 [disabled]="form.invalid">
                 Usuń Template</button>

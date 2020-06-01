@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../shared/services/user.service';
 import { LoginUser } from '../../shared/UserModels/login-user.model';
+import { StaticInfo } from 'src/app/static-info';
+import { HttpErrorResponse } from '@angular/common/http';
+import { User } from 'src/app/shared/UserModels/user.model';
+import { Result } from 'src/app/shared/result.model';
 
 @Component({
   selector: 'app-login-component',
@@ -8,29 +12,57 @@ import { LoginUser } from '../../shared/UserModels/login-user.model';
   styleUrls: ['./login-component.component.css']
 })
 export class LoginComponentComponent implements OnInit {
-  Login:string;
-  Password:string;
-  constructor(private userService:UserService) { 
-    this.Login="";
-    this.Password="";
+
+  
+  constructor(private userService: UserService) {
+    this.Login = "";
+    this.Password = "";
   }
 
-  isLoggedIn():boolean{
+  get IsDontLoggMeOut(){
+    return this.userService.IsDontLoggMeOut;
+  }
+  set IsDontLoggMeOut(b:boolean){
+    this.userService.IsDontLoggMeOut=b;
+  }
+
+  set Login(s:string){
+    this.userService.userLog.Login=s;
+  }
+
+  get Login(){
+   return this.userService.userLog.Login;
+  }
+  set Password(p:string){
+    this.userService.userLog.Password=p;
+  }
+  get Password(){
+    return this.userService.userLog.Password;
+  }
+
+  isLoggedIn(): boolean {
     return this.userService.IsLoggedIn;
   }
-  
+
   ngOnInit() {
   }
-  LoginUser(){
-    var Log=new LoginUser();
-    Log.Password=this.Password;
-    Log.Login=this.Login;
-    this.userService.UserLogin(Log)
+
+  onSubmitToken() {
+    var Log = new LoginUser();
+    Log.Password = this.Password;
+    Log.Login = this.Login;
+    this.userService.userLogin(Log);
   }
-  LogOffUser(){
+  // LoginUser(){
+  //   var Log=new LoginUser();
+  //   Log.Password=this.Password;
+  //   Log.Login=this.Login;
+  //   this.userService.UserLogin(Log)
+  // }
+  LogOffUser() {
     this.userService.UserLogOut();
   }
-  ShowLogin(){
+  ShowLogin() {
     return this.userService.LoggedUser.Login;
   }
 }

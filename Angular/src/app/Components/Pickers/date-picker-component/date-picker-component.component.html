@@ -1,0 +1,65 @@
+<!-- <ngb-datepicker #dp name="dp" [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>
+<button class="btn btn-sm btn-outline-primary mr-2" (click)="selectToday()">Select Today</button>
+<button class="btn btn-sm btn-outline-primary mr-2" (click)="dp.navigateTo({year: 2013, month: 2})">To Feb 2013</button> -->
+
+<div class="container">
+    <div *ngIf="showHours">
+        <app-hour-picker [pickedDate]="pickedDate" [CustomPickDateBehaviour]="CustomPickDateBehaviour.bind(this)"></app-hour-picker>
+    </div>
+    <div class="card container">
+        <div class="form-inline">
+
+            <button class="btn btn-outline-primary col-sm-6" id="previous" (click)="previous()">Poprzedni</button>
+            <button class="btn btn-outline-primary col-sm-6" id="next" (click)="next()">Następny</button>
+        </div>
+        <h3 class="card-header" style="text-align: center;" id="monthAndYear"> {{months[showMonth]}}, {{showYear}}</h3>
+        <div class="border"></div>
+        <div class="container" id="calendar">
+
+
+            <div class="row ">
+                <div class="offset-sm-2"></div>
+                <div class="col-sm-1 border" *ngFor="let dayName of WeekDays">{{dayName}}</div>
+            </div>
+
+
+            <div class="row " *ngFor="let week of daysInMonthList">
+                <div class="offset-sm-2"></div>
+                <div class="col-sm-1 border myCal myButton" style="height: 60px;" (click)="pickDate(day)"
+                    *ngFor="let day of week.days">
+                    <div *ngIf="day!=0" style="text-align: center;">
+
+                        {{day}}
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <br />
+        <form class="form-inline">
+            <label class="lead mr-2 ml-2" for="month">Przeskocz do: </label>
+            <select class=" form-control col-sm-4" name="showMonthSelect" (change)="jump()" #showMonthSelect="ngModel"
+                [(ngModel)]="showMonth">
+
+                <option class="w-100 h-100" *ngFor="let ye of months; let i=index" [ngValue]="i">
+                    {{ye}}
+                </option>
+            </select>
+
+            <select class=" form-control col-sm-4" name="showYearSelect" (change)="jump()" #showYearSelect="ngModel"
+                [(ngModel)]="showYear">
+
+                <option *ngFor="let ye of AllYears; let i=index" [ngValue]="ye">
+                    {{ye}}
+                </option>
+            </select>
+
+        </form>
+        <button class="btn btn-outline-primary col-sm-2" id="jumpPresent" (click)="jumpPresent()">Aktualny
+            miesiąc</button>
+
+    </div>
+</div>

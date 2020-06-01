@@ -18,12 +18,11 @@ import { UserType } from 'src/app/shared/UserModels/user-type.model';
 export class UserDetailComponentComponent implements OnInit {
   userId:number;
   IsEdit:boolean=false;
-  userDet$:Observable<Result<User>>;
   UserTypesList:UserType[];
 
 
   // form: FormGroup;
-  constructor(private userService:UserService,private route: ActivatedRoute,private router: Router,) { 
+  constructor(public userService:UserService,public route: ActivatedRoute,public router: Router,) { 
     this.IsEdit=false;
    userService.GetAllUserRights().toPromise().then(
     res => {
@@ -42,21 +41,10 @@ export class UserDetailComponentComponent implements OnInit {
       console.log(err);
     }
   );
-    //,private route: ActivatedRoute
-    // this.form = new FormGroup({
-    //   FirstName: new FormControl('', Validators.required),
-    //   Surname: new FormControl('', Validators.required),
-    //   PhoneNumber: new FormControl('', [Validators.maxLength(11),Validators.minLength(9),Validators.required]),
-    //   Email:new FormControl('',[Validators.required,Validators.pattern(this.userService.regexEmail)]),
-    //   ConfirmPassword:new FormControl('',[Validators.required]),
-    //   Password:new FormControl('',Validators.required)
-    // });
+
    }
  
-   changeRights(value){
-     console.log(value[3]);
-    console.log(this.userService.UserRInUserDetail);
-    }
+ 
 
   ngOnInit() {
     // let id=this.route.paramMap.pipe(

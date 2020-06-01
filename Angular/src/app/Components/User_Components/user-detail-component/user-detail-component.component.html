@@ -13,7 +13,7 @@
         <div class="row input-group">
 
             <!-- [co się dzieje z klasą]="warunek" -->
-            <div class="col-md-3 col-md-offset-3"></div>
+            <div class="offset-md-3"></div>
             <div *ngIf="!IsEdit" class="col-md-2 input-group-text bg-info">
                 Login
             </div>
@@ -33,7 +33,7 @@
         <div class="row input-group">
 
             <!-- [co się dzieje z klasą]="warunek" -->
-            <div class="col-md-3 col-md-offset-3"></div>
+            <div class="offset-md-3"></div>
             <div *ngIf="!IsEdit" class="col-md-2 input-group-text bg-info">
                 Imię
             </div>
@@ -54,7 +54,7 @@
 
         <!-- grupa inputu - tutaj razem zgrupowana np ikona jakaś -->
         <div class="row input-group">
-            <div class="col-md-3 col-md-offset-3"></div>
+            <div class="offset-md-3"></div>
             <!-- [co się dzieje z klasą]="warunek" -->
             <div *ngIf="!IsEdit" class="col-md-2 input-group-text bg-info">
                 Nazwisko
@@ -71,7 +71,7 @@
         </div>
 
         <div class="row input-group">
-            <div class="col-md-3 col-md-offset-3"></div>
+            <div class="offset-md-3"></div>
             <div *ngIf="!IsEdit" class="col-md-2 input-group-text bg-info">
                 Numer Tel.
             </div>
@@ -87,7 +87,7 @@
         </div>
 
         <div class="row input-group">
-            <div class="col-md-3 col-md-offset-3"></div>
+            <div class="offset-md-3"></div>
             <!-- [co się dzieje z klasą]="warunek" -->
             <div *ngIf="!IsEdit" class="col-md-2 input-group-text bg-info">
                 Email
@@ -104,7 +104,7 @@
 
         </div>
         <div class="row input-group">
-            <div class="col-md-3 col-md-offset-3"></div>
+            <div class="offset-md-3"></div>
 
             <div class="col-md-2 input-group-text bg-info">
                 Data utworzenia 
@@ -115,7 +115,7 @@
         </div>
 
         <div class="row  input-group" for="IsAdminCheck">
-            <div class="col-md-3 col-md-offset-3"></div>
+            <div class="offset-md-3"></div>
 
          
                 <!-- //class=" col-md-6 bg-info input-group-text" -->
@@ -123,7 +123,7 @@
                 Prawa Użytkownika
                 </div>
                 <div class="col-md-4">
-                  <select  [disabled]="!IsAdminAndEdit()" class="w-100 h-100" name="userTypeSelect" (change)="changeRights($event.target.value)" #userTypeSelect="ngModel" [(ngModel)]="userService.UserRInUserDetail" >   <!-- //(change)="filterForeCasts($event.target.value)" -->
+                  <select  [disabled]="!IsAdminAndEdit()" class="w-100 h-100" name="userTypeSelect" #userTypeSelect="ngModel" [(ngModel)]="userService.UserRInUserDetail" >   <!-- //(change)="filterForeCasts($event.target.value)" -->
                         
                         <option  class="w-100 h-100" *ngFor="let ut of UserTypesList" [ngValue]="ut.UserTypeId">
                             {{ut.Name}}
@@ -135,55 +135,27 @@
            
         </div>
         <!-- <div class="row input-group">
-            <div class="col-md-3 col-md-offset-3"></div>
+            <div class="offset-md-3"></div>
             <div class=" col-md-6 bg-info input-group-text" for="IsEmployeeCheck">
                 Employee Rights:
                 <input name="IsEmployee" #IsAdmin="ngModel" [(ngModel)]="userService.userFormData.IsEmployee"
                     class="col-md-6" type="checkbox" id="IsEmployeeCheck" [disabled]="!IsAdminAndEdit()" />
             </div>
         </div> -->
-        <div *ngIf="IsAdminAndEdit()">
-            <div class="row input-group">
 
-                <div class="col-md-3 col-md-offset-3"></div>
-                <!-- [co się dzieje z klasą]="warunek" -->
-                <div class="col-md-2 input-group-text" [class.bg-info]="!Password.touched"
-                    [class.bg-success]="Password.valid && Password.touched"
-                    [class.bg-danger]="Password.invalid && Password.touched">
-                    Password
-                </div>
-
-
-                <input type="password" name="Password" #Password="ngModel"
-                    [(ngModel)]="userService.userFormData.Password" class="col-md-4 form-control"
-                    placeholder="User Password" required [disabled]="!IsEdit" />
-            </div>
-            <div class="row input-group">
-                <div class="col-md-3 col-md-offset-3"></div>
-                <!-- [co się dzieje z klasą]="warunek" -->
-                <div class="col-md-2 input-group-text bg-info">
-                    Confirm Password
-                </div>
-
-
-                <input type="password" name="ConfirmPassword" #ConfirmPassword="ngModel"
-                    [(ngModel)]="userService.confirmPassword" class="col-md-4 form-control"
-                    placeholder="User confirm password" required />
-            </div>
-        </div>
 
 
 
         <!-- [co się dzieje z klasą]="warunek" -->
         <div class="row  input-group">
-            <div class="col-md-3 col-md-offset-3"></div>
+            <div class="offset-md-3"></div>
             <input *ngIf="IsEdit" type="button" class="col-md-6 btn btn-success btn-lg btn-block"
                 [disabled]="form.invalid" (click)="AcceptEdit()" value="Zatwierdź" />
             <input *ngIf="!IsEdit" type="button" class="col-md-6 btn btn-success btn-lg btn-block"
                 (click)="EditThisForm()" value="Edytuj" />
         </div>
         <div class="row  input-group">
-            <div class="col-md-3 col-md-offset-3"></div>
+            <div class="offset-md-3"></div>
             <input type="button" class="col-md-6 btn btn-danger btn-lg btn-block" (click)="RemoveUser()" value="Usuń" />
         </div>
 

@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterUserComponentComponent implements OnInit {
 
-  constructor(private userService: UserService,private route:Router) { }
+  constructor(public userService: UserService,public route:Router) { }
 
   ngOnInit() {
     this.resetForm();
@@ -27,11 +27,12 @@ export class RegisterUserComponentComponent implements OnInit {
 
   }  
   addSpacesNumber() {
-    this.userService.userRegister.phoneNumber=this.userService.userRegister.phoneNumber.replace("/([0-9]{3})/", "$& ");
-    this.userService.userRegister.phoneNumber=this.userService.userRegister.phoneNumber.replace("/[0-9]{3} ([0-9]{3})/", "$& ");
-    console.log( this.userService.userRegister.phoneNumber);
+    this.userService.userRegister.PhoneNumber=this.userService.userRegister.PhoneNumber.replace("/([0-9]{3})/", "$& ");
+    this.userService.userRegister.PhoneNumber=this.userService.userRegister.PhoneNumber.replace("/[0-9]{3} ([0-9]{3})/", "$& ");
+    console.log( this.userService.userRegister.PhoneNumber);
   }
   RegisterUser(input){
+    console.log(input,"register");
     this.userService.UserRegister(input).subscribe(    (value)=>{
    
             if (value['status'] as boolean == true) {
