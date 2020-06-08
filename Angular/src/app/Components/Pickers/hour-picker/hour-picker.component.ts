@@ -65,10 +65,12 @@ export class HourPickerComponent implements OnChanges {
 
   PickHour(Hour: number, minute: number) {
     if(this.CustomPickDateBehaviour!=null){
-      this.pickedDate.setHours(Hour,minute);
+      this.pickedDate=new Date(this.pickedDate.getFullYear(),this.pickedDate.getMonth(),this.pickedDate.getDate(),Hour,minute);
+      this.pickedDate.toDateString();
       this.CustomPickDateBehaviour(this.pickedDate);
     }
     console.log(this.pickedDate);
+    console.log(      this.pickedDate.toUTCString());
     console.log(Hour, minute);
   }
 

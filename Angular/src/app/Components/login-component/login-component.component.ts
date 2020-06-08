@@ -5,6 +5,7 @@ import { StaticInfo } from 'src/app/static-info';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from 'src/app/shared/UserModels/user.model';
 import { Result } from 'src/app/shared/result.model';
+import { UtilityService } from 'src/app/shared/services/utility.service';
 
 @Component({
   selector: 'app-login-component',
@@ -14,7 +15,10 @@ import { Result } from 'src/app/shared/result.model';
 export class LoginComponentComponent implements OnInit {
 
   
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,private utilityService:UtilityService) {
+    // var test="abcdefgh";
+    // console.log("password encryption:",test);
+    // console.log("password encrypted",utilityService.EncryptPasswordForRegister(test,""));
     this.Login = "";
     this.Password = "";
   }

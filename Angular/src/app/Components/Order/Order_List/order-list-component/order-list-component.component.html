@@ -1,4 +1,4 @@
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
 <div class="container-fluid">
 
     <div class="row  row-eq-height " > 
@@ -45,7 +45,8 @@
     </div>
 
 </div>
-<div class="container-fluid" *ngFor="let ul of orderService.orderList">
+<div class="container-fluid" *ngFor="let ul of orderList"> 
+    <!-- orderService.orderList -->
     <div class="row  row-eq-height hoverable" (click)="ShowOrder(ul)">
         <div class="col-sm-1" width="100%" height="100%">
             {{ul.OrderId}}

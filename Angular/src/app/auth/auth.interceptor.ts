@@ -41,13 +41,13 @@ export class AuthInterceptor implements HttpInterceptor {
             });
             return next.handle(cloneReq).pipe(tap(
                 succ => {
-                    // console.log("git request poszedł info z auth.inceptor ");
-                    // console.log(cloneReq);
+                   
                 },
                 err => {
                     //timeout
                     console.log("Request nie poszedł - info z auth.inceptor");
-                    console.log(cloneReq);
+                    
+                    console.log(err);
                     if (err.status === 401) {
                       
                         localStorage.setItem(localStorage.getItem(StaticInfo.getTokenPath()),null);

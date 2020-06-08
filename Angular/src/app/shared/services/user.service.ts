@@ -40,11 +40,12 @@ export class UserService {
     this.LoggedUser=new User();
     this.regexEmail =/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
     this.regexPhoneNumber =  /([(+]*[0-9]+[()+. -]*)/;
+    
     if (localStorage.getItem(StaticInfo.getDontLogMeOutPath())) {
       if (localStorage.getItem(StaticInfo.getDontLogMeOutPath()) == 'true'&&localStorage.getItem(StaticInfo.getTokenPath())!=null) {
         this.IsDontLoggMeOut = true;
         this.userSetInfo();
-      
+        
      
       } else {
         this.UserLogOut();
@@ -206,7 +207,10 @@ export class UserService {
     return this.http.post<Result<User>>(StaticInfo.getRootUrl() + 'User', this.userRegister, { headers: reqHeader }).pipe(catchError(this.errorHandler));//
 
   }
-
+  // UserRegisterTemporaryU(email:string):Observable<Result<User>>{
+  //   var reqHeader=new HttpHeaders({'No-Auth':'True'});
+  //   return this.http.post<Result<User>>(StaticInfo.getRootUrl() + 'TempUser', email, { headers: reqHeader }).pipe(catchError(this.errorHandler));//
+  // }
 
   GetUserRights(): UserRights {
 

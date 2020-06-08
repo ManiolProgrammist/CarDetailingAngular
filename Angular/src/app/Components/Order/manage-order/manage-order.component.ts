@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { UserRights } from 'src/app/shared/Enums/UserRightsEnum';
@@ -12,23 +12,31 @@ import { Order } from 'src/app/shared/order.model';
 export class ManageOrderComponent implements OnInit {
 
   constructor(private userService:UserService,private orderService:OrderService) { }
-  get OrderDetails(){
-    return   this.orderService.OrderDetails;
-  }
-  set OrderDetails(OrderDetail:Order){
-    this.orderService.OrderDetails=OrderDetail;
-  }
+  @Input() set OrderInput(order:Order){
+    this.orderInput=order;
+  };
+  orderInput:Order;
+  @Input() OnClickFunction:()=>void;
+  // orderdetails:Order;
+  // get OrderDetails(){
+  //   return   this.OrderInput;
+  // }
+  // set OrderDetails(OrderDetail:Order){
+  //   this.OrderInput=OrderDetail;
+  // }
   ngOnInit(): void {
   }
   CheckIfEmployer(){
     return this.userService.GetUserRights()>=UserRights.EmployeeUser;
   }
   StartOrder(){
-    this.orderService.startOrder(this.orderService.OrderDetails,true).subscribe(
+    this.orderService.startOrder(this.orderInput,true).subscribe(
       (value)=>{
 
-        this.orderService.OrderDetails=value.value;
-        this.orderService.refreshList();
+        this.orderInput=value.value;
+        if(this.OnClickFunction){
+          this.OnClickFunction();
+        }
        
       },
        ()=>{//complete
@@ -37,11 +45,15 @@ export class ManageOrderComponent implements OnInit {
     );
   }
   BackStartOrder(){
-    this.orderService.startOrder(this.orderService.OrderDetails,false).subscribe(
+    this.orderService.startOrder(this.orderInput,false).subscribe(
       (value)=>{
 
-        this.orderService.refreshList();
-        this.orderService.OrderDetails=value.value;
+     
+        this.orderInput=value.value;
+        if(this.OnClickFunction){
+          this.OnClickFunction();
+        }
+       
       },
        ()=>{//complete
         console.log("Back start order completed");
@@ -51,11 +63,15 @@ export class ManageOrderComponent implements OnInit {
     );
   }
   EndOrder(){
-    this.orderService.endOrder(this.orderService.OrderDetails,true).subscribe(
+    this.orderService.endOrder(this.orderInput,true).subscribe(
       (value)=>{
 
-        this.orderService.refreshList();
-        this.orderService.OrderDetails=value.value;
+        if(this.OnClickFunction){
+          this.OnClickFunction();
+      
+        }
+       
+        this.orderInput=value.value;
     
       },
       ()=>{//complete
@@ -65,11 +81,14 @@ export class ManageOrderComponent implements OnInit {
   }
 
   BackEndOrder(){
-    this.orderService.endOrder(this.orderService.OrderDetails,false).subscribe(
+    this.orderService.endOrder(this.orderInput,false).subscribe(
       (value)=>{
 
-        this.orderService.refreshList();
-        this.orderService.OrderDetails=value.value;
+        if(this.OnClickFunction){
+          this.OnClickFunction();
+        }
+       
+        this.orderInput=value.value;
     
       },
       ()=>{//complete

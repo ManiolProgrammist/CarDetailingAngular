@@ -1,0 +1,3 @@
+Lista Wszystkich zleceń
+<app-manage-order [OrderInput]="pickedOrder" *ngIf="pickedOrder" [OnClickFunction]="RefreshList.bind(this)"> </app-manage-order>
+<app-order-list-component [OrderList]="orderUserList" [ShowOrderInput]="ShowUserOrderDetails.bind(this)"></app-order-list-component>

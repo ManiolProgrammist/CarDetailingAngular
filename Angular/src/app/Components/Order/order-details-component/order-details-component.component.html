@@ -10,7 +10,7 @@
 
 
         <!-- grupa inputu - tutaj razem zgrupowana np ikona jakaś -->
-        <div class="row input-group  " *ngIf="OrderDetails.OrderId">
+        <div class="row input-group  " *ngIf="orderDetails.OrderId">
 
             <!-- [co się dzieje z klasą]="warunek" -->
             <div class="col-md-3 col-md-offset-3"></div>
@@ -24,14 +24,14 @@
             <!-- #OrdersTemplate.Name - local reference -->
             <!-- two way data binding [(ngModel)]=" OrdersTemplate.Name" nazwa z property "orderService" w payment-detail.component.ts (to co dajemy w konstruktorze) -->
             <div class="col-md-3 input-group-text">
-                {{ OrderDetails.OrderId}}
+                {{ orderDetails.OrderId}}
             </div>
 
-            <!-- <input type="text" name="Login" #Login="ngModel" [(ngModel)]=" OrderDetails.OrderId"
+            <!-- <input type="text" name="Login" #Login="ngModel" [(ngModel)]=" orderDetails.OrderId"
                     class="col-md-4 form-control" placeholder="Login" [readonly]="true" required />
      -->
         </div>
-        <div class="row input-group hoverable" (click)="ShowOrderTDetails(OrderDetails.OrdersTemplate)">
+        <div class="row input-group hoverable" (click)="ShowOrderTDetails(orderDetails.OrdersTemplate)">
 
             <!-- [co się dzieje z klasą]="warunek" -->
             <div class="col-md-3 col-md-offset-3"></div>
@@ -47,11 +47,11 @@
             <!-- #OrdersTemplate.Name - local reference -->
             <!-- two way data binding [(ngModel)]=" OrdersTemplate.Name" nazwa z property "orderService" w payment-detail.component.ts (to co dajemy w konstruktorze) -->
             <div class="col-md-3 input-group-text">
-                {{OrderDetails.OrdersTemplate.Name}}
+                {{orderDetails.OrdersTemplate.Name}}
             </div>
 
         </div>
-        <div class="row input-group hoverable" (click)="ShowOrderTDetails(OrderDetails.OrdersTemplate)">
+        <div class="row input-group hoverable" (click)="ShowOrderTDetails(orderDetails.OrdersTemplate)">
 
             <!-- [co się dzieje z klasą]="warunek" -->
             <div class="col-md-3 col-md-offset-3"></div>
@@ -67,14 +67,14 @@
             <!-- #OrdersTemplate.Name - local reference -->
             <!-- two way data binding [(ngModel)]=" .OrdersTemplate.Name" nazwa z property " " w payment-detail.component.ts (to co dajemy w konstruktorze) -->
             <div class="col-md-3 input-group-text">
-                {{OrderDetails.OrdersTemplate.OrderTemplateId}}
+                {{orderDetails.OrdersTemplate.OrderTemplateId}}
             </div>
 
         </div>
 
 
         <!-- grupa inputu - tutaj razem zgrupowana np ikona jakaś -->
-        <div class="row input-group" *ngIf="OrderDetails.User.Surname">
+        <div class="row input-group" *ngIf="orderDetails.User">
             <div class="col-md-3 col-md-offset-3"></div>
             <!-- [co się dzieje z klasą]="warunek" -->
             <div class="col-md-3 input-group-text bg-info">
@@ -86,7 +86,7 @@
                     Nazwisko
                 </div> -->
             <div class="col-md-3 input-group-text">
-                {{ OrderDetails.User.FirstName}} {{  OrderDetails.User.Surname}}
+                {{ orderDetails.User.FirstName}} {{  orderDetails.User.Surname}}
             </div>
         </div>
         <div class="row input-group">
@@ -101,10 +101,10 @@
                     Nazwisko
                 </div> -->
             <div class="col-md-3 input-group-text">
-                {{  OrderDetails.Cost}}
+                {{  orderDetails.Cost}}
             </div>
         </div>
-        <div *ngIf="OrderDetails.OrderDate">
+        <div *ngIf="orderDetails.OrderDate">
             <div class="row input-group">
                 <div class="col-md-3 col-md-offset-3"></div>
                 <!-- [co się dzieje z klasą]="warunek" -->
@@ -117,7 +117,7 @@
                     Nazwisko
                 </div> -->
                 <div class="col-md-3 input-group-text">
-                    {{  OrderDetails.IsPaid}}
+                    {{  orderDetails.IsPaid}}
                 </div>
             </div>
             <div class="row input-group">
@@ -132,7 +132,7 @@
                     Nazwisko
                 </div> -->
                 <div class="col-md-3 input-group-text">
-                    {{  OrderDetails.IsOrderStarted}}
+                    {{  orderDetails.IsOrderStarted}}
                 </div>
             </div>
             <div class="row input-group">
@@ -147,7 +147,7 @@
                     Nazwisko
                 </div> -->
                 <div class="col-md-3 input-group-text">
-                    {{  OrderDetails.IsOrderCompleted}}
+                    {{  orderDetails.IsOrderCompleted}}
                 </div>
             </div>
             <div class="row input-group">
@@ -162,11 +162,11 @@
                     Nazwisko
                 </div> -->
                 <div class="col-md-3 input-group-text">
-                    {{  OrderDetails.OrderDate}}
+                    {{  orderDetails.OrderDate}}
                 </div>
             </div>
         </div>
-        <div *ngIf=" OrderDetails.ExpectedStartOfOrder" class="row input-group">
+        <div *ngIf=" orderDetails.ExpectedStartOfOrder" class="row input-group">
             <div class="col-md-3 col-md-offset-3"></div>
             <!-- [co się dzieje z klasą]="warunek" -->
             <div class="col-md-3 input-group-text bg-info">
@@ -178,10 +178,10 @@
                         Nazwisko
                     </div> -->
             <div class="col-md-3 input-group-text">
-                {{ OrderDetails.ExpectedStartOfOrder}}
+                {{ orderDetails.ExpectedStartOfOrder}}
             </div>
         </div>
-        <div *ngIf=" OrderDetails.StartOfOrder" class="row input-group">
+        <div *ngIf=" orderDetails.StartOfOrder" class="row input-group">
             <div class="col-md-3 col-md-offset-3"></div>
             <!-- [co się dzieje z klasą]="warunek" -->
             <div class="col-md-3 input-group-text bg-info">
@@ -193,12 +193,12 @@
                         Nazwisko
                     </div> -->
             <div class="col-md-3 input-group-text">
-                {{ OrderDetails.StartOfOrder}}
+                {{ orderDetails.StartOfOrder}}
             </div>
         </div>
 
 
-        <div *ngIf=" OrderDetails.CompletedOrderDate" class="row input-group">
+        <div *ngIf=" orderDetails.CompletedOrderDate" class="row input-group">
             <div class="col-md-3 col-md-offset-3"></div>
             <!-- [co się dzieje z klasą]="warunek" -->
             <div class="col-md-3 input-group-text bg-info">
@@ -210,11 +210,11 @@
                             Nazwisko
                         </div> -->
             <div class="col-md-3 input-group-text">
-                {{ OrderDetails.CompletedOrderDate}}
+                {{ orderDetails.CompletedOrderDate}}
             </div>
         </div>
-        <div *ngIf=" OrderDetails.OrderInformations" class="row input-group">
-            <div class="container-fluid" *ngFor="let ul of  OrderDetails.OrderInformations">
+        <div *ngIf=" orderDetails.OrderInformations" class="row input-group">
+            <div class="container-fluid" *ngFor="let ul of  orderDetails.OrderInformations">
                 <div class="col-md-3 input-group-text">
                     {{ul}}
                 </div>

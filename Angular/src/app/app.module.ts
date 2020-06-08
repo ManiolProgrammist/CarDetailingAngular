@@ -35,6 +35,9 @@ import { DatePickerComponentComponent } from './Components/Pickers/date-picker-c
 import { HourPickerComponent } from './Components/Pickers/hour-picker/hour-picker.component';
 import { PickOrderComponent } from './Components/OrderTemplate/pick-order/pick-order.component';
 import { ManageOrderComponent } from './Components/Order/manage-order/manage-order.component';
+import { NormalUserOrderListComponent } from './Components/Order/normal-user-order-list/normal-user-order-list.component';
+import { EmployeeOrderListComponent } from './Components/Order/employee-order-list/employee-order-list.component';
+import { SelectLoginTypeOrderComponent } from './Components/select-login-type-order/select-login-type-order.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +58,10 @@ import { ManageOrderComponent } from './Components/Order/manage-order/manage-ord
     DatePickerComponentComponent,
     HourPickerComponent,
     PickOrderComponent,
-    ManageOrderComponent
+    ManageOrderComponent,
+    NormalUserOrderListComponent,
+    EmployeeOrderListComponent,
+    SelectLoginTypeOrderComponent
 
   ],
   imports: [
@@ -76,12 +82,10 @@ import { ManageOrderComponent } from './Components/Order/manage-order/manage-ord
       { path: 'Pick_Order_Template', component: PickOrderComponent },
       { path: 'Order_Template_Detail', component: OrderTemplateDetailsComponentComponent, canActivate: [AuthEmployeeGuard], },
       {
-        path: 'Order_List', component: OrderListComponentComponent, children: [
-          {
-            path: 'Order_Details/:id', component: ManageOrderComponent
-          }
-        ]
+        path: 'Order_List', component: OrderListComponentComponent
       },
+      {path:'User_Orders',component:NormalUserOrderListComponent},
+      {path:'All_Orders',component:EmployeeOrderListComponent,canActivate:[AuthEmployeeGuard]},
       { path: 'Order_Details', component: OrderDetailsComponentComponent },
       { path: 'Date_Picker', component: DatePickerComponentComponent },
       { path: 'Hour_Picker', component: HourPickerComponent }

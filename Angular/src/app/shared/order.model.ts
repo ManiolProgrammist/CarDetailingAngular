@@ -29,7 +29,7 @@ export class Order implements Deserializable {
         ret.CreateOrderUserId=value.CreateOrderUserId;
         ret.OrderTemplateId=value.OrderTemplateId;
         ret.OrderDate=new Date(value.OrderDate);
-        if(ret.ExpectedStartOfOrder!=null){
+        if(value.ExpectedStartOfOrder!=null){
             ret.ExpectedStartOfOrder= new Date(value.ExpectedStartOfOrder);
         }
         if(value.CompletedOrderDate!=null){

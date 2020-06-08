@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { OrderTemplate } from 'src/app/shared/order-template.model';
 import { OrderTemplateService } from 'src/app/shared/services/order-template.service';
@@ -21,22 +21,15 @@ export class OrderDetailsComponentComponent implements OnInit {
     this.orderTemplateToEdit = false;
     this.pickedOrderTemplate = new OrderTemplate();
   }
+  @Input() set orderDet(order:Order){
 
+    console.log("ORDER DET:",order);
+    this.orderDetails=order;
+  };
+
+  orderDetails:Order;
   ngOnInit() {
-    var id = 1;
-    this.route.params.subscribe(params => {
-      id = params['id'];
-      if (!this.OrderDetails) {
-        this.orderService.Get(id).subscribe((data:Result<Order>)=>{
-          if(data.status){
-          this.OrderDetails=data.value;
-          }else{
-            console.log("error order detail",data.info);
-          }
-        })
-      
-      }
-    });
+
 
 
   }
@@ -44,12 +37,12 @@ export class OrderDetailsComponentComponent implements OnInit {
   orderTemplateToEdit: boolean;
   editButton: boolean;
   pickedOrderTemplate: OrderTemplate;
-  get OrderDetails() {
-    return this.orderService.OrderDetails;
-  }
-  set OrderDetails(OrderDetail: Order) {
-    this.orderService.OrderDetails = OrderDetail;
-  }
+  // get OrderDetails() {
+  //   return this.orderDet;
+  // }
+  // set OrderDetails(OrderDetail: Order) {
+  //   this.orderDet = OrderDetail;
+  // }
 
   ShowOrderTDetails(orderT: OrderTemplate) {
     this.pickedOrderTemplate = Object.assign({}, orderT);

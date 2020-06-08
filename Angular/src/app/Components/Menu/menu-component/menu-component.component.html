@@ -32,13 +32,15 @@
       <div *ngIf="shouldIShownItem(3)">
         <li class="nav-item active">
           <!-- routeLink jest definiowany w app.module.ts -->
-          <a class="nav-link" routerLink="Order_List" >Lista Zamówień <span class="sr-only">(current)</span></a>
+          <a class="nav-link" routerLink="All_Orders" >Lista Wszystkich Zamówień <span class="sr-only">(current)</span></a>
         </li>
 
       </div>
+      <div *ngIf="shouldIShownItem(1)">
       <li class="nav-item">
-        <a class="nav-link" routerLink="Date_Picker" >data</a>
+        <a class="nav-link" routerLink="User_Orders" >Lista twoich zamówień</a>
       </li>
+      </div>
       <!-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">

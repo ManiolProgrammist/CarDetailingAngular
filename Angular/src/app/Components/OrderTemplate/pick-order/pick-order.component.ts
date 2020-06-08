@@ -39,7 +39,6 @@ export class PickOrderComponent implements OnInit {
   }
   set ShowEditFlag(flag: boolean) {
     this.showEditFlag = this.userService.shouldIShownItem(UserRights.EmployeeUser) ? flag : false;
-
   }
  
   changeShowEditFlag(flag: boolean) {
@@ -98,7 +97,8 @@ export class PickOrderComponent implements OnInit {
     // console.log("najwyzsza funkcja mowi:", date);
   }
   private CreateAndSendOrder(createUser:User,date:Date){
-    if(this.pickedUserToOrder==null){
+    // console.log(this.pickedUserToOrder);
+    if(!this.pickedUserToOrder.UserId||this.pickedUserToOrder.UserId==0){
       this.pickedUserToOrder=createUser;
   }
   if(!this.pickedOrderTemplate){
@@ -111,7 +111,7 @@ export class PickOrderComponent implements OnInit {
   order.OrderTemplateId=this.pickedOrderTemplate.OrderTemplateId;
   order.UserId=this.pickedUserToOrder.UserId;
   order.Cost=this.pickedOrderTemplate.MinCost;
-  order.StartOfOrder=date;
+  order.ExpectedStartOfOrder=date;
   order.IsOrderCompleted=false;
   order.IsOrderStarted=false;
   console.log(order);

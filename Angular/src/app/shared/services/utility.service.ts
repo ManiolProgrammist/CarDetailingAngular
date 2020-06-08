@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +6,16 @@ import { UserService } from './user.service';
 export class UtilityService {
 
   constructor() { }
-
+  // EncryptPasswordForRegister(password:string,key:string):string{
+  //   const bcrypt = require('bcrypt');
+  //   const saltRounds = 10;
+  //   var ret="";
+  //   bcrypt.hash(password, saltRounds, function(err, hash) {
+  //     ret = hash;
+  //   });
+  //   return ret;
+    
+  // }
   getHours(ExpectedTime: string): number | string {
 
     var h = ExpectedTime.split(":");
