@@ -10,28 +10,29 @@ import { throwError as observableThrowError, observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Deserializable } from '../deserializable.model';
 import { OrderTemplate } from '../order-template.model';
+import { OrderTemplateService } from './order-template.service';
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  orderFormData: Order;
-  orderList: Order[];
-  OrderDetails: Order;
+  // orderFormData: Order;
+  // orderList: Order[];
+  // OrderDetails: Order;
   NewOrder: { orderTemplate: OrderTemplate, date: Date };
   constructor(private http: HttpClient, private userService: UserService) { }
 
   ngOnInit() {
-
+    this.NewOrder= {orderTemplate:new OrderTemplate(),date:new Date()};
   }
-  refreshList() {
+  // refreshList() {
 
-    this.GetAll().toPromise().then(
-      res => {
-        this.orderList = res["value"] as Order[];
-        console.log(res["value"]);
-      }
-    );
-  }
+  //   this.GetAll().toPromise().then(
+  //     res => {
+  //       this.orderList = res["value"] as Order[];
+  //       console.log(res["value"]);
+  //     }
+  //   );
+  // }
   postOrder(order: Order):Observable<Result<Order>> {
     // //zwraca "observera"
     // console.log(order.ExpectedStartOfOrder.toTimeString());

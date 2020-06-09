@@ -14,7 +14,7 @@ export class UtilityService {
   //     ret = hash;
   //   });
   //   return ret;
-    
+
   // }
   getHours(ExpectedTime: string): number | string {
 
@@ -58,5 +58,25 @@ export class UtilityService {
 
 
     return ExpectedTime;
+  }
+  CutDate(Data: Date): string {
+    if (Data != null) {
+      var start = new Date(Data);
+      return start.getFullYear() + '/' + start.getMonth() + '/' + start.getDate() + ' - ' + start.getHours() + ':' + start.getMinutes();
+    } else {
+      return ' ';
+    }
+  }
+  AddMinutes(Data: Date, minutes: number): Date {
+    return new Date(Data.getTime() + minutes * 60000);
+  }
+  AddHours(Data: Date, hours: number): Date { 
+    return new Date(Data.getTime() + hours*60 * 60000);
+  }
+  AddDays(Data: Date, Days: number): Date { 
+    return new Date(Data.getTime() + Days*24*60 * 60000);
+  }
+  AddTime(Data:Date,ExpectedTime:string){
+    return new Date(Data.getTime()+(Number(this.getHours(ExpectedTime))*60*60000+Number(this.getMinutes(ExpectedTime))*60000));
   }
 }

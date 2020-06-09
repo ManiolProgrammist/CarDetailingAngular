@@ -33,11 +33,12 @@ import { UserOdersInfoComponent } from './Components/Order/user-oders-info/user-
 import { OrderTemplateService } from './shared/services/order-template.service';
 import { DatePickerComponentComponent } from './Components/Pickers/date-picker-component/date-picker-component.component';
 import { HourPickerComponent } from './Components/Pickers/hour-picker/hour-picker.component';
-import { PickOrderComponent } from './Components/OrderTemplate/pick-order/pick-order.component';
+import { PickOrderComponent } from './Components/Pickers/pick-order/pick-order.component';
 import { ManageOrderComponent } from './Components/Order/manage-order/manage-order.component';
 import { NormalUserOrderListComponent } from './Components/Order/normal-user-order-list/normal-user-order-list.component';
 import { EmployeeOrderListComponent } from './Components/Order/employee-order-list/employee-order-list.component';
 import { SelectLoginTypeOrderComponent } from './Components/select-login-type-order/select-login-type-order.component';
+import { AcceptOrderComponent } from './Components/pickers/accept-order/accept-order.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { SelectLoginTypeOrderComponent } from './Components/select-login-type-or
     ManageOrderComponent,
     NormalUserOrderListComponent,
     EmployeeOrderListComponent,
-    SelectLoginTypeOrderComponent
+    SelectLoginTypeOrderComponent,
+    AcceptOrderComponent
 
   ],
   imports: [

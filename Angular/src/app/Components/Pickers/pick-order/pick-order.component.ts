@@ -26,12 +26,41 @@ export class PickOrderComponent implements OnInit {
   pickFromUserListFlag: boolean;
   pickFromDateFlag: boolean;
   pickedUserToOrder: User;
-  PickedDate: Date;
-
+  // PickedDate: Date;
+  get PickedDate():Date{
+    if(this.orderService.NewOrder){
+      if(this.orderService.NewOrder.date){
+        return this.orderService.NewOrder.date;
+      }
+    }
+    return null;
+  }
+  set PickedDate(dt:Date) {
+    if(this.orderService.NewOrder){
+      this.orderService.NewOrder.date=dt;
+    }else{
+      this.orderService.NewOrder={orderTemplate:new OrderTemplate(), date:dt};
+    }
+  };
 
   public showInfoFlag: boolean;
   private showEditFlag: boolean;
-  pickedOrderTemplate: OrderTemplate;
+  // _pickedOrderTemplate:OrderTemplate;
+  get pickedOrderTemplate():OrderTemplate{
+    if(this.orderService.NewOrder){
+      if(this.orderService.NewOrder.orderTemplate){
+        return this.orderService.NewOrder.orderTemplate;
+      }
+    }
+    return null;
+  }
+  set pickedOrderTemplate(or:OrderTemplate) {
+    if(this.orderService.NewOrder){
+      this.orderService.NewOrder.orderTemplate=or;
+    }else{
+      this.orderService.NewOrder={orderTemplate:or, date:new Date()};
+    }
+  };
   ngOnInit(): void {
   }
   get ShowEditFlag(): boolean {

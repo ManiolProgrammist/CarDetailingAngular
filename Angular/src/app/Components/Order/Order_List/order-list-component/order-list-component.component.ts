@@ -4,6 +4,7 @@ import { Order } from 'src/app/shared/order.model';
 import { UserService } from 'src/app/shared/services/user.service';
 import { UserRights } from 'src/app/shared/Enums/UserRightsEnum';
 import { Router, Data } from '@angular/router';
+import { UtilityService } from 'src/app/shared/services/utility.service';
 
 @Component({
   selector: 'app-order-list-component',
@@ -12,7 +13,7 @@ import { Router, Data } from '@angular/router';
 })
 export class OrderListComponentComponent implements OnInit {
 
-  constructor(private orderService:OrderService,public userService:UserService,public router:Router) { }
+  constructor(private orderService:OrderService,public userService:UserService,public router:Router,private utilityService:UtilityService) { }
   @Input() ShowOrderInput:(order:Order)=>void;
   @Input() set OrderList(orderList:Order[]){
     this.orderList=orderList;
@@ -30,12 +31,7 @@ export class OrderListComponentComponent implements OnInit {
 
   }
   CutDate(Data:Date):string{
-    if(Data!=null){
-      var start = new Date(Data);
-    return start.getFullYear()+'/'+start.getMonth()+'/'+start.getDate()+' - '+start.getHours()+':'+start.getMinutes();
-    }else{
-      return ' ';
-    }
+  return this.utilityService.CutDate(Data);
   }
 
 }

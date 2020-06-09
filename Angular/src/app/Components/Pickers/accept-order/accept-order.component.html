@@ -1,0 +1,24 @@
+<div class="container-fluid">
+    <app-order-template-component [pickedOrderTemplate]="orderTemplate">
+    </app-order-template-component>
+    <div class="row" *ngIf="date">
+        <div class="col-sm-2">
+            wybrałeś termin:
+        </div>
+        <div class="col-sm-2" >
+        {{CutDate(date)}}
+        </div>
+    </div>
+    <div class="row" *ngIf="date">
+        <div class="col-sm-2">
+            Prawdopodobne zakończenie
+        </div>
+        <div class="col-sm-2" >
+            {{AddMinutesToDate()}}
+        </div>
+    </div>
+    <div class="row">
+        tu będą informacje o userze
+    </div>
+
+</div>
