@@ -8,9 +8,12 @@
 <!-- details -->
 <div *ngIf="showInfoFlag">
 
-
+    <app-accept-order-component *ngIf="AcceptOrderFlag" [orderTemplate]="pickedOrderTemplate" [date]="PickedDate" [UserId]="pickedUserToOrder.UserId"></app-accept-order-component>
+   
+   
     <app-date-picker-component *ngIf="pickFromDateFlag" [CustomPickDateBehaviour]="PickDate.bind(this)">
     </app-date-picker-component>
+   
     <app-user-list-component *ngIf="pickFromUserListFlag" [CustomPickUserBehaviour]="PickUserToOrder.bind(this)">
     </app-user-list-component>
 

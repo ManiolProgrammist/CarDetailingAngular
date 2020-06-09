@@ -39,7 +39,7 @@ export class PickOrderComponent implements OnInit {
     if(this.orderService.NewOrder){
       this.orderService.NewOrder.date=dt;
     }else{
-      this.orderService.NewOrder={orderTemplate:new OrderTemplate(), date:dt};
+      this.orderService.NewOrder={orderTemplate:null, date:dt};
     }
   };
 
@@ -58,7 +58,7 @@ export class PickOrderComponent implements OnInit {
     if(this.orderService.NewOrder){
       this.orderService.NewOrder.orderTemplate=or;
     }else{
-      this.orderService.NewOrder={orderTemplate:or, date:new Date()};
+      this.orderService.NewOrder={orderTemplate:or, date:null};
     }
   };
   ngOnInit(): void {
@@ -68,6 +68,15 @@ export class PickOrderComponent implements OnInit {
   }
   set ShowEditFlag(flag: boolean) {
     this.showEditFlag = this.userService.shouldIShownItem(UserRights.EmployeeUser) ? flag : false;
+  }
+
+  get AcceptOrderFlag():boolean{
+          
+    return this.showInfoFlag&&this.pickFromDateFlag&&(this.PickedDate!=null);
+  }
+  SetAllFlags(){
+    this.showInfoFlag=true;
+    this.pickFromDateFlag=true;
   }
  
   changeShowEditFlag(flag: boolean) {

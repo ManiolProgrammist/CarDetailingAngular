@@ -22,7 +22,7 @@ export class OrderService {
   constructor(private http: HttpClient, private userService: UserService) { }
 
   ngOnInit() {
-    this.NewOrder= {orderTemplate:new OrderTemplate(),date:new Date()};
+    this.NewOrder= {orderTemplate:null,date:null};
   }
   // refreshList() {
 
