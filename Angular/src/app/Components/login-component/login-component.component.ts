@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../../shared/services/user.service';
 import { LoginUser } from '../../shared/UserModels/login-user.model';
 import { StaticInfo } from 'src/app/static-info';
@@ -22,7 +22,7 @@ export class LoginComponentComponent implements OnInit {
     this.Login = "";
     this.Password = "";
   }
-
+  @Input() LogInFromDiffrentSource:(user:User)=>void;
   get IsDontLoggMeOut(){
     return this.userService.IsDontLoggMeOut;
   }
@@ -55,7 +55,21 @@ export class LoginComponentComponent implements OnInit {
     var Log = new LoginUser();
     Log.Password = this.Password;
     Log.Login = this.Login;
-    this.userService.userLogin(Log);
+    this.userService.userAuthentication(Log).subscribe((data: any) => {
+      localStorage.setItem(StaticInfo.getTokenPath(), data.access_token);
+ 
+      this.userService.userSetInfo();
+      if(this.LogInFromDiffrentSource){
+        this.LogInFromDiffrentSource(this.userService.LoggedUser);
+      }
+     
+    }, (err: HttpErrorResponse) => {
+      console.log("blad logowania");
+      console.log(err);
+    }
+
+    )
+  
   }
   // LoginUser(){
   //   var Log=new LoginUser();

@@ -15,23 +15,9 @@ export class OrderTemplateListComponentComponent implements OnInit {
   @Input() ShowDetailsBehaviour:(orderT: OrderTemplate)=>void
   pickedOrderTemplate:OrderTemplate;
   constructor(public orderTemplateService: OrderTemplateService, public userService: UserService, public router: Router) {
-    this.showInfoFlag = false;
-    this.showEditFlag = false;
+
   }
 
-  public showInfoFlag: boolean;
-  private showEditFlag: boolean;
-  get ShowEditFlag(): boolean {
-    return this.showEditFlag;
-  }
-  set ShowEditFlag(flag: boolean) {
-    this.showEditFlag=this.userService.shouldIShownItem(UserRights.EmployeeUser)?flag:false;
-  }
-
-  changeShowEditFlag(flag:boolean){
-    this.showInfoFlag=false;
-    this.ShowEditFlag=flag;
-  }
 
   ngOnInit() {
 

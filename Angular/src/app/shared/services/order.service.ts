@@ -18,26 +18,14 @@ export class OrderService {
   // orderFormData: Order;
   // orderList: Order[];
   // OrderDetails: Order;
-  NewOrder: { orderTemplate: OrderTemplate, date: Date };
+  NewOrder: Order; //{ orderTemplate: OrderTemplate, date: Date };
   constructor(private http: HttpClient, private userService: UserService) { }
 
   ngOnInit() {
-    this.NewOrder= {orderTemplate:null,date:null};
+    this.NewOrder= new Order();//{orderTemplate:null,date:null};
   }
-  // refreshList() {
-
-  //   this.GetAll().toPromise().then(
-  //     res => {
-  //       this.orderList = res["value"] as Order[];
-  //       console.log(res["value"]);
-  //     }
-  //   );
-  // }
   postOrder(order: Order):Observable<Result<Order>> {
     // //zwraca "observera"
-    // console.log(order.ExpectedStartOfOrder.toTimeString());
-    // order.ExpectedStartOfOrder=new Date(order.ExpectedStartOfOrder.toTimeString());
-
     return this.http.post<Result<Order>>(StaticInfo.getRootUrl() + 'Order', order).pipe(catchError(this.errorHandler));
   }
 

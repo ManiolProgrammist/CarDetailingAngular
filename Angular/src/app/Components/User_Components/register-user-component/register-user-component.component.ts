@@ -13,9 +13,10 @@ import { Router } from '@angular/router';
 })
 export class RegisterUserComponentComponent implements OnInit {
 
-  constructor(public userService: UserService,public route:Router) { }
-
+  constructor(public userService: UserService,public route:Router) {}
+  singleRegister:Boolean;
   ngOnInit() {
+    this.singleRegister=true;
     this.resetForm();
   }
   resetForm(form?: NgForm) {
@@ -33,6 +34,9 @@ export class RegisterUserComponentComponent implements OnInit {
   }
   RegisterUser(input){
     console.log(input,"register");
+   
+    if(this.singleRegister){
+      this.singleRegister=false;
     this.userService.UserRegister(input).subscribe(    (value)=>{
    
             if (value['status'] as boolean == true) {
@@ -47,6 +51,7 @@ export class RegisterUserComponentComponent implements OnInit {
     ()=>{//complete
     });
   }
+}
 
 
 }

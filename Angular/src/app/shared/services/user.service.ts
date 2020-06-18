@@ -152,18 +152,18 @@ export class UserService {
     return this.http.post(StaticInfo.getRootUrl()+'login',data,{headers:reqHeader}).pipe(catchError(this.errorHandler));;
   }
 
-  userLogin(Log:LoginUser){
-    this.userAuthentication(Log).subscribe((data: any) => {
-      localStorage.setItem(StaticInfo.getTokenPath(), data.access_token);
-      this.userSetInfo();
-      // this.LoginUser();
-    }, (err: HttpErrorResponse) => {
-      console.log("blad logowania");
-      console.log(err);
-    }
+  // userLogin(Log:LoginUser){
+  //   this.userAuthentication(Log).subscribe((data: any) => {
+  //     localStorage.setItem(StaticInfo.getTokenPath(), data.access_token);
+  //     this.userSetInfo();
+  //     // this.LoginUser();
+  //   }, (err: HttpErrorResponse) => {
+  //     console.log("blad logowania");
+  //     console.log(err);
+  //   }
 
-    )
-  }
+  //   )
+  // }
 
   userSetInfo(){
     this.getLogUserInfo().subscribe((data2: Result<User>) => {

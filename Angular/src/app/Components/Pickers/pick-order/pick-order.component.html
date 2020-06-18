@@ -5,18 +5,17 @@
 <app-order-template-details-component *ngIf="ShowEditFlag" [EditChangeFlag]="changeShowEditFlag.bind(this)"
     [pickedOrderTemplate]="pickedOrderTemplate"></app-order-template-details-component>
     
-<!-- details -->
-<div *ngIf="showInfoFlag">
 
-    <app-accept-order-component *ngIf="AcceptOrderFlag" [orderTemplate]="pickedOrderTemplate" [date]="PickedDate" [UserId]="pickedUserToOrder.UserId"></app-accept-order-component>
-   
-   
-    <app-date-picker-component *ngIf="pickFromDateFlag" [CustomPickDateBehaviour]="PickDate.bind(this)">
-    </app-date-picker-component>
-   
+<div *ngIf="showInfoFlag">
+    <app-accept-order-info  *ngIf="acceptOrderFlag" [orderTemplate]="pickedOrderTemplate" [order]="pickedOrder"  [Accept]="AcceptOrder.bind(this)" [Cancel]="CancelOrder.bind(this)"></app-accept-order-info> 
+      
     <app-user-list-component *ngIf="pickFromUserListFlag" [CustomPickUserBehaviour]="PickUserToOrder.bind(this)">
     </app-user-list-component>
 
+    <app-date-picker-component *ngIf="pickFromDateFlag" [CustomPickDateBehaviour]="PickDate.bind(this)">
+    </app-date-picker-component>
+
+ 
     <app-order-template-component 
         [pickedOrderTemplate]="pickedOrderTemplate"></app-order-template-component>
     <div class="row" *ngIf="IsAtLeastEmploye()">
@@ -37,4 +36,6 @@
 
 
 </div>
-<app-order-template-list-component [ShowDetailsBehaviour]="ShowDetails.bind(this)"></app-order-template-list-component>
+
+
+<app-order-template-list-component [ShowDetailsBehaviour]="ShowDetails.bind(this)"></app-order-template-list-component> 

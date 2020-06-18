@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <app-order-template-component *ngIf="orderTemplate" [pickedOrderTemplate]="orderTemplate">
+    </app-order-template-component>
+    <div class="row" *ngIf="order.ExpectedStartOfOrder">
+        <div class="col-sm-2">
+            wybrałeś termin:
+        </div>
+        <div class="col-sm-2" >
+        {{CutDate(order.ExpectedStartOfOrder)}}
+        </div>
+    </div>
+    <div class="row" *ngIf="order.ExpectedStartOfOrder">
+        <div class="col-sm-2">
+            Zakończenie usługi:
+        </div>
+        <div class="col-sm-2" >
+            {{AddMinutesToDate()}}
+        </div>
+    </div>
+    <div class="row">
+        tu będą informacje o userze
+    </div>
+    <input type="button" value="Zakceptuj" class="btn btn-info" (click)="AcceptButton()">
+    <input type="button" value="Anuluj" class="btn btn-danger" (click)="CancelButton()">
+
+</div>

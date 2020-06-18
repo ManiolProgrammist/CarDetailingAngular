@@ -38,7 +38,8 @@ import { ManageOrderComponent } from './Components/Order/manage-order/manage-ord
 import { NormalUserOrderListComponent } from './Components/Order/normal-user-order-list/normal-user-order-list.component';
 import { EmployeeOrderListComponent } from './Components/Order/employee-order-list/employee-order-list.component';
 import { SelectLoginTypeOrderComponent } from './Components/select-login-type-order/select-login-type-order.component';
-import { AcceptOrderComponent } from './Components/pickers/accept-order/accept-order.component';
+
+import { AcceptOrderInfoComponent } from './Components/Pickers/accept-order-info/accept-order-info.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { AcceptOrderComponent } from './Components/pickers/accept-order/accept-o
     NormalUserOrderListComponent,
     EmployeeOrderListComponent,
     SelectLoginTypeOrderComponent,
-    AcceptOrderComponent
+    
+    AcceptOrderInfoComponent
 
   ],
   imports: [
@@ -83,14 +85,15 @@ import { AcceptOrderComponent } from './Components/pickers/accept-order/accept-o
       { path: 'Order_Template_List', component: OrderTemplateListComponentComponent },
       { path: 'Pick_Order_Template', component: PickOrderComponent },
       { path: 'Order_Template_Detail', component: OrderTemplateDetailsComponentComponent, canActivate: [AuthEmployeeGuard], },
-      {
-        path: 'Order_List', component: OrderListComponentComponent
-      },
+      // {
+      //   path: 'Order_List', component: OrderListComponentComponent
+      // },
       {path:'User_Orders',component:NormalUserOrderListComponent},
       {path:'All_Orders',component:EmployeeOrderListComponent,canActivate:[AuthEmployeeGuard]},
       { path: 'Order_Details', component: OrderDetailsComponentComponent },
       { path: 'Date_Picker', component: DatePickerComponentComponent },
-      { path: 'Hour_Picker', component: HourPickerComponent }
+      { path: 'Hour_Picker', component: HourPickerComponent },
+      {path: 'Select_Log_Type',component:SelectLoginTypeOrderComponent}
 
 
       //https://codecraft.tv/courses/angular/routing/nested-routes/

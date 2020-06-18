@@ -62,7 +62,14 @@ export class UtilityService {
   CutDate(Data: Date): string {
     if (Data != null) {
       var start = new Date(Data);
-      return start.getFullYear() + '/' + start.getMonth() + '/' + start.getDate() + ' - ' + start.getHours() + ':' + start.getMinutes();
+      var minutes=start.getMinutes();
+      var minutesStr="";
+      if(minutes<10){
+        minutesStr="0"+String(minutes);
+      }else{
+        minutesStr=String(minutes);
+      }
+      return start.getFullYear() + '/' + start.getMonth() + '/' + start.getDate() + ' - ' + start.getHours() + ':' + minutesStr;
     } else {
       return ' ';
     }

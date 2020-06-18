@@ -81,7 +81,7 @@
         </div>
         <div class="row">
 
-            <input class="col-md-5 btn btn-success btn-lg btn-block" type="submit" [disabled]="form.invalid" value="zatwierdź" />
+            <input *ngIf="singleRegister" class="col-md-5 btn btn-success btn-lg btn-block" type="submit" [disabled]="form.invalid" value="zatwierdź" />
               
 
         </div>
