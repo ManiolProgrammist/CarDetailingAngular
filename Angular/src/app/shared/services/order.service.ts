@@ -18,7 +18,8 @@ export class OrderService {
   // orderFormData: Order;
   // orderList: Order[];
   // OrderDetails: Order;
-  NewOrder: Order; //{ orderTemplate: OrderTemplate, date: Date };
+  NewOrder: Order;//order do wysłania //{ orderTemplate: OrderTemplate, date: Date };
+  OrderOrdered:Order;//Order zakceptowany i zwrócony z info?
   constructor(private http: HttpClient, private userService: UserService) { }
 
   ngOnInit() {
