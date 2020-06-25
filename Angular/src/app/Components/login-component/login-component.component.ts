@@ -58,10 +58,26 @@ export class LoginComponentComponent implements OnInit {
     this.userService.userAuthentication(Log).subscribe((data: any) => {
       localStorage.setItem(StaticInfo.getTokenPath(), data.access_token);
  
-      this.userService.userSetInfo();
-      if(this.LogInFromDiffrentSource){
-        this.LogInFromDiffrentSource(this.userService.LoggedUser);
+      this.userService.getLogUserInfo().subscribe((data2: Result<User>) => {
+        if (data2.status) {
+          console.log(data2);
+          this.userService.LoggedUser = data2.value;
+          this.userService.IsLoggedIn = true;
+          if (this.IsDontLoggMeOut) {
+            localStorage.setItem(StaticInfo.getDontLogMeOutPath(), 'true');
+  
+          }
+          if(this.LogInFromDiffrentSource){
+            this.LogInFromDiffrentSource(this.userService.LoggedUser);
+          }
+        }
+      }, (err: HttpErrorResponse) => {
+        this.userService.UserLogOut();
+        console.log("DatabaseError", err);
       }
+  
+      )
+ 
      
     }, (err: HttpErrorResponse) => {
       console.log("blad logowania");

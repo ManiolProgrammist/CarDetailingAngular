@@ -22,8 +22,7 @@ export class OrderTemplateService {
     this.http.get(StaticInfo.getRootUrl() + 'OrderTemplate',{ headers: reqHeader }).toPromise().then(
       res => {
         this.orderTemplateList = res["value"] as OrderTemplate[];
-        console.log("lista z refresh list order template:", res["value"]);
-      },
+         },
       err => {
         // console.clear();
         console.log("ERROR refreshList OrderTemplate");

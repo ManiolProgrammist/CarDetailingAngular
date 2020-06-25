@@ -10,7 +10,7 @@ import { Result } from 'src/app/shared/result.model';
   styleUrls: ['./employee-order-list.component.css']
 })
 export class EmployeeOrderListComponent implements OnInit {
-  constructor(private router:Router,private orderService:OrderService) { }
+  constructor(private orderService:OrderService) { }
   orderUserList: Order[];
   pickedOrder:Order;
   ngOnInit() {

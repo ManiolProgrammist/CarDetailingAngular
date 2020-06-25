@@ -24,6 +24,7 @@ export class SelectLoginTypeOrderComponent implements OnInit {
   }
 
   LogInFromThere(user:User){
+    console.log("Select-login-type-order:LoginFromThere",user);
     this.orderService.NewOrder.User=user;
     this.orderService.NewOrder.UserId=user.UserId;
     this.router.navigate(["Pick_Order_Template"]);
@@ -31,13 +32,15 @@ export class SelectLoginTypeOrderComponent implements OnInit {
   }
 
   OrderWithoutLogin(){
+    
     if(this.OrderButton){
       this.OrderButton=false;
-  
+      console.log("wysyłasz:",this.orderService.NewOrder);
     this.orderService.postTempOrder(this.orderService.NewOrder,this.Email).subscribe(
       (value)=>{
         if(value.status){
-          this.orderService.OrderOrdered=value.value;
+        this.orderService.OrderOrdered=value.value;
+        this.router.navigate(["Temporary_Order_Info"]);
         }else{
           console.log('Error order',value.info);
         }

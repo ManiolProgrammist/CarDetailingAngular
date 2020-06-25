@@ -13,7 +13,7 @@ import { UtilityService } from 'src/app/shared/services/utility.service';
 })
 export class OrderListComponentComponent implements OnInit {
 
-  constructor(private orderService:OrderService,public userService:UserService,public router:Router,private utilityService:UtilityService) { }
+  constructor(private orderService:OrderService,public userService:UserService,private utilityService:UtilityService) { }
   @Input() ShowOrderInput:(order:Order)=>void;
   @Input() set OrderList(orderList:Order[]){
     this.orderList=orderList;

@@ -59,7 +59,7 @@ export class UserService {
     this.GetAll().toPromise().then(
       res => {
         if (res["status"]) {
-          console.log("res:", JSON.parse(JSON.stringify(res))["value"]);
+
           this.userList = JSON.parse(JSON.stringify(res))["value"] as User[];
         } else {
           console.log("RefreshListError");
@@ -113,7 +113,6 @@ export class UserService {
       (res) => {
         if (res['status'] as boolean == true) {
 
-          console.log("pomyslnie edytowany user");
           this.refreshList();
         } else {
           console.log("error przy edytowaniu usera", res);
@@ -132,7 +131,7 @@ export class UserService {
         res => {
           if (res['status'] as boolean == true) {
 
-            console.log("pomyslnie usunięty user");
+     
             this.route.navigate(['User_List']);
             this.refreshList();
 

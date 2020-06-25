@@ -2,7 +2,7 @@ import { Component, OnInit, SimpleChanges,OnChanges} from '@angular/core';
 import { OrderTemplateService } from 'src/app/shared/services/order-template.service';
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 import { OrderTemplate } from 'src/app/shared/order-template.model';
-import { Router } from '@angular/router';
+
 import { UtilityService } from 'src/app/shared/services/utility.service';
 @Component({
   selector: 'app-order-template-details-component',
@@ -18,7 +18,7 @@ export class OrderTemplateDetailsComponentComponent implements OnInit {
   }
   EditOrderTemplate:OrderTemplate;
   @Input() EditChangeFlag:(flag:boolean)=>void;
-  constructor(public orderTemplateService: OrderTemplateService,private utilityService:UtilityService,public router:Router) {
+  constructor(public orderTemplateService: OrderTemplateService,private utilityService:UtilityService) {
     this.EditOrderTemplate = this.orderTemplateService.ResetOrderTemplateDetails();
    }
 

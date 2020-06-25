@@ -38,8 +38,10 @@ import { ManageOrderComponent } from './Components/Order/manage-order/manage-ord
 import { NormalUserOrderListComponent } from './Components/Order/normal-user-order-list/normal-user-order-list.component';
 import { EmployeeOrderListComponent } from './Components/Order/employee-order-list/employee-order-list.component';
 import { SelectLoginTypeOrderComponent } from './Components/select-login-type-order/select-login-type-order.component';
+import { AcceptOrderInfoComponent } from './Components/Order/accept-order-info/accept-order-info.component';
+import { TemporaryUserInfoOrderComponent } from './Components/Order/temporary-user-info-order/temporary-user-info-order.component';
 
-import { AcceptOrderInfoComponent } from './Components/Pickers/accept-order-info/accept-order-info.component';
+
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import { AcceptOrderInfoComponent } from './Components/Pickers/accept-order-info
     EmployeeOrderListComponent,
     SelectLoginTypeOrderComponent,
     
-    AcceptOrderInfoComponent
+    AcceptOrderInfoComponent,
+    
+    TemporaryUserInfoOrderComponent
 
   ],
   imports: [
@@ -93,8 +97,8 @@ import { AcceptOrderInfoComponent } from './Components/Pickers/accept-order-info
       { path: 'Order_Details', component: OrderDetailsComponentComponent },
       { path: 'Date_Picker', component: DatePickerComponentComponent },
       { path: 'Hour_Picker', component: HourPickerComponent },
-      {path: 'Select_Log_Type',component:SelectLoginTypeOrderComponent}
-
+      {path: 'Select_Log_Type',component:SelectLoginTypeOrderComponent},
+      {path:'Temporary_Order_Info',component:TemporaryUserInfoOrderComponent}
 
       //https://codecraft.tv/courses/angular/routing/nested-routes/
     ]),
