@@ -43,6 +43,7 @@ import { TemporaryUserInfoOrderComponent } from './Components/Order/temporary-us
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +71,8 @@ import { TemporaryUserInfoOrderComponent } from './Components/Order/temporary-us
     AcceptOrderInfoComponent,
     
     TemporaryUserInfoOrderComponent
+    
+    
 
   ],
   imports: [

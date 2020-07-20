@@ -23,6 +23,8 @@ export class Order implements Deserializable {
 
     deserialize(value: any): Order {
         var ret=new Order();
+        if(value!=null){
+        
         ret.OrderId=value.OrderId;
         ret.UserId=value.UserId;
         ret.User=value.User;
@@ -44,7 +46,9 @@ export class Order implements Deserializable {
         ret.OrderInformations=value.OrderInformations;
         ret.OrdersTemplate=value.OrdersTemplate;
         ret.IsPaid=value.IsPaid;
-       return ret;
+       
+    }
+    return ret;
     }
 }
 

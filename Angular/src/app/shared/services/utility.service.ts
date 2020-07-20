@@ -69,7 +69,7 @@ export class UtilityService {
       }else{
         minutesStr=String(minutes);
       }
-      return start.getFullYear() + '/' + start.getMonth() + '/' + start.getDate() + ' - ' + start.getHours() + ':' + minutesStr;
+      return start.getFullYear() + '/' + (start.getMonth()+1) + '/' + start.getDate() + ' - ' + start.getHours() + ':' + minutesStr;
     } else {
       return ' ';
     }

@@ -2,42 +2,44 @@
     Wybrałeś datę: {{pickedDate.getDate()}} / {{pickedDate.getMonth()}} / {{pickedDate.getFullYear()}}
 </div>
 <br />
-
-<div *ngIf="!dayInfo.IsOpen" >
-Lokal w tym dniu jest zamknięty.
-</div>
-<div *ngIf="dayInfo.IsOpen">
-    <div >
-        Lokal otwarty wtedy w godzinach: od {{openHours.openHour}} : {{openHours.openMinute}} do {{openHours.closeHour}} :
-        {{openHours.closeMinute}}
+<!-- <div *ngIf="!pickedDayInfo!=null"> -->
+    <div *ngIf="!pickedDayInfo.IsOpen">
+        Lokal w tym dniu jest zamknięty.
     </div>
-    Wybierz o której chciałbyś żebyśmy zaczęli usługę:
-    <div class="container">
-        <div class="row ">
-            <div class="col-sm-2 border" style="text-align: center;">
-                Godzina:
-            </div>
-            <div class="col-sm-8 border" style="text-align: center;">
-                Minuty
-            </div>
+    <div *ngIf="pickedDayInfo.IsOpen">
+        <div>
+            Lokal otwarty wtedy w godzinach: od {{openHours.openHour}} : {{openHours.openMinute}} do
+            {{openHours.closeHour}} :
+            {{openHours.closeMinute}}
         </div>
-        <div *ngFor="let H of openHoursMinArray; let iH=index">
+        Wybierz o której chciałbyś żebyśmy zaczęli usługę:
+        <div class="container">
             <div class="row ">
-                <div class="col-sm-2 border">
-                    {{H.Hour}}
+                <div class="col-sm-2 border" style="text-align: center;">
+                    Godzina:
                 </div>
-                <div class="offset-sm-4" *ngIf="iH==0&&H.Minute[0]!=0">
-
+                <div class="col-sm-8 border" style="text-align: center;">
+                    Minuty
                 </div>
-                <div class="col-sm-2 myMinute myCal border" *ngFor="let M of H.Minute; let iM=index" (click)="PickHour(H.Hour,M)">
-             
-                        
-                        {{M}}
-
-                </div>
-
             </div>
-        </div>
+            <div *ngFor="let H of openHoursMinArray; let iH=index">
+                <div class="row ">
+                    <div class="col-sm-2 border">
+                        {{H.Hour}}
+                    </div>
+                    <div  [class.offset-sm-2]="iH==0&&H.Minute[0].nr==15 " [class.offset-sm-4]="iH==0&&H.Minute[0].nr==30" [class.offset-sm-6]="iH==0&&H.Minute[0].nr==45" >
+                    </div>
+                    <div class="col-sm-2  myCal border" *ngFor="let M of H.Minute; let iM=index">
 
+                        <div *ngIf="M.isFree&&M.isPickable" class="freeH" (click)="PickHour(H.Hour,M.nr)">{{M.nr}}</div>
+                        <div *ngIf="M.isFree&&!M.isPickable" class="freeHRed">{{M.nr}}</div>
+                        <div *ngIf="!M.isFree" class="notFreeH">{{M.nr}}</div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
+<!-- </div> -->

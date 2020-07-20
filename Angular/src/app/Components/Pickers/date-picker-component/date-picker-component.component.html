@@ -4,7 +4,7 @@
 
 <div class="container">
     <div *ngIf="showHours">
-        <app-hour-picker [pickedDate]="pickedDate" [CustomPickDateBehaviour]="CustomPickDateBehaviour.bind(this)"></app-hour-picker>
+        <app-hour-picker [pickedDate]="pickedDate" [pickedDayInfo]="pickedDayInfo" [freeHours]="freeHours" [CustomPickDateBehaviour]="CustomPickDateBehaviour.bind(this)"></app-hour-picker>
     </div>
     <div class="card container">
         <div class="form-inline">
@@ -25,19 +25,16 @@
 
             <div class="row " *ngFor="let week of daysInMonthList">
                 <div class="offset-sm-2"></div>
-                <div class="col-sm-1 border myCal myButton" style="height: 60px;" (click)="pickDate(day)"
-                    *ngFor="let day of week.days">
-                    <div *ngIf="day!=0" style="text-align: center;">
+                <div class="col-sm-1 border myCal"  *ngFor="let day of week.days"  [ngClass]="{'myButton':day.dayInfo.IsOpen,'myCalBehaviour':!day.dayInfo.IsOpen}" style="height: 60px;" (click)="pickDate(day)"
+                   >
+                    <div *ngIf="day.dayNr!=0" style="text-align: center;">
 
-                        {{day}}
+                        {{day.dayNr}}
 
                     </div>
                 </div>
             </div>
-
         </div>
-
-
         <br />
         <form class="form-inline">
             <label class="lead mr-2 ml-2" for="month">Przeskocz do: </label>

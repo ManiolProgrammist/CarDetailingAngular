@@ -1,14 +1,18 @@
-.myCal:nth-child(even){
+
+   .notFreeH{
     background: rgb(201, 201, 201);
+       opacity:0.5;
    }
-   .myCal:nth-child(odd){
-       background: rgb(255, 197, 197);
-      }
-   .myMinute:hover{
-       cursor:pointer;
-       opacity:1;
-       font-weight:bold;
-   }
-   .myMinute{
-       opacity:0.8;
-   }
+.freeH{
+    opacity:0.8;
+    background-color:rgb(176, 223, 105);
+}
+.freeH:hover{
+    cursor:pointer;
+    opacity:1;
+    font-weight:bold;
+}
+.freeHRed{
+    opacity:0.8;
+    background-color: rgb(194, 122, 122);
+}

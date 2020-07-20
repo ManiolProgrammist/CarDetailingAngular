@@ -3,6 +3,8 @@ import { OrderTemplate } from '../order-template.model';
 import { StaticInfo } from '../../static-info';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Result } from '../result.model';
 
 @Injectable({
   providedIn: 'root'
@@ -80,7 +82,7 @@ export class OrderTemplateService {
     );
   }
   RemoveOrderTemplate(id: number) {
-    if (confirm("Na Pewno chcesz usunąć tego użytkownika?")) {
+    if (confirm("Na Pewno chcesz usunąć ten order Template?")) {
       return this.http.delete(StaticInfo.getRootUrl() + 'OrderTemplate/' + id).toPromise().then(res => {
         if (res['status'] as boolean == true) {
           console.log("udało się usunąć orderTemplate");
@@ -97,5 +99,9 @@ export class OrderTemplateService {
         }
       );
     }
+  }
+  GetByid(id:number):Observable<Result<OrderTemplate>>{
+    var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
+    return this.http.get<Result<OrderTemplate>>(StaticInfo.getRootUrl() +'OrderTemplate/'+id);
   }
 }

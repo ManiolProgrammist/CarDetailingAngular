@@ -27,6 +27,7 @@ export class PickOrderComponent implements OnInit, AfterViewInit {
 
   private Reset(){
     this.showInfoFlag=false;
+    this.showEditFlag=false;
     this.pickFromDateFlag=false;
     this.pickedOrder=new Order();
     this.pickedOrder.IsOrderCompleted=false;
@@ -59,8 +60,8 @@ export class PickOrderComponent implements OnInit, AfterViewInit {
     else
     {
       if((!this.pickedOrder.OrderTemplateId)||(!this.pickedOrder.StartOfOrder)||(!this.pickedOrder.UserId)){
-        console.log("brak orderTemplateId/StartOfOrder/UserId");
-        console.log(this.pickedOrder.OrderTemplateId,this.pickedOrder.StartOfOrder,this.pickedOrder.UserId);
+        // console.log("brak orderTemplateId/StartOfOrder/UserId");
+        // console.log(this.pickedOrder.OrderTemplateId,this.pickedOrder.StartOfOrder,this.pickedOrder.UserId);
         this.Reset();
       }
       else //kiedy jest stworzony pickedOrder oraz wypełnione jest OrderTemplateId oraz StartOfOrder
@@ -76,9 +77,7 @@ export class PickOrderComponent implements OnInit, AfterViewInit {
   
 //   // pickedUserToOrder: User;
   set pickedOrder(or:Order){
-    if(!this.orderService.NewOrder){
-      this.orderService.NewOrder=new Order();
-    }
+
     this.orderService.NewOrder=or;
   }
   get pickedOrder():Order{
@@ -107,9 +106,12 @@ export class PickOrderComponent implements OnInit, AfterViewInit {
     if(this.pickedOrder){
       if(this.pickedOrder.OrdersTemplate){
         return this.pickedOrder.OrdersTemplate;
+      }else{
+        this.pickedOrder.OrdersTemplate=new OrderTemplate();
+        return this.pickedOrder.OrdersTemplate;
       }
     }
-    return null;
+    return null;    
   }
   set pickedOrderTemplate(or:OrderTemplate) {
     if(!this.pickedOrder){
@@ -144,8 +146,16 @@ export class PickOrderComponent implements OnInit, AfterViewInit {
 //   //pokazuje detale -> prześlij do komponentu listy
   ShowDetails(orderT: OrderTemplate) {
     console.log("ShowDetailsFun");
-    this.pickedOrderTemplate = Object.assign({}, orderT);
+    //resetujemy wszystko w razie czego jesli coś na górze wybraliśmy;
+    this.Reset();
+    this.pickedOrderTemplate.AdditionalInformation=orderT.AdditionalInformation;
+    this.pickedOrderTemplate.ExpectedTime=orderT.ExpectedTime;
+    this.pickedOrderTemplate.MaxCost=orderT.MaxCost;
+    this.pickedOrderTemplate.MinCost=orderT.MinCost;
+    this.pickedOrderTemplate.Name=orderT.Name;
+    this.pickedOrderTemplate.OrderTemplateId=orderT.OrderTemplateId;
     this.showInfoFlag = true;
+    this.pickFromDateFlag=false;
     this.showEditFlag = false;
   } 
 //   //jest conajmniej pracownikiem -> sprawdź czy można edytować orderTemplate

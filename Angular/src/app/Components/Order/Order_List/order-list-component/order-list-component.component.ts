@@ -25,6 +25,7 @@ export class OrderListComponentComponent implements OnInit {
   }
 
   ShowOrder(order:Order){
+    console.log("click ShowOrder",order);
             if(this.ShowOrderInput){
               this.ShowOrderInput(Object.assign(Order,order));
             }

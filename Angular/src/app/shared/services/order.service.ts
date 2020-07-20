@@ -66,10 +66,14 @@ export class OrderService {
         catchError(this.errorHandler)));
 
   }
-  Get(id: number) {
+  Get(id: number):Observable<Result<Order>> {
+    console.log("Get1");
     return this.http.get<Result<Order>>(StaticInfo.getRootUrl() + 'Order/' + id).pipe(
       map((entr: any) => {
+        console.log("get2");
+        if(entr.status){
         return new Result<Order>().deserialize(entr, new Order().deserialize(entr.value));
+        }
       }),
       catchError(this.errorHandler));
   }

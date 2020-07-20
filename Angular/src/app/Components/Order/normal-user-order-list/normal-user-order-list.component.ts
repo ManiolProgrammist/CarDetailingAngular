@@ -28,8 +28,9 @@ export class NormalUserOrderListComponent implements OnInit {
   }
 
   ShowUserOrderDetails(order:Order){
-    var id = 1;
-        this.orderService.Get(id).subscribe((data:Result<Order>)=>{
+    console.log("EAWE");
+        this.orderService.Get(order.OrderId).subscribe((data:Result<Order>)=>{
+          console.log("orderService.Get in show order details",data);
           if(data.status){
           this.pickedOrder=data.value;
           }else{

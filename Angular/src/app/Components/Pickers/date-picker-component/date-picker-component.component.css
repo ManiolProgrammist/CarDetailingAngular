@@ -11,4 +11,9 @@
 }
 .myButton{
     opacity:0.8;
+    color:rgb(78, 117, 20);
+}
+.myCalBehaviour{
+    opacity:0.5;
+    color:rgb(134, 134, 134);
 }

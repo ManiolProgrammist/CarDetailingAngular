@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { Options, DayInfo } from '../options.model';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Options } from '../options.model';
 import { Result } from '../result.model';
-
+import { Observable } from 'rxjs/internal/Observable';
+import { StaticInfo } from 'src/app/static-info';
+import { throwError as observableThrowError, observable } from 'rxjs';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { DayInfo } from '../day-info.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -41,7 +45,24 @@ export class OptionsService {
   GetMinutesDivider():number{
     return 15;
   }
+  //:
+  GetDaysInMonth(month:number,year:number):Observable< Result<Array<DayInfo>> > {
 
+    var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
+    return this.http.get<Result <Array<DayInfo>>>(StaticInfo.getRootUrl() + 'Options/DaysInfo/'+year+'/'+month,{headers:reqHeader}).pipe(catchError(this.errorHandler));
 
+  }
+  GetFreeDaysInMonthWithOrderTemplId(Month:number,Year:number,OrderTemplateId:number):Observable<Result<Array<DayInfo>>>{
+    var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
+    return this.http.get<Result <Array<DayInfo>>>(StaticInfo.getRootUrl() + 'Options/FreeDaysInfo/'+Year+'/'+Month+'/'+OrderTemplateId,{headers:reqHeader}).pipe(catchError(this.errorHandler));
 
+  }
+  GetFreeHoursInDayWithOrderTemplId(Day:number,Month:number,Year:number,OrderTemplateId:number):Observable<Result <Array<Date[]>>>{
+    var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
+    return this.http.get<Result <Array<Date[]>>>(StaticInfo.getRootUrl() + 'Options/FreeDaysInfo/'+Year+'/'+Month+'/'+Day+'/'+OrderTemplateId,{headers:reqHeader}).pipe(catchError(this.errorHandler));
+  }
+
+  errorHandler(error: HttpErrorResponse) {
+    return observableThrowError(error.message || "Server Error");
+  }
 }

@@ -18,21 +18,22 @@
         <div class="col-sm-1" width="100%" height="100%">
             Id Zlecenia
         </div>
-        <div class="col-md-1" width="100%" height="100%">
+        <!-- <div class="col-md-1" width="100%" height="100%">
             Id Użytkownika
+        </div> -->
+        <div class="col-sm-3" width="100%" height="100%">
+            Użytkownik
         </div>
         <div class="col-md-1" width="100%" height="100%">
             Nazwa Szablonu
         </div>
-        <div class="col-sm-2" width="100%" height="100%">
-            Data Zamówienia
-        </div>
+   
         <div class="col-lg-2" width="100%" height="100%">
             Przewidywany start
         </div>
-        <div class="col-sm-1" width="100%" height="100%">
+        <!-- <div class="col-sm-1" width="100%" height="100%">
             Data Zakończenia
-        </div>
+        </div> -->
         <div class="col-sm-1" width="100%" height="100%">
             Cena
         </div>
@@ -51,22 +52,17 @@
         <div class="col-sm-1" width="100%" height="100%">
             {{ul.OrderId}}
         </div>
-        <div class="col-md-1" width="100%" height="100%">
+        <!-- <div class="col-md-1" width="100%" height="100%">
             {{ul.UserId}}
+        </div> -->
+        <div class="col-md-3" width="100%" height="100%">
+            {{ul.User.FirstName}}  {{ul.User.Surname}}
         </div>
         <div class="col-md-1" width="100%" height="100%">
             {{ul.OrdersTemplate.Name}}
         </div>
-
-        <div class="col-sm-2" width="100%" height="100%">
-            {{CutDate(ul.OrderDate)}}
-        </div>
-
         <div class="col-lg-2" width="100%" height="100%">
             {{CutDate(ul.ExpectedStartOfOrder)}}
-        </div>
-        <div class="col-sm-1" width="100%" height="100%">
-            {{CutDate(ul.CompletedOrderDate)}}
         </div>
         <div class="col-sm-1" width="100%" height="100%">
             {{ul.Cost}}
