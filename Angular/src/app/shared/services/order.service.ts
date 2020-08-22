@@ -15,24 +15,21 @@ import { OrderTemplateService } from './order-template.service';
   providedIn: 'root'
 })
 export class OrderService {
-  // orderFormData: Order;
-  // orderList: Order[];
-  // OrderDetails: Order;
   NewOrder: Order;//order do wysłania //{ orderTemplate: OrderTemplate, date: Date };
-  OrderOrdered:Order;//Order zakceptowany i zwrócony z info?
+  OrderOrdered: Order;//Order zakceptowany i zwrócony z info?
   constructor(private http: HttpClient, private userService: UserService) { }
 
   ngOnInit() {
-    this.NewOrder= new Order();//{orderTemplate:null,date:null};
+    this.NewOrder = new Order();//{orderTemplate:null,date:null};
   }
-  postOrder(order: Order):Observable<Result<Order>> {
+  postOrder(order: Order): Observable<Result<Order>> {
     // //zwraca "observera"
     return this.http.post<Result<Order>>(StaticInfo.getRootUrl() + 'Order', order).pipe(catchError(this.errorHandler));
   }
 
-  postTempOrder(order:Order,email:string):Observable<Result<Order>>{
+  postTempOrder(order: Order, email: string): Observable<Result<Order>> {
     var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
-    return this.http.post<Result<Order>>(StaticInfo.getRootUrl() + 'OrderTU', {order:order,email:email},{ headers: reqHeader }).pipe(catchError(this.errorHandler));
+    return this.http.post<Result<Order>>(StaticInfo.getRootUrl() + 'OrderTU', { order: order, email: email }, { headers: reqHeader }).pipe(catchError(this.errorHandler));
   }
 
   startOrder(order: Order, start: boolean): Observable<Result<Order>> {
@@ -66,20 +63,24 @@ export class OrderService {
         catchError(this.errorHandler)));
 
   }
-  Get(id: number):Observable<Result<Order>> {
+  Get(id: number): Observable<Result<Order>> {
     console.log("Get1");
     return this.http.get<Result<Order>>(StaticInfo.getRootUrl() + 'Order/' + id).pipe(
       map((entr: any) => {
         console.log("get2");
-        if(entr.status){
-        return new Result<Order>().deserialize(entr, new Order().deserialize(entr.value));
+        if (entr.status) {
+          return new Result<Order>().deserialize(entr, new Order().deserialize(entr.value));
         }
       }),
       catchError(this.errorHandler));
   }
+  DeleteOrder(id: number): Observable<Result<Order>> {
+    return this.http.delete<Result<Order>>(StaticInfo.getRootUrl() + 'Order/' + id).pipe(catchError(this.errorHandler));
+  }
   errorHandler(error: HttpErrorResponse) {
     return observableThrowError(error.message || "Server Error");
   }
+
 
 
 }

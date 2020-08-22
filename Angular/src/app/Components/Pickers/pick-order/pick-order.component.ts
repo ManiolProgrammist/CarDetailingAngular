@@ -24,54 +24,8 @@ export class PickOrderComponent implements OnInit, AfterViewInit {
    
    
   }
-
-  private Reset(){
-    this.showInfoFlag=false;
-    this.showEditFlag=false;
-    this.pickFromDateFlag=false;
-    this.pickedOrder=new Order();
-    this.pickedOrder.IsOrderCompleted=false;
-    this.pickedOrder.IsOrderStarted=false;
-    this.pickedOrder.IsPaid=false;
-    // this.pickedUserToOrder=new User();
-    this.PickedDate=null;
-    //gdy jest zalogowany
-    if(this.userService.IsLoggedIn){
-    this.pickedOrder.CreateOrderUserId=this.userService.LoggedUser.UserId;
-    //gdy jest zalogowany zwykly user a nie employee/admin
-    if(!this.userService.shouldIShownItem(UserRights.EmployeeUser)){
-      this.pickedOrder.UserId=this.userService.LoggedUser.UserId;
-      this.pickedOrder.User=this.userService.LoggedUser;
-    }
-    }
-  }
+  acceptOrderFlag:boolean;  //   return this.showInfoFlag&&this.pickFromDateFlag&&(this.PickedDate!=null);
   
-  ngOnInit(): void {  
-   
-  }
-  ngAfterViewInit():void{
-    console.log("ngAfterViewInit");
-    this.pickFromUserListFlag=false;
-
-    if(!this.pickedOrder){
-      console.log("!this.pickedOrder")
-      this.Reset();
-    }
-    else
-    {
-      if((!this.pickedOrder.OrderTemplateId)||(!this.pickedOrder.StartOfOrder)||(!this.pickedOrder.UserId)){
-        // console.log("brak orderTemplateId/StartOfOrder/UserId");
-        // console.log(this.pickedOrder.OrderTemplateId,this.pickedOrder.StartOfOrder,this.pickedOrder.UserId);
-        this.Reset();
-      }
-      else //kiedy jest stworzony pickedOrder oraz wypełnione jest OrderTemplateId oraz StartOfOrder
-      {
-        console.log("SetAllFlags");
-        this.SetAllFlags();
-      }
-  }
-  }
-
   pickFromUserListFlag: boolean=false;
   pickFromDateFlag: boolean=false;
   
@@ -86,8 +40,8 @@ export class PickOrderComponent implements OnInit, AfterViewInit {
   
   get PickedDate():Date{
     if(this.pickedOrder){
-      if(this.pickedOrder.StartOfOrder){
-        return this.pickedOrder.StartOfOrder;
+      if(this.pickedOrder.ExpectedStartOfOrder){
+        return this.pickedOrder.ExpectedStartOfOrder;
       }
     }
     return null;
@@ -96,7 +50,7 @@ export class PickOrderComponent implements OnInit, AfterViewInit {
     if(!this.pickedOrder){
       this.pickedOrder=new Order();
     }
-    this.pickedOrder.StartOfOrder=dt;
+    this.pickedOrder.ExpectedStartOfOrder=dt;
   };
 
   public showInfoFlag: boolean=false;
@@ -117,7 +71,10 @@ export class PickOrderComponent implements OnInit, AfterViewInit {
     if(!this.pickedOrder){
       this.pickedOrder=new Order();
     }
-    this.pickedOrder.OrdersTemplate=or;
+    if(!this.pickedOrder.OrdersTemplate){
+      this.pickedOrder.OrdersTemplate=new OrderTemplate();
+    }
+    this.pickedOrder.OrdersTemplate.copy(or);
     this.pickedOrder.Cost=or.MinCost;
     this.pickedOrder.OrderTemplateId=or.OrderTemplateId
 
@@ -129,7 +86,60 @@ export class PickOrderComponent implements OnInit, AfterViewInit {
     this.showEditFlag = this.userService.shouldIShownItem(UserRights.EmployeeUser) ? flag : false;
   }
 
-   acceptOrderFlag:boolean;  //   return this.showInfoFlag&&this.pickFromDateFlag&&(this.PickedDate!=null);
+
+
+  private ResetOrder(){
+    this.pickedOrder=new Order();
+    this.pickedOrder.IsOrderCompleted=false;
+    this.pickedOrder.IsOrderStarted=false;
+    this.pickedOrder.IsPaid=false;
+
+    //gdy jest zalogowany
+    if(this.userService.IsLoggedIn){
+    this.pickedOrder.CreateOrderUserId=this.userService.LoggedUser.UserId;
+    //gdy jest zalogowany zwykly user a nie employee/admin to znaczy że zlecenie będzie podłączone do tego użytkownika
+    if(!this.userService.shouldIShownItem(UserRights.EmployeeUser)){
+      this.pickedOrder.UserId=this.userService.LoggedUser.UserId;
+      this.pickedOrder.User=this.userService.LoggedUser;
+    }
+    }
+  }
+  private Reset(){
+    this.showInfoFlag=false;
+    this.showEditFlag=false;
+    this.pickFromDateFlag=false;
+     // this.pickedUserToOrder=new User();
+     this.PickedDate=null;
+     this.acceptOrderFlag=false;
+  }
+  
+  ngOnInit(): void {  
+   
+  }
+  ngAfterViewInit():void{
+    console.log("ngAfterViewInit");
+    this.pickFromUserListFlag=false;
+
+    if(!this.pickedOrder){
+      console.log("!this.pickedOrder")
+      this.ResetOrder();
+      this.Reset();
+    }
+    else
+    {
+      if((!this.pickedOrder.OrderTemplateId)||(!this.pickedOrder.ExpectedStartOfOrder)||(!this.pickedOrder.UserId)){
+        // console.log("brak orderTemplateId/StartOfOrder/UserId");
+        // console.log(this.pickedOrder.OrderTemplateId,this.pickedOrder.StartOfOrder,this.pickedOrder.UserId);
+        this.ResetOrder();
+        this.Reset();
+      }
+      else //kiedy jest stworzony pickedOrder oraz wypełnione jest OrderTemplateId oraz StartOfOrder
+      {
+        console.log("SetAllFlags");
+        this.SetAllFlags();
+      }
+  }
+  }
 
         
 
@@ -148,12 +158,8 @@ export class PickOrderComponent implements OnInit, AfterViewInit {
     console.log("ShowDetailsFun");
     //resetujemy wszystko w razie czego jesli coś na górze wybraliśmy;
     this.Reset();
-    this.pickedOrderTemplate.AdditionalInformation=orderT.AdditionalInformation;
-    this.pickedOrderTemplate.ExpectedTime=orderT.ExpectedTime;
-    this.pickedOrderTemplate.MaxCost=orderT.MaxCost;
-    this.pickedOrderTemplate.MinCost=orderT.MinCost;
-    this.pickedOrderTemplate.Name=orderT.Name;
-    this.pickedOrderTemplate.OrderTemplateId=orderT.OrderTemplateId;
+    this.pickedOrderTemplate= orderT;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     this.showInfoFlag = true;
     this.pickFromDateFlag=false;
     this.showEditFlag = false;
@@ -170,7 +176,7 @@ export class PickOrderComponent implements OnInit, AfterViewInit {
 
 //   //Jeśli jest się powyżej normal usera to wybiera się dla kogo jest order
   PickUserToOrder(user:User){
-    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     // this.pickedOrder.User=user;
     this.pickedOrder.UserId=user.UserId;
   
@@ -183,6 +189,7 @@ export class PickOrderComponent implements OnInit, AfterViewInit {
 //   //jeśli zamawia pracownik/admin to musi wskazać dla jakiego użytkownika zamawia lub stworzyć tymczasowego użytkownika, 
 //     // jeśli zamawia klient to od razu dla siebie
   PickDate(date: Date) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
       if (this.userService.GetUserRights() >= UserRights.EmployeeUser) {
       this.pickFromUserListFlag = true;
       this.acceptOrderFlag=false;
@@ -208,7 +215,7 @@ export class PickOrderComponent implements OnInit, AfterViewInit {
   }
 //   //po wybraniu daty pokaże się okienko z zaakceptowaniem informacji: zaakceptuj
    AcceptOrder(){
-    console.log("AcceptOrder");
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     if(this.userService.IsLoggedIn){
       if (this.userService.GetUserRights() >= UserRights.EmployeeUser){
         //jeśli zaloguje się jako admin w trakcie jako admin/employee i nie wybierze userId
@@ -228,8 +235,9 @@ export class PickOrderComponent implements OnInit, AfterViewInit {
   }
 
   public CancelOrder(){
-    console.log("cancel");
-    this.pickedOrder=new Order();
+ 
+    this.Reset();
+    this.ResetOrder();
     this.showInfoFlag=false;
     this.pickFromDateFlag=false;
   }
@@ -253,24 +261,6 @@ export class PickOrderComponent implements OnInit, AfterViewInit {
     )
   }
 
-  // private CreateOrder(createUser:User,date:Date){
-  //   // console.log(this.pickedUserToOrder);
-  //   if(!this.pickedUserToOrder.UserId||this.pickedUserToOrder.UserId==0){
-  //     this.pickedUserToOrder=createUser;
-  // }
-  // if(!this.pickedOrderTemplate){
-  //   console.log("nie wybrano template");
-  //   return;
-  // }
-  // var order=new Order();
-  // // order.CreateOrderUserId=createUser.UserId;
-  // order.IsPaid=false;
-  // order.OrderTemplateId=this.pickedOrderTemplate.OrderTemplateId;
-  // // order.UserId=this.pickedUserToOrder.UserId;
-  // order.Cost=this.pickedOrderTemplate.MinCost;
-  // order.ExpectedStartOfOrder=date;
-
-  // }
 
 
 

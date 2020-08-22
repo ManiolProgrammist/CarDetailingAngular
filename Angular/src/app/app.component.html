@@ -1,14 +1,21 @@
-<div class="jumbotron">
-  <h1 class="display-4 text-center">Logo</h1>
+<img class="myLOGO" src="assets\cq5dam.resized.img.1680.large.time1590490849670.jpg" alt="Italian Trulli">
+<br>
+<div class="container">
   <!-- <app-login-component></app-login-component>
   <app-register-user-component></app-register-user-component> -->
-  <app-login-component></app-login-component>
-  <app-menu-component></app-menu-component>
 
-          <!-- w router-outlet podstawiane jest to co jest w router-link i zdefiniowane w app.module.ts -->
-         <router-outlet></router-outlet>
-      <!-- <div class="col-md-7">
-          <app-payment-detail-list></app-payment-detail-list>
-      </div> -->
+  <div class="row">
+
+    <app-login-component class="col-sm-4"></app-login-component>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      <app-menu-component></app-menu-component>
+    </div>
+  </div>
+  <!-- w router-outlet podstawiane jest to co jest w router-link i zdefiniowane w app.module.ts -->
+  <router-outlet></router-outlet>
 
 </div>
+<!-- </div> -->

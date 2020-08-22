@@ -13,12 +13,17 @@ import { UtilityService } from 'src/app/shared/services/utility.service';
 })
 export class OrderListComponentComponent implements OnInit {
 
-  constructor(private orderService:OrderService,public userService:UserService,private utilityService:UtilityService) { }
+  constructor(private orderService:OrderService,public userService:UserService,private utilityService:UtilityService) {
+    this.sortType=0;
+   }
   @Input() ShowOrderInput:(order:Order)=>void;
   @Input() set OrderList(orderList:Order[]){
     this.orderList=orderList;
+    this.ShowSorted(this.sortType);
   };
+  sortType:number;
   orderList:Order[];
+  orderListShow:Order[];
   ngOnInit() {
     // this.orderService.refreshList();
     
@@ -33,6 +38,35 @@ export class OrderListComponentComponent implements OnInit {
   }
   CutDate(Data:Date):string{
   return this.utilityService.CutDate(Data);
+  }
+  
+  ShowSorted(sortedType:number){
+    //0-all,started-1,not started-2,ended-3,not ended-4
+    this.sortType=sortedType;
+    if(sortedType==0){
+      this.orderListShow=this.orderList;
+    }
+    if(sortedType==1){
+      this.orderListShow=this.orderList.filter(obj=>{
+        return obj.IsOrderStarted==true;
+      });
+    }
+    if(sortedType==2){
+      this.orderListShow=this.orderList.filter(obj=>{
+        return obj.IsOrderStarted==false;
+      });
+    }
+    if(sortedType==3){
+      this.orderListShow=this.orderList.filter(obj=>{
+        return obj.IsOrderCompleted==true;
+      });
+    }
+    if(sortedType==4){
+      this.orderListShow=this.orderList.filter(obj=>{
+        return obj.IsOrderCompleted==false;
+      });
+    }
+
   }
 
 }

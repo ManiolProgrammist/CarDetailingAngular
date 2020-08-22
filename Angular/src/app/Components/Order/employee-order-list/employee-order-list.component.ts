@@ -17,7 +17,6 @@ export class EmployeeOrderListComponent implements OnInit {
    this.RefreshList();
   }
   RefreshList(){
-    console.log("refreshList");
     this.orderService.GetAll().subscribe(
       (value)=>{
         if(value['status']){
@@ -30,8 +29,13 @@ export class EmployeeOrderListComponent implements OnInit {
       }
     )
   }
+  RefreshPage(){
+    this.RefreshList();
+    this.pickedOrder=null;
+  }
   ShowUserOrderDetails(order:Order){
         this.orderService.Get(order.OrderId).subscribe((data:Result<Order>)=>{
+          window.scrollTo({ top: 0, behavior: 'smooth' });
           if(data.status){
           this.pickedOrder=data.value;
           }else{

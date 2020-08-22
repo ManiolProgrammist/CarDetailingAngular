@@ -3,6 +3,8 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { UserRights } from 'src/app/shared/Enums/UserRightsEnum';
 import { Order } from 'src/app/shared/order.model';
+import { Result } from 'src/app/shared/result.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-order',
@@ -11,12 +13,13 @@ import { Order } from 'src/app/shared/order.model';
 })
 export class ManageOrderComponent implements OnInit {
 
-  constructor(private userService:UserService,private orderService:OrderService) { }
+  constructor(private userService:UserService,private orderService:OrderService,private router:Router) { }
   @Input() set OrderInput(order:Order){
     this.orderInput=order;
   };
   orderInput:Order;
   @Input() OnClickFunction:()=>void;
+  @Input() OnRemoveFunction:()=>void;
   // orderdetails:Order;
   // get OrderDetails(){
   //   return   this.OrderInput;
@@ -95,5 +98,20 @@ export class ManageOrderComponent implements OnInit {
       }
 
     );
+  }
+  RemoveOrder(){
+    if(confirm("Na pewno chcesz usunąć to zlecenie? Ta operacja jest nieodwracalna")){
+      this.orderService.DeleteOrder(this.orderInput.OrderId).subscribe(
+        (result:Result<Order>)=>{
+          if(result.status){
+            alert("Poprawnie usunięto zlecenie");
+            if(this.OnRemoveFunction){
+              this.OnRemoveFunction();
+            }
+           
+          }
+        }
+      );
+    }
   }
 }

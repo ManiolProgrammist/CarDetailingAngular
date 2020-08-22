@@ -1,0 +1,53 @@
+<div class="container">
+
+    <!-- gdy side=true, zdjecie z prawej strony -->
+    <div *ngIf="side">
+        <div class="row">
+            <div class="col-md-6 center-block  text-center align-self-center">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        {{orderTemplate.Name}}
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-sm-12">
+                        {{orderTemplate.AdditionalInformation}}
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-md-6 center-block text-center">
+                <img *ngIf="orderTemplate.OrdersTemplateImages[0]"
+                    src="data:image/jpg;base64,{{orderTemplate.OrdersTemplateImages[0].Image}}" id="photo-id" />
+            </div>
+
+        </div>
+    </div>
+
+    <!-- gdy side=false - zdjecie z lewej strony -->
+    <div *ngIf="!side">
+        <div class="row">
+            <div class="col-md-6 center-block text-center">
+                <img *ngIf="orderTemplate.OrdersTemplateImages[0]"
+                    src="data:image/jpg;base64,{{orderTemplate.OrdersTemplateImages[0].Image}}" id="photo-id" />
+            </div>
+            <div class="col-md-6 center-block  text-center align-self-center">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        {{orderTemplate.Name}}
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-sm-12">
+                        {{orderTemplate.AdditionalInformation}}
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

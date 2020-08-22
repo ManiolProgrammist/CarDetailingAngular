@@ -1,42 +1,50 @@
 <div class="container" *ngIf="!isLoggedIn()">
     <form class="container" #form="ngForm" autocomplete="off" (submit)="onSubmitToken()" name="loginUserForm">
 
-        <div class="input row">
-            <div class="col-sm-4"> 
-            <label for="Login" class="col-sm-5">Login</label>
-            <input type="text" name="Login" class="col-sm-5" [(ngModel)]="Login" />
+        <div class=" row">
+            <div class="col-sm-12">
+                <label for="Login" class="col-sm-5">Login</label>
+                <input type="text" name="Login" class="col-sm-6" [(ngModel)]="Login" />
+            </div>
         </div>
-        </div>
-        <div class="input row">
-            <div class="col-sm-4">
-            <label class="col-sm-5" for="Password">Password</label>
-            <input class="col-sm-5" type="password" name="Password" [(ngModel)]="Password" />
-        </div>
+        <div class=" row">
+            <div class="col-sm-12">
+                <label class="col-sm-5" for="Password">Password</label>
+                <input class="col-sm-6" type="password" name="Password" [(ngModel)]="Password" />
+            </div>
 
         </div>
 
-        <div class="input row">
-            <div class="offset-sm-1"></div>
-            <input class="col-sm-2" type="submit" value="Login" />
-
+        <div class=" row">
+            <div class="col-sm-12">
+                <input class="col-sm-6 offset-sm-5" type="submit" value="Login" />
+            </div>
         </div>
 
 
     </form>
-    <div class="input row">
-        <a type="button" value="Zarejestruj" routerLink="/Register_user" routerLinkActive="active">
-            Zarejestruj</a>
+    <div class="row" name="DontLogMeOut">
+        <div class="col-sm-12">
 
+            <a type="button" class="col-sm-4" value="Zarejestruj" routerLink="/Register_user" routerLinkActive="active">
+                Zarejestruj</a>
+   
+
+        <input type="checkbox" class="col-sm-1" [(ngModel)]="IsDontLoggMeOut" id="DontLogMeOut" />
+        <label class="col-sm-5" for="DontLogMeOut">nie wylogowuj mnie</label>
     </div>
-    <div class="form-check row" name="DontLogMeOut">
-        <input type="checkbox" class="form-check-input" [(ngModel)]="IsDontLoggMeOut" id="DontLogMeOut" />
-        <label class="form-check-label" for="DontLogMeOut">dont Log Me
-            Out</label>
     </div>
+
 </div>
 <div class="container" *ngIf="isLoggedIn()">
     <div class="row">
-        Zalogowany użytkownik: {{ShowLogin()}}
+        <div class="col-sm-12">
+            Zalogowany użytkownik: {{ShowLogin()}}
+        </div>
     </div>
-    <button class="btn btn-success btn-lg btn-block row" (click)='LogOffUser()'>wyloguj</button>
+    <div class="row">
+        <div class="col-sm-12">
+        <button class="btn btn-success btn-lg btn-block" (click)='LogOffUser()'>wyloguj</button>
+        </div>
+    </div>
 </div>

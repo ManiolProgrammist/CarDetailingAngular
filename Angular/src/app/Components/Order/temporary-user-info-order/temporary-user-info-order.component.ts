@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { Order } from 'src/app/shared/order.model';
 import { Router } from '@angular/router';
+import { OrderTemplate } from 'src/app/shared/order-template.model';
+import { OrderTemplateService } from 'src/app/shared/services/order-template.service';
 
 @Component({
   selector: 'app-temporary-user-info-order',
@@ -10,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class TemporaryUserInfoOrderComponent implements OnInit {
 
-  constructor(private orderService:OrderService,private router:Router) { }
+  constructor(private orderService:OrderService,private orderTemplateService:OrderTemplateService,private router:Router) { }
   public get Order():Order{
     if(this.orderService.OrderOrdered){
       return this.orderService.OrderOrdered;
@@ -20,6 +22,7 @@ export class TemporaryUserInfoOrderComponent implements OnInit {
     }
    
   }
+
   // public set Order():Order{
 
   // }

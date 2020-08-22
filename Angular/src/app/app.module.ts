@@ -40,7 +40,7 @@ import { EmployeeOrderListComponent } from './Components/Order/employee-order-li
 import { SelectLoginTypeOrderComponent } from './Components/select-login-type-order/select-login-type-order.component';
 import { AcceptOrderInfoComponent } from './Components/Order/accept-order-info/accept-order-info.component';
 import { TemporaryUserInfoOrderComponent } from './Components/Order/temporary-user-info-order/temporary-user-info-order.component';
-
+import { ImageRightComponent } from './Components/OrderTemplate/TemplateShow/image-right/image-right.component';
 
 
 
@@ -67,12 +67,14 @@ import { TemporaryUserInfoOrderComponent } from './Components/Order/temporary-us
     NormalUserOrderListComponent,
     EmployeeOrderListComponent,
     SelectLoginTypeOrderComponent,
-    
+
     AcceptOrderInfoComponent,
-    
-    TemporaryUserInfoOrderComponent
-    
-    
+
+    TemporaryUserInfoOrderComponent,
+
+    ImageRightComponent
+
+
 
   ],
   imports: [
@@ -88,6 +90,7 @@ import { TemporaryUserInfoOrderComponent } from './Components/Order/temporary-us
       },
       { path: 'Users_editor', component: UsersEditorComponent, canActivate: [AuthEmployeeGuard] },
       { path: '', component: HomeComponentComponent },
+      { path: 'home', component: HomeComponentComponent },
       { path: 'Register_user', component: RegisterUserComponentComponent },
       { path: 'Order_Template_List', component: OrderTemplateListComponentComponent },
       { path: 'Pick_Order_Template', component: PickOrderComponent },
@@ -95,13 +98,13 @@ import { TemporaryUserInfoOrderComponent } from './Components/Order/temporary-us
       // {
       //   path: 'Order_List', component: OrderListComponentComponent
       // },
-      {path:'User_Orders',component:NormalUserOrderListComponent},
-      {path:'All_Orders',component:EmployeeOrderListComponent,canActivate:[AuthEmployeeGuard]},
+      { path: 'User_Orders', component: NormalUserOrderListComponent },
+      { path: 'All_Orders', component: EmployeeOrderListComponent, canActivate: [AuthEmployeeGuard] },
       { path: 'Order_Details', component: OrderDetailsComponentComponent },
       { path: 'Date_Picker', component: DatePickerComponentComponent },
       { path: 'Hour_Picker', component: HourPickerComponent },
-      {path: 'Select_Log_Type',component:SelectLoginTypeOrderComponent},
-      {path:'Temporary_Order_Info',component:TemporaryUserInfoOrderComponent}
+      { path: 'Select_Log_Type', component: SelectLoginTypeOrderComponent },
+      { path: 'Temporary_Order_Info', component: TemporaryUserInfoOrderComponent }
 
       //https://codecraft.tv/courses/angular/routing/nested-routes/
     ]),

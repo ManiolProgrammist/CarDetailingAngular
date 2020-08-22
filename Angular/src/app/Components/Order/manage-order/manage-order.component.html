@@ -11,19 +11,19 @@
             (click)="StartOrder()" value="Zapoczątkuj" />
 
 
-        <input *ngIf=" orderInput.IsOrderStarted" type="button" class="col-md-2 btn btn-success btn-block"
+        <input *ngIf="orderInput.IsOrderStarted&&!orderInput.IsOrderCompleted" type="button" class="col-md-2 btn btn-info btn-block"
             (click)="BackStartOrder()" value="Cofnij Zapoczątkowanie" />
 
 
-        <div class="col-md-2 col-md-offset-2"> </div>
+        <!-- <div class="col-md-2 col-md-offset-2"> </div> -->
 
-        <input *ngIf="!orderInput.IsOrderCompleted" type="button" class="col-md-2 btn btn-success"
-            (click)="EndOrder()" value="Zakończ" />
+        <input *ngIf="!orderInput.IsOrderCompleted&&orderInput.IsOrderStarted" type="button" class="col-md-2 btn btn-success" (click)="EndOrder()"
+            value="Zakończ" />
 
 
-        <input *ngIf="orderInput.IsOrderCompleted" type="button" (click)="BackEndOrder()"
-            class="col-md-2 btn btn-success" value="Cofnij Zakończenie Zleceina" />
-
+        <input *ngIf="orderInput.IsOrderCompleted" type="button" (click)="BackEndOrder()" class="col-md-2 btn  btn-info"
+            value="Cofnij Zakończenie Zleceina" />
+        <input type="button" (click)="RemoveOrder()" class="col-md-2 btn btn-danger" value="Anuluj zlecenie">
 
     </div>
 

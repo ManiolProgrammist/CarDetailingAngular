@@ -14,3 +14,6 @@ table tr:hover{
 div{
     word-break: break-all;
 }
+body{
+    background-color: rgb(194, 205, 214);
+}

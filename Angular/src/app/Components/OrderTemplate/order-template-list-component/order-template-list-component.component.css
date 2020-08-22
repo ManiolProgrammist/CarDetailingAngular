@@ -5,6 +5,7 @@ div.hoverable:hover{
     }
 div.hoverable{
     opacity:0.7;
+    transition: 0.5s;
 }
 .col-centered{
     float: none;

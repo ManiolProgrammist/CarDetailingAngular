@@ -28,13 +28,14 @@ export class NormalUserOrderListComponent implements OnInit {
   }
 
   ShowUserOrderDetails(order:Order){
-    console.log("EAWE");
+    window.scrollTo({ top: 0, behavior: 'smooth' });
         this.orderService.Get(order.OrderId).subscribe((data:Result<Order>)=>{
-          console.log("orderService.Get in show order details",data);
           if(data.status){
           this.pickedOrder=data.value;
           }else{
             console.log("error order detail",data.info);
+            alert("error order detail"+data.info);
+
           }
       }
     );

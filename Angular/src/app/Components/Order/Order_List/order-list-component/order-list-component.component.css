@@ -13,3 +13,13 @@ div.hoverable{
 div{
     word-break: keep-all;
 }
+.ScrollClass{
+    height: 500px;
+    overflow: scroll;
+}
+
+.col{
+    padding:1px 1px 0px;
+    border-bottom: rgb(172, 172, 172) 1px solid;
+    border-right: rgb(172, 172, 172) 1px solid;
+}
