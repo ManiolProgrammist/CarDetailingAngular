@@ -9,6 +9,8 @@ import { CompileTemplateMetadata } from '@angular/compiler';
 import { Order } from 'src/app/shared/order.model';
 import { ActivatedRoute } from '@angular/router'
 import { Result } from 'src/app/shared/result.model';
+import { PayuAuthorize } from 'src/app/shared/payu-authorize.model';
+import { PayuService } from 'src/app/shared/services/payu.service';
 @Component({
   selector: 'app-order-details-component',
   templateUrl: './order-details-component.component.html',
@@ -16,33 +18,24 @@ import { Result } from 'src/app/shared/result.model';
 })
 export class OrderDetailsComponentComponent implements OnInit {
 
-  constructor(private orderService: OrderService, private orderTemplateService: OrderTemplateService, public route: ActivatedRoute, private userService: UserService) {
+  constructor(private orderService: OrderService, private orderTemplateService: OrderTemplateService, private payuService: PayuService, public route: ActivatedRoute, private userService: UserService) {
     this.orderTemplateInfo = false;
     this.orderTemplateToEdit = false;
     this.pickedOrderTemplate = new OrderTemplate();
   }
-  @Input() set orderDet(order:Order){
+  @Input() set orderDet(order: Order) {
 
-    console.log("ORDER DET:",order);
-    this.orderDetails=order;
+    console.log("ORDER DET:", order);
+    this.orderDetails = order;
   };
 
-  orderDetails:Order;
+  orderDetails: Order;
   ngOnInit() {
-
-
-
   }
   orderTemplateInfo: boolean;
   orderTemplateToEdit: boolean;
   editButton: boolean;
   pickedOrderTemplate: OrderTemplate;
-  // get OrderDetails() {
-  //   return this.orderDet;
-  // }
-  // set OrderDetails(OrderDetail: Order) {
-  //   this.orderDet = OrderDetail;
-  // }
 
   ShowOrderTDetails(orderT: OrderTemplate) {
     this.pickedOrderTemplate = Object.assign({}, orderT);
@@ -64,7 +57,13 @@ export class OrderDetailsComponentComponent implements OnInit {
     this.orderTemplateInfo = false;
     this.editButton = false;
   }
+  PayForOrder() {
+    this.payuService.payForOrder(this.orderDetails.OrderId).subscribe(( res:Result<string>) => {
+      console.log(res.value)
+    }
 
+    )
+  }
 
 
 }

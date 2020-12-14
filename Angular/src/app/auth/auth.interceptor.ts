@@ -17,9 +17,22 @@ export class AuthInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // console.log("wejscie do interceptora");
         //jeśli request ma "No-Auth" to nie podlega autoryzacji
+        // return next.handle(req.clone()).pipe(tap(  succ => {
+        //     // console.log("git request poszedł info z auth.inceptor ");
+        //     // console.log(cloneReq);
+        // },
+        // err => {
+        //     console.log("Request nie poszedł - info z auth.inceptor no auth");
+        //     console.log(req.clone());
+        //     console.log(err)
+        //     if (err.status === 401) {
+        //         this.router.navigateByUrl('');
+        //     }
+        // }));
         if (req.headers.get('No-Auth') == "True") {
             // console.log("No-Auth request info z auth.inceptor");
             // console.log(req.clone());
+            req.headers.delete('No-Auth')
             return next.handle(req.clone()).pipe(tap(  succ => {
                 // console.log("git request poszedł info z auth.inceptor ");
                 // console.log(cloneReq);
@@ -27,6 +40,7 @@ export class AuthInterceptor implements HttpInterceptor {
             err => {
                 console.log("Request nie poszedł - info z auth.inceptor no auth");
                 console.log(req.clone());
+                console.log(err)
                 if (err.status === 401) {
                     this.router.navigateByUrl('');
                 }

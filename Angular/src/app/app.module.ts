@@ -29,7 +29,6 @@ import { OrderTemplateDetailsComponentComponent } from './Components/OrderTempla
 import { OrderTemplate } from './shared/order-template.model';
 import { OrderDetailsComponentComponent } from './Components/Order/order-details-component/order-details-component.component';
 
-import { UserOdersInfoComponent } from './Components/Order/user-oders-info/user-oders-info.component';
 import { OrderTemplateService } from './shared/services/order-template.service';
 import { DatePickerComponentComponent } from './Components/Pickers/date-picker-component/date-picker-component.component';
 import { HourPickerComponent } from './Components/Pickers/hour-picker/hour-picker.component';
@@ -41,8 +40,7 @@ import { SelectLoginTypeOrderComponent } from './Components/select-login-type-or
 import { AcceptOrderInfoComponent } from './Components/Order/accept-order-info/accept-order-info.component';
 import { TemporaryUserInfoOrderComponent } from './Components/Order/temporary-user-info-order/temporary-user-info-order.component';
 import { ImageRightComponent } from './Components/OrderTemplate/TemplateShow/image-right/image-right.component';
-
-
+import { NgxStripeModule } from 'ngx-stripe';
 
 @NgModule({
   declarations: [
@@ -59,7 +57,6 @@ import { ImageRightComponent } from './Components/OrderTemplate/TemplateShow/ima
     OrderTemplateListComponentComponent,
     OrderTemplateDetailsComponentComponent,
     OrderDetailsComponentComponent,
-    UserOdersInfoComponent,
     DatePickerComponentComponent,
     HourPickerComponent,
     PickOrderComponent,
@@ -80,6 +77,7 @@ import { ImageRightComponent } from './Components/OrderTemplate/TemplateShow/ima
   imports: [
     NgbModule,
     BrowserModule,
+    NgxStripeModule.forRoot('pk_test_51HszhkD9xcu8ECH3qq2PWCmdpB9wWk1incGwq5hpyhxUuY8pVmu5ZbPdl9XETeO2TtnAoZ2s8RzFykhnTFjRJPwM00NeDuznWL'),
     AppRoutingModule,  // forms module importujemy wszędzie gdzie jest ngModule
     FormsModule,
     RouterModule.forRoot([
@@ -120,4 +118,6 @@ import { ImageRightComponent } from './Components/OrderTemplate/TemplateShow/ima
   }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  
+}

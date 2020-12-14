@@ -3,13 +3,13 @@
 
         <div class=" row">
             <div class="col-sm-12">
-                <label for="Login" class="col-sm-5">Login</label>
+                <label for="Login" class="col-sm-5" style="white-space:nowrap">Login</label>
                 <input type="text" name="Login" class="col-sm-6" [(ngModel)]="Login" />
             </div>
         </div>
-        <div class=" row">
+        <div class="row">
             <div class="col-sm-12">
-                <label class="col-sm-5" for="Password">Password</label>
+                <label class="col-sm-5" for="Password" style="white-space:nowrap">Password</label>
                 <input class="col-sm-6" type="password" name="Password" [(ngModel)]="Password" />
             </div>
 
@@ -25,14 +25,16 @@
     </form>
     <div class="row" name="DontLogMeOut">
         <div class="col-sm-12">
-
+            <div class="offset-sm-1"></div>
+            <input type="checkbox" class="col-sm-1 offset-sm-1" [(ngModel)]="IsDontLoggMeOut" id="DontLogMeOut" />
+            <label class="col-sm-10" for="DontLogMeOut">nie wylogowuj mnie</label>
+        </div>
+    </div>
+    <div class="row" name="Register">
+        <div class="col-sm-12">
             <a type="button" class="col-sm-4" value="Zarejestruj" routerLink="/Register_user" routerLinkActive="active">
                 Zarejestruj</a>
-   
-
-        <input type="checkbox" class="col-sm-1" [(ngModel)]="IsDontLoggMeOut" id="DontLogMeOut" />
-        <label class="col-sm-5" for="DontLogMeOut">nie wylogowuj mnie</label>
-    </div>
+        </div>
     </div>
 
 </div>
@@ -44,7 +46,7 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-        <button class="btn btn-success btn-lg btn-block" (click)='LogOffUser()'>wyloguj</button>
+            <button class="btn btn-success btn-lg btn-block" (click)='LogOffUser()'>wyloguj</button>
         </div>
     </div>
 </div>

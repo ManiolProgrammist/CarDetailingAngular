@@ -111,13 +111,8 @@
                 <div class="col-md-3 input-group-text bg-info">
                     Czy zlecenie opłacone:
                 </div>
-                <!-- <div *ngIf="IsEdit" class="col-md-2 input-group-text" [class.bg-info]="!Surname.touched"
-                    [class.bg-success]="Surname.valid && Surname.touched"
-                    [class.bg-danger]="Surname.invalid && Surname.touched">
-                    Nazwisko
-                </div> -->
                 <div class="col-md-3 input-group-text">
-                    {{  orderDetails.IsPaid}}
+                    {{orderDetails.IsPaid}}
                 </div>
             </div>
             <div class="row input-group">
@@ -126,13 +121,8 @@
                 <div class="col-md-3 input-group-text bg-info">
                     Czy zlecenie zaczęte:
                 </div>
-                <!-- <div *ngIf="IsEdit" class="col-md-2 input-group-text" [class.bg-info]="!Surname.touched"
-                    [class.bg-success]="Surname.valid && Surname.touched"
-                    [class.bg-danger]="Surname.invalid && Surname.touched">
-                    Nazwisko
-                </div> -->
                 <div class="col-md-3 input-group-text">
-                    {{  orderDetails.IsOrderStarted}}
+                    {{orderDetails.IsOrderStarted}}
                 </div>
             </div>
             <div class="row input-group">
@@ -218,12 +208,13 @@
                 <div class="col-md-3 input-group-text">
                     {{ul}}
                 </div>
-
             </div>
-
         </div>
         <br />
 
     </div>
 
 </form>
+
+<input *ngIf="!orderDetails.IsPaid" type="button" (click)="PayForOrder()" class="col-md-2 btn  btn-info"
+value="Zapłać (PayU)" />
