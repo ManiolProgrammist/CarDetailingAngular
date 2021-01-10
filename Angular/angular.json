@@ -26,7 +26,11 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/jquery-ui-dist/jquery-ui.js",
+              "./node_modules/ng2-completer/bundles/ng2-completer.umd.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -63,7 +67,6 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "Angular:build"
-            //"proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -120,6 +123,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "Angular"
 }

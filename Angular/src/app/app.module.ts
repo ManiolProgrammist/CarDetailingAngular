@@ -41,6 +41,10 @@ import { AcceptOrderInfoComponent } from './Components/Order/accept-order-info/a
 import { TemporaryUserInfoOrderComponent } from './Components/Order/temporary-user-info-order/temporary-user-info-order.component';
 import { ImageRightComponent } from './Components/OrderTemplate/TemplateShow/image-right/image-right.component';
 import { NgxStripeModule } from 'ngx-stripe';
+import { Ng2CompleterModule } from 'ng2-completer';
+import { UserPickerComponent } from './Components/User_Components/user-picker/user-picker.component';
+import { AccountSettingsComponentComponent } from './Components/account-settings-component/account-settings-component.component';
+import { ContactComponent } from './Components/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -66,13 +70,11 @@ import { NgxStripeModule } from 'ngx-stripe';
     SelectLoginTypeOrderComponent,
 
     AcceptOrderInfoComponent,
-
     TemporaryUserInfoOrderComponent,
-
-    ImageRightComponent
-
-
-
+    ImageRightComponent,
+    UserPickerComponent,
+    AccountSettingsComponentComponent,
+    ContactComponent
   ],
   imports: [
     NgbModule,
@@ -80,23 +82,24 @@ import { NgxStripeModule } from 'ngx-stripe';
     NgxStripeModule.forRoot('pk_test_51HszhkD9xcu8ECH3qq2PWCmdpB9wWk1incGwq5hpyhxUuY8pVmu5ZbPdl9XETeO2TtnAoZ2s8RzFykhnTFjRJPwM00NeDuznWL'),
     AppRoutingModule,  // forms module importujemy wszędzie gdzie jest ngModule
     FormsModule,
+    Ng2CompleterModule,
     RouterModule.forRoot([
-      {
-        path: 'User_List', component: UserListComponentComponent, canActivate: [AuthEmployeeGuard],
-        children: [{ path: 'User_edit', component: UserDetailComponentComponent },
-        { path: 'User_edit/:id', component: UserDetailComponentComponent }]
-      },
+      { path: "User_List_Edit", component: UsersEditorComponent, canActivate: [AuthEmployeeGuard] },
       { path: 'Users_editor', component: UsersEditorComponent, canActivate: [AuthEmployeeGuard] },
       { path: '', component: HomeComponentComponent },
+      { path: '*', component: HomeComponentComponent },
       { path: 'home', component: HomeComponentComponent },
       { path: 'Register_user', component: RegisterUserComponentComponent },
       { path: 'Order_Template_List', component: OrderTemplateListComponentComponent },
       { path: 'Pick_Order_Template', component: PickOrderComponent },
-      { path: 'Order_Template_Detail', component: OrderTemplateDetailsComponentComponent, canActivate: [AuthEmployeeGuard], },
+      { path: 'Order_Template_Detail', component: OrderTemplateDetailsComponentComponent, canActivate: [AuthEmployeeGuard] },
+      { path: 'Picked_User_Order_List', component: NormalUserOrderListComponent, canActivate: [AuthEmployeeGuard] },
+      { path: 'Contact', component: ContactComponent },
+      { path: 'Account', component: AccountSettingsComponentComponent },
       // {
       //   path: 'Order_List', component: OrderListComponentComponent
       // },
-      { path: 'User_Orders', component: NormalUserOrderListComponent },
+      { path: 'User_Orders', component: NormalUserOrderListComponent, canActivate: [AuthGuard] },
       { path: 'All_Orders', component: EmployeeOrderListComponent, canActivate: [AuthEmployeeGuard] },
       { path: 'Order_Details', component: OrderDetailsComponentComponent },
       { path: 'Date_Picker', component: DatePickerComponentComponent },
@@ -118,6 +121,6 @@ import { NgxStripeModule } from 'ngx-stripe';
   }],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
-  
+export class AppModule {
+
 }

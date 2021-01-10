@@ -86,4 +86,7 @@ export class UtilityService {
   AddTime(Data:Date,ExpectedTime:string){
     return new Date(Data.getTime()+(Number(this.getHours(ExpectedTime))*60*60000+Number(this.getMinutes(ExpectedTime))*60000));
   }
+  SimpleClone(obj: any) {
+    return Object.assign({}, obj);
+  }
 }

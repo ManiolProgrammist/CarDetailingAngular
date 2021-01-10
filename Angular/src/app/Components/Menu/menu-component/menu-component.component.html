@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -12,7 +12,7 @@
             <div *ngIf="shouldIShownItem(3)">
               <li class="nav-item active">
                 <!-- routeLink jest definiowany w app.module.ts -->
-                <a class="nav-link" routerLink="User_List">UserList <span class="sr-only">(current)</span></a>
+                <a class="nav-link" routerLink="User_List_Edit">Użytkownicy<span class="sr-only">(current)</span></a>
               </li>
             </div>
             <div *ngIf="shouldIShownItem(0)">
@@ -26,7 +26,7 @@
             <div *ngIf="shouldIShownItem(3)">
               <li class="nav-item active">
                 <!-- routeLink jest definiowany w app.module.ts -->
-                <a class="nav-link" routerLink="Order_Template_Detail">dodaj template <span
+                <a class="nav-link" routerLink="Order_Template_Detail">Dodaj szablon usługi<span
                     class="sr-only">(current)</span></a>
               </li>
 
@@ -34,14 +34,31 @@
             <div *ngIf="shouldIShownItem(3)">
               <li class="nav-item active">
                 <!-- routeLink jest definiowany w app.module.ts -->
-                <a class="nav-link" routerLink="All_Orders">Lista Wszystkich Zamówień <span
+                <a class="nav-link" routerLink="All_Orders">Wszystkie rezerwacje <span
                     class="sr-only">(current)</span></a>
               </li>
 
             </div>
             <div *ngIf="shouldIShownItem(1)">
-              <li class="nav-item">
-                <a class="nav-link" routerLink="User_Orders">Lista twoich zamówień</a>
+              <li class="nav-item active">
+                <a class="nav-link" routerLink="User_Orders">Twoje rezerwacje
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+            </div>
+
+            <div>
+              <li class="nav-item active">
+                <a class="nav-link" routerLink="Contact"> Kontakt
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+            </div>
+            <div *ngIf="shouldIShownItem(1)">
+              <li class="nav-item active">
+                <a class="nav-link" routerLink="Account"> Twoje Konto
+                  <span class="sr-only">(current)</span>
+                </a>
               </li>
             </div>
             <!-- <li class="nav-item dropdown">

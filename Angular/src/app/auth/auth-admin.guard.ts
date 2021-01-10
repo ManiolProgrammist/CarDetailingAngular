@@ -24,6 +24,7 @@ export class AuthAdminGuard implements CanActivate {
       } else {
         
         console.log("brak dostępu, użytkownik niezalogowany");
+        this.userService.UserLogOut();
         this.router.navigate(['']);
         return false;
       }

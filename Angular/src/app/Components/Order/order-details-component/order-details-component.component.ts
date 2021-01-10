@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router'
 import { Result } from 'src/app/shared/result.model';
 import { PayuAuthorize } from 'src/app/shared/payu-authorize.model';
 import { PayuService } from 'src/app/shared/services/payu.service';
+import { User } from 'src/app/shared/UserModels/user.model';
 @Component({
   selector: 'app-order-details-component',
   templateUrl: './order-details-component.component.html',
@@ -26,9 +27,13 @@ export class OrderDetailsComponentComponent implements OnInit {
   @Input() set orderDet(order: Order) {
 
     console.log("ORDER DET:", order);
+    this.orderTemplateInfo = false;
+    // this.orderTemplateToEdit=false;
+    this.editButton = false;
+    this.pickedOrderTemplate = new OrderTemplate();
     this.orderDetails = order;
   };
-
+  @Input() ShowUserDetailInput: (user: User) => void;
   orderDetails: Order;
   ngOnInit() {
   }
@@ -51,6 +56,11 @@ export class OrderDetailsComponentComponent implements OnInit {
       this.editButton = false;
     }
   }
+  ShowUserDetail() {
+    if (this.ShowUserDetailInput != null) {
+      this.ShowUserDetailInput(this.orderDetails.User);
+    }
+  }
 
   EditButtonClick() {
     this.orderTemplateToEdit = true;
@@ -58,8 +68,11 @@ export class OrderDetailsComponentComponent implements OnInit {
     this.editButton = false;
   }
   PayForOrder() {
-    this.payuService.payForOrder(this.orderDetails.OrderId).subscribe(( res:Result<string>) => {
-      console.log(res.value)
+    this.payuService.payForOrder(this.orderDetails.OrderId).subscribe((res: Result<any>) => {
+      if (res.status == true) {
+        var redirectUrl = res.value.redirectUri;
+        window.location.replace(redirectUrl);
+      }
     }
 
     )

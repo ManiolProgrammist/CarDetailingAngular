@@ -1,5 +1,4 @@
-<app-order-details-component [orderDet]="orderInput">
-
+<app-order-details-component [orderDet]="orderInput" [ShowUserDetailInput]="ShowUserData.bind(this)">
 </app-order-details-component>
 <div *ngIf=" CheckIfEmployer()">
     <div class="row  input-group">
@@ -11,18 +10,20 @@
             (click)="StartOrder()" value="Zapoczątkuj" />
 
 
-        <input *ngIf="orderInput.IsOrderStarted&&!orderInput.IsOrderCompleted" type="button" class="col-md-2 btn btn-info btn-block"
-            (click)="BackStartOrder()" value="Cofnij Zapoczątkowanie" />
+        <input *ngIf="orderInput.IsOrderStarted&&!orderInput.IsOrderCompleted" type="button"
+            class="col-md-2 btn btn-info btn-block" (click)="BackStartOrder()" value="Cofnij Zapoczątkowanie" />
 
 
         <!-- <div class="col-md-2 col-md-offset-2"> </div> -->
 
-        <input *ngIf="!orderInput.IsOrderCompleted&&orderInput.IsOrderStarted" type="button" class="col-md-2 btn btn-success" (click)="EndOrder()"
-            value="Zakończ" />
+        <input *ngIf="!orderInput.IsOrderCompleted&&orderInput.IsOrderStarted" type="button"
+            class="col-md-2 btn btn-success" (click)="EndOrder()" value="Zakończ" />
 
 
         <input *ngIf="orderInput.IsOrderCompleted" type="button" (click)="BackEndOrder()" class="col-md-2 btn  btn-info"
             value="Cofnij Zakończenie Zleceina" />
+        <input *ngIf="!orderInput.IsPaid" type="button" (click)="PaidOnSpot()" class="col-md-2 btn  btn-secondary"
+            value="Zapłacone na miejscu" />
         <input type="button" (click)="RemoveOrder()" class="col-md-2 btn btn-danger" value="Anuluj zlecenie">
 
     </div>

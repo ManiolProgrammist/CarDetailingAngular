@@ -3,118 +3,130 @@
 <!-- #form-nazwa naszego pola do angulara (onSubmit(form)) 
     ="ngForm" typ tego submita -->
 <!-- (submit)="onSubmit(form)" - czyli jeśli klikniemy submit to wykonaj "onSubmit(form)" - z pliku payment-detail.component.ts -->
-<form #form="ngForm" autocomplete="off">
-    <div class="form-group">
-        <!-- grupa inputu - tutaj razem zgrupowana np ikona jakaś -->
-        <div class="row input-group">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-md-8">
+            <form #form="ngForm" autocomplete="off">
+                <div class="form-group">
+                    <!-- grupa inputu - tutaj razem zgrupowana np ikona jakaś -->
+                    <div class="row input-group">
 
-            <!-- [co się dzieje z klasą]="warunek" -->
-            <div class="col-md-2 input-group-text" [class.bg-info]="!Nazwa.touched"
-                [class.bg-success]="Nazwa.valid && Nazwa.touched" [class.bg-danger]="Nazwa.invalid && Nazwa.touched"
-                width="100%">
-                Nazwa
-            </div>
+                        <!-- [co się dzieje z klasą]="warunek" -->
+                        <div class="col-md-5 input-group-text" [class.bg-info]="!Nazwa.touched"
+                            [class.bg-success]="Nazwa.valid && Nazwa.touched"
+                            [class.bg-danger]="Nazwa.invalid && Nazwa.touched" width="100%">
+                            Nazwa
+                        </div>
 
-            <!-- #Nazwa - local reference -->
-            <!-- two way data binding [(ngModel)]="userService.Nazwa" nazwa z property "userService" w payment-detail.component.ts (to co dajemy w konstruktorze) -->
-            <input name="Nazwa" #Nazwa="ngModel" [(ngModel)]="EditOrderTemplate.Name" class="col-md-3 form-control"
-                placeholder="Nazwa" required />
-        </div>
-        <!-- grupa inputu - tutaj razem zgrupowana np ikona jakaś -->
-        <div class="row input-group">
+                        <!-- #Nazwa - local reference -->
+                        <!-- two way data binding [(ngModel)]="userService.Nazwa" nazwa z property "userService" w payment-detail.component.ts (to co dajemy w konstruktorze) -->
+                        <input name="Nazwa" #Nazwa="ngModel" [(ngModel)]="EditOrderTemplate.Name"
+                            class="col-md-7 form-control" placeholder="Nazwa" required />
+                    </div>
+                    <!-- grupa inputu - tutaj razem zgrupowana np ikona jakaś -->
+                    <div class="row input-group">
 
-            <!-- [co się dzieje z klasą]="warunek" -->
-            <div class="col-md-2 input-group-text" [class.bg-info]="!MinCost.touched"
-                [class.bg-success]="MinCost.valid && MinCost.touched"
-                [class.bg-danger]="MinCost.invalid && MinCost.touched" [class.bg-danger]=" !MinMaxValid()">
-                Koszt Minimalny
-            </div>
-
-
-            <input name="MinCost" #MinCost="ngModel" type="number" [(ngModel)]="EditOrderTemplate.MinCost"
-                class="col-md-3 form-control" placeholder="0" required min="0" />
-        </div>
-
-        <div class="row input-group">
-
-            <div class="col-md-2 input-group-text bg-info" [class.bg-info]="!MaxCost.touched"
-                [class.bg-success]="MaxCost.valid && MaxCost.touched"
-                [class.bg-danger]="MaxCost.invalid && MaxCost.touched" [class.bg-danger]=" !MinMaxValid()">
-                Koszt Maxymalny
-            </div>
-
-            <input name="MaxCost" type="number" #MaxCost="ngModel" [(ngModel)]="EditOrderTemplate.MaxCost"
-                class="col-md-3 form-control" required maxlength="4" min="0" />
-        </div>
-        <div class="row input-group">
-
-            <!-- [co się dzieje z klasą]="warunek" -->
-            <div class="col-md-2 input-group-text" [class.bg-info]="!AdditionalInformation.touched"
-                [class.bg-success]="AdditionalInformation.valid && AdditionalInformation.touched"
-                [class.bg-danger]="AdditionalInformation.invalid && AdditionalInformation.touched">
-                Informacje Dodatkowe
-            </div>
+                        <!-- [co się dzieje z klasą]="warunek" -->
+                        <div class="col-md-5 input-group-text" [class.bg-info]="!MinCost.touched"
+                            [class.bg-success]="MinCost.valid && MinCost.touched"
+                            [class.bg-danger]="MinCost.invalid && MinCost.touched" [class.bg-danger]=" !MinMaxValid()">
+                            Koszt Min
+                        </div>
 
 
-            <input name="AdditionalInformation" #AdditionalInformation="ngModel"
-                [(ngModel)]="EditOrderTemplate.AdditionalInformation" class="col-md-3 form-control"
-                placeholder="User AdditionalInformation" required />
-        </div>
-        <div class="row input-group">
+                        <input name="MinCost" #MinCost="ngModel" type="number" [(ngModel)]="EditOrderTemplate.MinCost"
+                            class="col-md-7 form-control" placeholder="0" required min="0" />
+                    </div>
 
-            <!-- [co się dzieje z klasą]="warunek" -->
-            <div class="col-md-2 input-group-text"
-                [class.bg-info]="!ExpectedTimeHours.touched && !ExpectedTimeMinutes.touched"
-                [class.bg-success]="ExpectedTimeHours.valid && ExpectedTimeMinutes.valid"
-                [class.bg-danger]="ExpectedTimeHours.invalid || ExpectedTimeMinutes.invalid">
-                Przewidywany czas
-            </div>
+                    <div class="row input-group">
 
-            <div class="col-md-1">godziny/minuty</div>
-            <input type="number" name="ExpectedTimeHours" #ExpectedTimeHours="ngModel" [(ngModel)]="hours"
-                class="col-md-1 form-control" required max="23" min="0" height="100%" />
-            <input type="number" name="ExpectedTimeMinutes" #ExpectedTimeMinutes="ngModel" [(ngModel)]="minutes"
-                class="col-md-1 form-control" required max="59" min="0" height="100%" step="15" />
+                        <div class="col-md-5 input-group-text bg-info" [class.bg-info]="!MaxCost.touched"
+                            [class.bg-success]="MaxCost.valid && MaxCost.touched"
+                            [class.bg-danger]="MaxCost.invalid && MaxCost.touched" [class.bg-danger]=" !MinMaxValid()">
+                            Koszt Max
+                        </div>
 
-        </div>
+                        <input name="MaxCost" type="number" #MaxCost="ngModel" [(ngModel)]="EditOrderTemplate.MaxCost"
+                            class="col-md-7 form-control" required maxlength="4" min="0" />
+                    </div>
+                    <div class="row input-group">
 
-
-        <!-- [co się dzieje z klasą]="warunek" -->
-        <div class="row input-group">
-            <div class="col-md-10">
-                <button *ngIf="!photoFlag" class="col-md-3 btn btn-success" (click)="ChangePhotoFlag(true)">Dodaj
-                    Zdjęcie</button>
-                <!-- <button *ngIf="photoFlag" class="col-md-3 btn btn-success" (click)="SendPhoto()"> Prześlij</button> -->
-
-                <input type="file" accept="image/jpeg" *ngIf="photoFlag" (change)="OnFileChanged($event)"
-                    value="Wybierz zdjęcie">
-                <div *ngIf="TestOrdetTemplateImageArray">
-                    <img *ngIf="TestOrdetTemplateImageArray[0]"
-                        src="data:image/jpg;base64,{{TestOrdetTemplateImageArray[0].Image}}" id="photo-id" />
-                </div>
-            </div>
-        </div>
-
-        <div class="row" *ngIf="EditOrderTemplate.OrderTemplateId==0">
+                        <!-- [co się dzieje z klasą]="warunek" -->
+                        <div class="col-md-5 input-group-text" [class.bg-info]="!AdditionalInformation.touched"
+                            [class.bg-success]="AdditionalInformation.valid && AdditionalInformation.touched"
+                            [class.bg-danger]="AdditionalInformation.invalid && AdditionalInformation.touched">
+                            Informacje Dodatkowe
+                        </div>
 
 
-            <button class="col-md-5 btn btn-success btn-lg btn-block" (click)="AddOrdTemplate()" type="submit"
-                [disabled]="form.invalid">
-                Dodaj szablon</button>
+                        <input name="AdditionalInformation" #AdditionalInformation="ngModel"
+                            [(ngModel)]="EditOrderTemplate.AdditionalInformation" class="col-md-7 form-control"
+                            placeholder="User AdditionalInformation" required />
+                    </div>
+                    <div class="row input-group">
 
-        </div>
-        <div class="row" *ngIf="EditOrderTemplate.OrderTemplateId!=0">
+                        <!-- [co się dzieje z klasą]="warunek" -->
+                        <div class="col-md-5 input-group-text"
+                            [class.bg-info]="!ExpectedTimeHours.touched && !ExpectedTimeMinutes.touched"
+                            [class.bg-success]="ExpectedTimeHours.valid && ExpectedTimeMinutes.valid"
+                            [class.bg-danger]="ExpectedTimeHours.invalid || ExpectedTimeMinutes.invalid">
+                            Przewidywany czas
+                        </div>
+
+                        <div class="col-md-3">godziny/minuty</div>
+                        <input type="number" name="ExpectedTimeHours" #ExpectedTimeHours="ngModel" [(ngModel)]="hours"
+                            class="col-md-3 form-control" required max="23" min="0" height="100%" />
+                        <input type="number" name="ExpectedTimeMinutes" #ExpectedTimeMinutes="ngModel"
+                            [(ngModel)]="minutes" class="col-md-3 form-control" required max="59" min="0" height="100%"
+                            step="15" />
+
+                    </div>
 
 
-            <button class="col-md-3 btn btn-success btn-lg btn-block" (click)=AcceptEditOrdTemp() type="submit"
-                [disabled]="form.invalid">
-                Zatwierdź zmiany</button>
-            <!-- <button class="col-md-3 btn btn-info btn-lg btn-block" type="submit" (click)=OrderThis()>
+                    <!-- [co się dzieje z klasą]="warunek" -->
+                    <div class="row">
+                        <div class="col-md-10">
+                            <button *ngIf="!photoFlag" class="col-md-7 btn btn-success"
+                                (click)="ChangePhotoFlag(true)">Dodaj
+                                Zdjęcie</button>
+                            <!-- <button *ngIf="photoFlag" class="col-md-7 btn btn-success" (click)="SendPhoto()"> Prześlij</button> -->
+
+                            <input type="file" accept="image/jpeg" *ngIf="photoFlag" (change)="OnFileChanged($event)"
+                                value="Wybierz zdjęcie">
+                            <div *ngIf="TestOrdetTemplateImageArray">
+                                <img *ngIf="TestOrdetTemplateImageArray[0]"
+                                    src="data:image/jpg;base64,{{TestOrdetTemplateImageArray[0].Image}}"
+                                    id="photo-id" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="EditOrderTemplate.OrderTemplateId==0">
+
+
+                        <button class="col-md-5 btn btn-success btn-lg btn-block" (click)="AddOrdTemplate()"
+                            type="submit" [disabled]="form.invalid">
+                            Dodaj szablon</button>
+
+                    </div>
+                    <div class="row" *ngIf="EditOrderTemplate.OrderTemplateId!=0">
+
+
+                        <button class="col-md-7 btn btn-success btn-lg btn-block" (click)=AcceptEditOrdTemp()
+                            type="submit" [disabled]="form.invalid">
+                            Zatwierdź zmiany</button>
+                        <!-- <button class="col-md-7 btn btn-info btn-lg btn-block" type="submit" (click)=OrderThis()>
                     Złóż zamówienie</button> -->
-            <button class="col-md-3 btn btn-danger btn-lg btn-block" (click)=RemoveOrderTemplate() type="submit"
-                [disabled]="form.invalid">
-                Usuń szablon</button>
+                        <button class="col-md-7 btn btn-danger btn-lg btn-block" (click)=RemoveOrderTemplate()
+                            type="submit" [disabled]="form.invalid">
+                            Usuń szablon</button>
 
+                    </div>
+                </div>
+            </form>
+            
         </div>
+        <div class="col"></div>
     </div>
-</form>
+</div>

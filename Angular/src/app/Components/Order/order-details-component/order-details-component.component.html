@@ -1,9 +1,9 @@
+<app-order-template-details-component *ngIf="orderTemplateToEdit" [pickedOrderTemplate]="pickedOrderTemplate">
+</app-order-template-details-component>
 
-
-<app-order-template-details-component *ngIf="orderTemplateToEdit" [pickedOrderTemplate]="pickedOrderTemplate"></app-order-template-details-component>
-
-<app-order-template-component *ngIf="orderTemplateInfo"  [pickedOrderTemplate]="pickedOrderTemplate"></app-order-template-component>
-<button *ngIf="editButton"(click)="EditButtonClick()">Edytuj ten template</button>
+<app-order-template-component *ngIf="orderTemplateInfo" [pickedOrderTemplate]="pickedOrderTemplate">
+</app-order-template-component>
+<button *ngIf="editButton" (click)="EditButtonClick()">Edytuj ten template</button>
 <form #form="ngForm" autocomplete="off">
 
     <div class="form-group">
@@ -74,7 +74,7 @@
 
 
         <!-- grupa inputu - tutaj razem zgrupowana np ikona jakaś -->
-        <div class="row input-group" *ngIf="orderDetails.User">
+        <div class="row input-group hoverable" (click)="ShowUserDetail()" *ngIf="orderDetails.User">
             <div class="col-md-3 col-md-offset-3"></div>
             <!-- [co się dzieje z klasą]="warunek" -->
             <div class="col-md-3 input-group-text bg-info">
@@ -86,7 +86,7 @@
                     Nazwisko
                 </div> -->
             <div class="col-md-3 input-group-text">
-                {{ orderDetails.User.FirstName}} {{  orderDetails.User.Surname}}
+                {{ orderDetails.User.FirstName}} {{ orderDetails.User.Surname}}
             </div>
         </div>
         <div class="row input-group">
@@ -101,7 +101,7 @@
                     Nazwisko
                 </div> -->
             <div class="col-md-3 input-group-text">
-                {{  orderDetails.Cost}}
+                {{ orderDetails.Cost}}
             </div>
         </div>
         <div *ngIf="orderDetails.OrderDate">
@@ -137,7 +137,7 @@
                     Nazwisko
                 </div> -->
                 <div class="col-md-3 input-group-text">
-                    {{  orderDetails.IsOrderCompleted}}
+                    {{ orderDetails.IsOrderCompleted}}
                 </div>
             </div>
             <div class="row input-group">
@@ -152,7 +152,7 @@
                     Nazwisko
                 </div> -->
                 <div class="col-md-3 input-group-text">
-                    {{  orderDetails.OrderDate}}
+                    {{ orderDetails.OrderDate}}
                 </div>
             </div>
         </div>
@@ -217,4 +217,4 @@
 </form>
 
 <input *ngIf="!orderDetails.IsPaid" type="button" (click)="PayForOrder()" class="col-md-2 btn  btn-info"
-value="Zapłać (PayU)" />
+    value="Zapłać (PayU)" />

@@ -13,13 +13,14 @@ import { Router } from '@angular/router';
 })
 export class ManageOrderComponent implements OnInit {
 
-  constructor(private userService:UserService,private orderService:OrderService,private router:Router) { }
-  @Input() set OrderInput(order:Order){
-    this.orderInput=order;
+  constructor(private userService: UserService, private orderService: OrderService, private router: Router) { }
+  @Input() set OrderInput(order: Order) {
+    this.orderInput = order;
   };
-  orderInput:Order;
-  @Input() OnClickFunction:()=>void;
-  @Input() OnRemoveFunction:()=>void;
+  orderInput: Order;
+  @Input() OnClickFunction: () => void;
+  @Input() OnRemoveFunction: () => void;
+  @Input() ShowUserData: () => void;
   // orderdetails:Order;
   // get OrderDetails(){
   //   return   this.OrderInput;
@@ -29,86 +30,99 @@ export class ManageOrderComponent implements OnInit {
   // }
   ngOnInit(): void {
   }
-  CheckIfEmployer(){
-    return this.userService.GetUserRights()>=UserRights.EmployeeUser;
+  CheckIfEmployer() {
+    return this.userService.GetUserRights() >= UserRights.EmployeeUser;
   }
-  StartOrder(){
-    this.orderService.startOrder(this.orderInput,true).subscribe(
-      (value)=>{
+  StartOrder() {
+    this.orderService.startOrder(this.orderInput, true).subscribe(
+      (value) => {
 
-        this.orderInput=value.value;
-        if(this.OnClickFunction){
+        this.orderInput = value.value;
+        if (this.OnClickFunction) {
           this.OnClickFunction();
         }
-       
+
       },
-       ()=>{//complete
+      () => {//complete
         console.log("start order completed");
       }
     );
   }
-  BackStartOrder(){
-    this.orderService.startOrder(this.orderInput,false).subscribe(
-      (value)=>{
+  PaidOnSpot() {
+    if (confirm('Czy ten użytkownik na pewno zapłacił na miejscu? Tej operacji nie da się cofnąć')) {
+      console.log(this.orderInput)
+      this.orderService.PayOnSpotForOrder(this.orderInput).subscribe(
+        (value) => {
+          this.orderInput = value.value
+          if (this.OnClickFunction) {
+            this.OnClickFunction();
+          }
+        }
+      )
+    }
+  }
+  BackStartOrder() {
+    this.orderService.startOrder(this.orderInput, false).subscribe(
+      (value) => {
 
-     
-        this.orderInput=value.value;
-        if(this.OnClickFunction){
+
+        this.orderInput = value.value;
+        if (this.OnClickFunction) {
           this.OnClickFunction();
         }
-       
+
       },
-       ()=>{//complete
+      () => {//complete
         console.log("Back start order completed");
       }
-      
+
 
     );
   }
-  EndOrder(){
-    this.orderService.endOrder(this.orderInput,true).subscribe(
-      (value)=>{
+  EndOrder() {
+    this.orderService.endOrder(this.orderInput, true).subscribe(
+      (value) => {
 
-        if(this.OnClickFunction){
+        if (this.OnClickFunction) {
           this.OnClickFunction();
-      
+
         }
-       
-        this.orderInput=value.value;
-    
+
+        this.orderInput = value.value;
+
       },
-      ()=>{//complete
+      () => {//complete
       }
 
     );
   }
 
-  BackEndOrder(){
-    this.orderService.endOrder(this.orderInput,false).subscribe(
-      (value)=>{
+  BackEndOrder() {
+    this.orderService.endOrder(this.orderInput, false).subscribe(
+      (value) => {
 
-        if(this.OnClickFunction){
+        if (this.OnClickFunction) {
           this.OnClickFunction();
         }
-       
-        this.orderInput=value.value;
-    
+
+        this.orderInput = value.value;
+
       },
-      ()=>{//complete
+      () => {//complete
       }
 
     );
   }
-  RemoveOrder(){
-    if(confirm("Na pewno chcesz usunąć to zlecenie? Ta operacja jest nieodwracalna")){
+  RemoveOrder() {
+    if (confirm("Na pewno chcesz usunąć to zlecenie? Ta operacja jest nieodwracalna")) {
       this.orderService.DeleteOrder(this.orderInput.OrderId).subscribe(
-        (result:Result<Order>)=>{
-          if(result.status){
+        (result: Result<Order>) => {
+          if (result.status) {
             alert("Poprawnie usunięto zlecenie");
-            if(this.OnRemoveFunction){
+            if (this.OnRemoveFunction) {
               this.OnRemoveFunction();
             }
-           
+
           }
         }
       );

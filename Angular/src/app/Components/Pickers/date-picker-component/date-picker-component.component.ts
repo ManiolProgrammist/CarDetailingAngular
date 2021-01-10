@@ -13,7 +13,7 @@ import { OrderService } from 'src/app/shared/services/order.service';
 
 export class DatePickerComponentComponent implements OnInit {
   @Input() CustomPickDateBehaviour: (date: Date) => void;
- 
+
   today: Date;
   currentMonth: number;
   currentYear: number;
@@ -28,7 +28,7 @@ export class DatePickerComponentComponent implements OnInit {
   public showHours: boolean;
   public freeHours: Array<Date[]>;
   public pickedDayInfo: DayInfo;
-  constructor(private optionsService: OptionsService,private  orderService:OrderService) {
+  constructor(private optionsService: OptionsService, private orderService: OrderService) {
     this.daysInMonthList = new Array<Week>();
     this.today = new Date();
     this.currentYear = this.today.getFullYear();
@@ -93,42 +93,51 @@ export class DatePickerComponentComponent implements OnInit {
   addDayInfoToList(dayListPom: Array<Week>, showDayList: Array<Week>, month: number, year: number) {
 
     var dayInfoAr = new Array<DayInfo>();
-    if(this.orderService.NewOrder.OrdersTemplate){
-    this.optionsService.GetFreeDaysInMonthWithOrderTemplId(month, year, this.orderService.NewOrder.OrdersTemplate.OrderTemplateId).subscribe((data: Result<Array<DayInfo>>) => {
-      console.log("GetDaysInMonth date picker", data);
-      if (data.status) {
-        //clear old array;
-        showDayList.length = 0;
-        data.value.forEach(element => {
-          dayInfoAr.push(new DayInfo().deserialize(element))
-        });
-        var licznik = 0;
-        //zapełnianie tablicy pomocniczej
-        dayListPom.forEach(element => {
-          element.days.forEach(element2 => {
-            element2.dayInfo = new DayInfo();
-            if (element2.dayNr != 0) {
-              element2.dayInfo = dayInfoAr[licznik];
-              licznik = licznik + 1;
-            }
+    if (this.orderService.NewOrder.OrdersTemplate) {
+      this.optionsService.GetFreeDaysInMonthWithOrderTemplId(month, year, this.orderService.NewOrder.OrdersTemplate.OrderTemplateId).subscribe((data: Result<Array<DayInfo>>) => {
+        console.log("GetDaysInMonth date picker", data);
+        if (data.status) {
+          //clear old array;
+          showDayList.length = 0;
+          data.value.forEach(element => {
+            dayInfoAr.push(new DayInfo().deserialize(element))
           });
-        });
-        // showDayList=dayListPom.slice();
-        //copy to main array;
-        dayListPom.forEach(week => {
-          showDayList.push(week);
-        })
-        console.log("ShowDayList:", dayListPom);
+          var licznik = 0;
+          //zapełnianie tablicy pomocniczej
+          dayListPom.forEach(element => {
+            element.days.forEach(element2 => {
+              element2.dayInfo = new DayInfo();
+              if (element2.dayNr != 0) {
+                element2.dayInfo = dayInfoAr[licznik];
+                licznik = licznik + 1;
+              }
+            });
+          });
+          // showDayList=dayListPom.slice();
+          //copy to main array;
+          dayListPom.forEach(week => {
+            week.days.forEach(day => {
+              if (day.dayInfo.IsOpen) {
+                this.optionsService.GetFreeHoursInDayWithOrderTemplId(day.dayNr, this.showMonth + 1, this.showYear, this.orderService.NewOrder.OrdersTemplate.OrderTemplateId).subscribe((data: Result<Array<Date[]>>) => {
+                  if (data.status == false) {
+                    day.dayInfo.IsOpen = false;
+                  }
+                })
+              }
+            })
+            showDayList.push(week);
+          })
+          // console.log("ShowDayList:", dayListPom);
 
-      } else {
-        console.log("GetDaysInMonth date picker", data.info);
-      }
+        } else {
+          // console.log("GetDaysInMonth date picker", data.info);
+        }
 
-    })
-  }else{
-    console.log("brak this.orderService.NewOrder.OrdersTemplate.OrderTemplateId ")
+      })
+    } else {
+      alert("brak OrderTemplateId ")
+    }
   }
-}
 
   previous() {
 
@@ -177,7 +186,7 @@ export class DatePickerComponentComponent implements OnInit {
       if (day.dayInfo.IsOpen) {
         this.optionsService.GetFreeHoursInDayWithOrderTemplId(day.dayNr, this.showMonth + 1, this.showYear, this.orderService.NewOrder.OrdersTemplate.OrderTemplateId).subscribe((data: Result<Array<Date[]>>) => {
           if (data.status) {
-            this.freeHours=new Array<Date[]>();
+            this.freeHours = new Array<Date[]>();
             data.value.forEach(e => {
               var arr = new Array<Date>();
               arr.push(new Date(e[0]))

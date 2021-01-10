@@ -1,2 +1,6 @@
-<app-user-list-component></app-user-list-component>
-<app-user-detail-component></app-user-detail-component>
+<app-user-detail-component  *ngIf="userFormData!=null" [userTypeIdDisplay]="userTypeIdDisplay" [userFormData]="userFormData" [RefreshUserList]="RefreshList.bind(this)">
+
+</app-user-detail-component>
+<app-user-list-component [CustomPickUserBehaviour]="CustomPickUserBehaviour.bind(this)"
+    [UserListFilter]="UserListFilter.bind(this)" [userList]="displayUserList" [nameList]="nameList"
+    [surnameList]="surnameList" [emailList]="emailList" [phoneList]="phoneList"></app-user-list-component>

@@ -1,40 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/shared/services/user.service';
-import { UtilityService } from 'src/app/shared/services/utility.service';
 import { User } from 'src/app/shared/UserModels/user.model';
 
 @Component({
-  selector: 'app-users-editor',
-  templateUrl: './users-editor.component.html',
-  styleUrls: ['./users-editor.component.css']
+  selector: 'app-user-picker',
+  templateUrl: './user-picker.component.html',
+  styleUrls: ['./user-picker.component.css']
 })
-//as employee/admin display entire user list
-export class UsersEditorComponent implements OnInit {
-  public userList: User[];
-  public nameList: string[];
-  public surnameList: string[];
-  public emailList: string[];
-  public phoneList: string[];
-  public displayUserList: User[];
-  public userFormData: User;
-  public userTypeIdDisplay: number;
-  public confirmPassword: string;
-  constructor(private userService: UserService, public router: Router, private utilityService: UtilityService) {
+export class UserPickerComponent implements OnInit {
+
+  constructor(private userService: UserService, public router: Router) {
     this.userList = new Array<User>();
     this.displayUserList = new Array<User>();
     this.nameList = new Array<string>();
     this.surnameList = new Array<string>();
     this.emailList = new Array<string>();
     this.phoneList = new Array<string>();
-    this.userFormData = null;
   }
-  CustomPickUserBehaviour(user: User) {
-    this.userFormData = this.utilityService.SimpleClone(user); //default behaviour -> dlatego że w menu wywołujemy to przez router link a nie jako chlidren object
-    this.userTypeIdDisplay = user.UserTypeId;
-    this.userService.userIdChoosedFromList = this.userFormData.UserId;
-  };
-  ngOnInit() {
+  public userList: User[];
+  public nameList: string[];
+  public surnameList: string[];
+  public emailList: string[];
+  public phoneList: string[];
+  public displayUserList: User[];
+  @Input() CustomUserPickBehaviour: (user: User) => void;
+  ngOnInit(): void {
     this.RefreshList();
   }
   UserListFilter(name: string, surname: string, email: string, phone: string) {
@@ -64,7 +55,6 @@ export class UsersEditorComponent implements OnInit {
     this.userService.GetAll().toPromise().then(
       res => {
         if (res["status"]) {
-          this.userList.splice(0, this.userList.length);
           var pom = JSON.parse(JSON.stringify(res))["value"] as User[];
           this.userList.splice(0, this.userList.length);
           this.nameList.splice(0, this.nameList.length);
@@ -80,6 +70,7 @@ export class UsersEditorComponent implements OnInit {
             this.emailList.push(u.Email);
             this.phoneList.push(u.PhoneNumber);
           })
+          console.log(this.displayUserList);
         } else {
           console.log("RefreshListError");
           console.log(res["info"]);
@@ -93,3 +84,4 @@ export class UsersEditorComponent implements OnInit {
     );
   }
 }
+

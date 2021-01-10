@@ -9,6 +9,7 @@ import { User } from 'src/app/shared/UserModels/user.model';
   templateUrl: './accept-order-info.component.html',
   styleUrls: ['./accept-order-info.component.css']
 })
+//descr: after choosing everything for order this is last page for accepting
 export class AcceptOrderInfoComponent implements OnInit {
 
   constructor(private utilityService: UtilityService) { }
@@ -44,7 +45,8 @@ export class AcceptOrderInfoComponent implements OnInit {
   AddMinutesToDate(): string {
     if (this.order.ExpectedStartOfOrder && this.orderTemplate) {
 
-      this.expectedEnd = this.utilityService.AddTime(this.order.ExpectedStartOfOrder, this.orderTemplate.ExpectedTime);
+      console.log(this.order.ExpectedStartOfOrder)
+      this.expectedEnd = this.utilityService.AddTime(new Date(this.order.ExpectedStartOfOrder), this.orderTemplate.ExpectedTime);
 
       return this.CutDate(this.expectedEnd);
     } else {

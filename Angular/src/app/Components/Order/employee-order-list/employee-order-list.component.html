@@ -1,3 +1,14 @@
-Lista Wszystkich zleceń
-<app-manage-order [OrderInput]="pickedOrder" *ngIf="pickedOrder" [OnClickFunction]="RefreshList.bind(this)" [OnRemoveFunction]="RefreshPage.bind(this)"> </app-manage-order>
-<app-order-list-component [OrderList]="orderUserList" [ShowOrderInput]="ShowUserOrderDetails.bind(this)"></app-order-list-component>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-5"></div>
+        <div class="col-md-2">Lista wszystkich zleceń</div>
+        <div class="col-md-5"></div>
+    </div>
+    <app-user-detail-component  *ngIf="pickedUser!=null" [userTypeIdDisplay]="userTypeIdDisplay" [userFormData]="pickedUser">
+
+    </app-user-detail-component>
+    <app-manage-order [OrderInput]="pickedOrder" *ngIf="pickedOrder" [OnClickFunction]="RefreshList.bind(this)"
+        [OnRemoveFunction]="RefreshPage.bind(this)" [ShowUserData]="ShowUserData.bind(this)"> </app-manage-order>
+    <app-order-list-component [OrderList]="orderUserList" [ShowOrderInput]="ShowUserOrderDetails.bind(this)">
+    </app-order-list-component>
+</div>

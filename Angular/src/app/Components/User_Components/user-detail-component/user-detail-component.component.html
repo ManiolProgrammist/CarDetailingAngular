@@ -14,20 +14,15 @@
 
             <!-- [co się dzieje z klasą]="warunek" -->
             <div class="offset-md-3"></div>
-            <div *ngIf="!IsEdit" class="col-md-2 input-group-text bg-info">
-                Login
-            </div>
-            <div *ngIf="IsEdit" class="col-md-2 input-group-text" [class.bg-info]="!Login.touched"
-                [class.bg-success]="Login.valid && Login.touched"
-                [class.bg-danger]="Login.invalid && Login.touched">
+            <div class="col-md-2 input-group-text bg-info">
                 Login
             </div>
 
             <!-- #FirstName - local reference -->
             <!-- two way data binding [(ngModel)]="userService.FirstName" nazwa z property "userService" w payment-detail.component.ts (to co dajemy w konstruktorze) -->
 
-            <input type="text" name="Login" #Login="ngModel" [(ngModel)]="userService.userFormData.Login"
-                class="col-md-4 form-control" placeholder="Login" [readonly]="!IsEdit" required />
+            <input type="text" name="Login" #Login="ngModel" [(ngModel)]="userFormData.Login"
+                class="col-md-4 form-control" placeholder="Login" [readonly]="1" required />
 
         </div>
         <div class="row input-group">
@@ -44,9 +39,7 @@
             </div>
 
             <!-- #FirstName - local reference -->
-            <!-- two way data binding [(ngModel)]="userService.FirstName" nazwa z property "userService" w payment-detail.component.ts (to co dajemy w konstruktorze) -->
-
-            <input type="text" name="FirstName" #FirstName="ngModel" [(ngModel)]="userService.userFormData.FirstName"
+            <input type="text" name="FirstName" #FirstName="ngModel" [(ngModel)]="userFormData.FirstName"
                 class="col-md-4 form-control" placeholder="User First Name" [readonly]="!IsEdit" required />
 
         </div>
@@ -66,7 +59,7 @@
             </div>
 
 
-            <input type="text" name="Surname" #Surname="ngModel" [(ngModel)]="userService.userFormData.Surname"
+            <input type="text" name="Surname" #Surname="ngModel" [(ngModel)]="userFormData.Surname"
                 class="col-md-4 form-control" placeholder="User Surname" required [readonly]="!IsEdit" />
         </div>
 
@@ -81,9 +74,9 @@
                 Numer Tel.
             </div>
 
-            <input type="text" name="PhoneNumber" #PhoneNumber="ngModel"
-                [(ngModel)]="userService.userFormData.PhoneNumber" class="col-md-4 form-control"
-                placeholder="Numer telefonu" [pattern]="userService.regexPhoneNumber" required maxlength="15" minlength="9" [readonly]="!IsEdit" />
+            <input type="text" name="PhoneNumber" #PhoneNumber="ngModel" [(ngModel)]="userFormData.PhoneNumber"
+                class="col-md-4 form-control" placeholder="Numer telefonu" [pattern]="regexPhoneNumber" required
+                maxlength="15" minlength="9" [readonly]="!IsEdit" />
         </div>
 
         <div class="row input-group">
@@ -98,8 +91,8 @@
             </div>
 
 
-            <input type="text" name="Email" #Email="ngModel" [(ngModel)]="userService.userFormData.Email"
-                class="col-md-4 form-control" placeholder="User Email" required [pattern]="userService.regexEmail"
+            <input type="text" name="Email" #Email="ngModel" [(ngModel)]="userFormData.Email"
+                class="col-md-4 form-control" placeholder="User Email" required [pattern]="regexEmail"
                 [readonly]="!IsEdit" />
 
         </div>
@@ -107,32 +100,34 @@
             <div class="offset-md-3"></div>
 
             <div class="col-md-2 input-group-text bg-info">
-                Data utworzenia 
+                Data utworzenia
             </div>
             <input type="text" name="AccoutCreateDate" #AccoutCreateDate="ngModel"
-                [(ngModel)]="userService.userFormData.AccoutCreateDate" class="col-md-4 form-control"
+                [(ngModel)]="userFormData.AccoutCreateDate" class="col-md-4 form-control"
                 placeholder="User AccoutCreateDate" readonly="true" />
         </div>
 
         <div class="row  input-group" for="IsAdminCheck">
             <div class="offset-md-3"></div>
 
-         
-                <!-- //class=" col-md-6 bg-info input-group-text" -->
-                <div class="col-md-2 input-group-text bg-info">
+
+            <!-- //class=" col-md-6 bg-info input-group-text" -->
+            <div class="col-md-2 input-group-text bg-info">
                 Prawa Użytkownika
-                </div>
-                <div class="col-md-4">
-                  <select  [disabled]="!IsAdminAndEdit()" class="w-100 h-100" name="userTypeSelect" #userTypeSelect="ngModel" [(ngModel)]="userService.UserRInUserDetail" >   <!-- //(change)="filterForeCasts($event.target.value)" -->
-                        
-                        <option  class="w-100 h-100" *ngFor="let ut of UserTypesList" [ngValue]="ut.UserTypeId">
-                            {{ut.Name}}
-                        </option>
-                    </select>
-                </div>
-                <!-- <input name="IsAdminInput" #IsAdminInput="ngModel" [(ngModel)]="userService.userFormData.IsAdmin"
+            </div>
+            <div class="col-md-4">
+                <select [disabled]="!IsAdminAndEdit()" class="w-100 h-100" name="userTypeSelect"
+                    #userTypeSelect="ngModel" [(ngModel)]="userTypeIdDisplay">
+                    <!-- //(change)="filterForeCasts($event.target.value)" -->
+
+                    <option class="w-100 h-100" *ngFor="let ut of UserTypesList" [ngValue]="ut.UserTypeId">
+                        {{ut.Name}}
+                    </option>
+                </select>
+            </div>
+            <!-- <input name="IsAdminInput" #IsAdminInput="ngModel" [(ngModel)]="userService.userFormData.IsAdmin"
                     class="col-md-6" type="checkbox" id="IsAdminInput" [disabled]="!IsAdminAndEdit() " /> -->
-           
+
         </div>
         <!-- <div class="row input-group">
             <div class="offset-md-3"></div>
@@ -147,17 +142,44 @@
 
 
         <!-- [co się dzieje z klasą]="warunek" -->
-        <div class="row  input-group">
-            <div class="offset-md-3"></div>
-            <input *ngIf="IsEdit" type="button" class="col-md-6 btn btn-success btn-lg btn-block"
-                [disabled]="form.invalid" (click)="AcceptEdit()" value="Zatwierdź" />
-            <input *ngIf="!IsEdit" type="button" class="col-md-6 btn btn-success btn-lg btn-block"
-                (click)="EditThisForm()" value="Edytuj" />
+        <div class="row input-group">
+            <div class="col-md-3"></div>
+
+            <button *ngIf="!IsEdit" type="button" class="col btn btn-success" (click)="EditThisForm()">
+
+                Edytuj
+            </button>
+
+            <button *ngIf="IsEdit" type="button" width="100%" class="col btn btn-success " [disabled]="form.invalid"
+                (click)="AcceptEdit()">
+                Zatwierdź
+            </button>
+
+
+            <button *ngIf="IsEdit" type="button" class="col btn btn-info " (click)="CancelEdit()" value="Anuluj"
+                style="margin-left: 1px;">
+                Anuluj
+            </button>
+
+
+
+            <button type="button" class="col btn btn-danger" (click)="RemoveUser()" value="Usuń">
+                Usuń
+            </button>
+
+            <div class="col-md-3"></div>
+
         </div>
-        <div class="row  input-group">
-            <div class="offset-md-3"></div>
-            <input type="button" class="col-md-6 btn btn-danger btn-lg btn-block" (click)="RemoveUser()" value="Usuń" />
+        <div class="row input-group">
+            <div class="col-md-3"></div>
+            <button type="button" class="col btn btn-secondary" (click)="GoToOrderList()" value="Usuń">
+                Przejdź do listy zamówień
+            </button>
+            <div class="col-md-3"></div>
+
         </div>
+
+
 
 
     </div>

@@ -1,78 +1,85 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-md-8">
+
+            <form #form="ngForm" autocomplete="off">
+                <div class="form-group">
+
+                    <div class="row input-group">
+
+                        <div class="col-md-5 bg-info input-group-text" width="100%">
+                            Nazwa
+                        </div>
+
+
+                        <div name="Nazwa" class="col-md-7 myCSS ">
+                            {{pickedOrderTemplate.Name}}
+                        </div>
+                    </div>
+
+                    <div class="row input-group">
+
+
+                        <div class="col-md-5 bg-info  input-group-text">
+                            Koszt Min
+                        </div>
+
+
+                        <div class="myCSS col-md-7" name="MinCost">
+
+                            {{pickedOrderTemplate.MinCost}}
+                        </div>
+                    </div>
+
+                    <div class="row input-group">
+
+                        <div class="col-md-5 input-group-text bg-info">
+                            Koszt Max
+                        </div>
+
+                        <div name="MaxCost" class="col-md-7 myCSS">
+                            {{pickedOrderTemplate.MaxCost}}
+                        </div>
+                    </div>
+                    <div class="row input-group">
+
+
+                        <div class="col-md-5 bg-info input-group-text">
+                            Informacje Dodatkowe
+                        </div>
+
+
+                        <div name="AdditionalInformation" class="col-md-7 myCSS" required>
+                            {{pickedOrderTemplate.AdditionalInformation}}
+                        </div>
+                    </div>
+                    <div class="row input-group">
+
+
+                        <div class="col-md-5 input-group-text bg-info">
+                            ExpectedTime
+                        </div>
+
+                        <div class="col-md-4">godziny:minuty:sekundy</div>
+                        <div name="ExpectedTimeHours" class="col-md-3 myCSS" height="100%">
+                            {{pickedOrderTemplate.ExpectedTime}}
+                        </div>
+
+
+                    </div>
 
 
 
 
-<form #form="ngForm" autocomplete="off">
-    <div class="form-group">
 
-        <div class="row input-group">
 
-            <div class="col-md-2 bg-info input-group-text" width="100%">
-                Nazwa
-            </div>
 
-      
-            <div name="Nazwa" class="col-md-3 myCSS ">
-                {{pickedOrderTemplate.Name}}
-            </div>
+                </div>
+            </form>
+
         </div>
-
-        <div class="row input-group">
-
-
-            <div class="col-md-2 bg-info  input-group-text">
-                Koszt Minimalny
-            </div>
-
-
-            <div class="myCSS col-md-3" name="MinCost">
-
-                {{pickedOrderTemplate.MinCost}}
-            </div>
-        </div>
-
-        <div class="row input-group">
-
-            <div class="col-md-2 input-group-text bg-info">
-                Koszt Maxymalny
-            </div>
-
-            <div name="MaxCost" class="col-md-3 myCSS">
-                {{pickedOrderTemplate.MaxCost}}
-            </div>
-        </div>
-        <div class="row input-group">
-
-
-            <div class="col-md-2 bg-info input-group-text">
-                Informacje Dodatkowe
-            </div>
-
-
-            <div name="AdditionalInformation" class="col-md-3 myCSS" required>
-                {{pickedOrderTemplate.AdditionalInformation}}
-            </div>
-        </div>
-        <div class="row input-group">
-
-
-            <div class="col-md-2 input-group-text bg-info">
-                ExpectedTime
-            </div>
-
-            <div class="col-md-2">godziny:minuty:sekundy</div>
-            <div name="ExpectedTimeHours" class="col-md-1 myCSS" height="100%">
-                {{pickedOrderTemplate.ExpectedTime}}
-            </div>
-
-
-        </div>
-
-
-
-
-
-
-
+        <div class="col"></div>
     </div>
-</form>
+
+</div>

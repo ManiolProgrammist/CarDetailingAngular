@@ -39,6 +39,9 @@ export class OrderService {
   endOrder(order: Order, end: boolean): Observable<Result<Order>> {
     return this.http.put<Result<Order>>(StaticInfo.getRootUrl() + 'Order/End/' + end, order).pipe(catchError(this.errorHandler));
   }
+  PayOnSpotForOrder(order:Order): Observable<Result<Order>> {
+    return this.http.put<Result<Order>>(StaticInfo.getRootUrl() + 'Order/PaidOnTheSpot',order).pipe(catchError(this.errorHandler));
+  }
   GetAll(): Observable<Result<Order[]>> {
     return this.http.get<Result<Order[]>>(StaticInfo.getRootUrl() + 'Order').pipe(
       map((entries: any) => {
@@ -51,6 +54,22 @@ export class OrderService {
 
         catchError(this.errorHandler)));
   }
+  //get user order by id
+  GetUserOrderById(id: number): Observable<Result<Order[]>> {
+    return this.http.get<Result<Order[]>>(StaticInfo.getRootUrl() + 'UserOrders/' + id).pipe(
+      map((entries: any) => {
+        var orders = new Array<Order>();
+        entries.value.forEach(element => {
+          orders.push(new Order().deserialize(element));
+        });
+        return new Result<Order[]>().deserialize(entries, orders);
+      },
+        catchError(this.errorHandler)));
+
+  }
+
+
+  //get logged user order
   GetUserOrders(): Observable<Result<Order[]>> {
     return this.http.get<Result<Order[]>>(StaticInfo.getRootUrl() + 'UserOrders').pipe(
       map((entries: any) => {
@@ -64,10 +83,8 @@ export class OrderService {
 
   }
   Get(id: number): Observable<Result<Order>> {
-    console.log("Get1");
     return this.http.get<Result<Order>>(StaticInfo.getRootUrl() + 'Order/' + id).pipe(
       map((entr: any) => {
-        console.log("get2");
         if (entr.status) {
           return new Result<Order>().deserialize(entr, new Order().deserialize(entr.value));
         }
