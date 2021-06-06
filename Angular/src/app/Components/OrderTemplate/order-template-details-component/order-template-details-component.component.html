@@ -60,9 +60,10 @@
                         </div>
 
 
-                        <input name="AdditionalInformation" #AdditionalInformation="ngModel"
+                        <textarea  name="AdditionalInformation" #AdditionalInformation="ngModel"
                             [(ngModel)]="EditOrderTemplate.AdditionalInformation" class="col-md-7 form-control"
-                            placeholder="User AdditionalInformation" required />
+                            placeholder="User AdditionalInformation" required >
+                        </textarea>
                     </div>
                     <div class="row input-group">
 
@@ -94,8 +95,8 @@
 
                             <input type="file" accept="image/jpeg" *ngIf="photoFlag" (change)="OnFileChanged($event)"
                                 value="Wybierz zdjęcie">
-                            <div *ngIf="TestOrdetTemplateImageArray">
-                                <img *ngIf="TestOrdetTemplateImageArray[0]"
+                            <div  *ngIf="TestOrdetTemplateImageArray">
+                                <img  class="col-md-6 center-block text-center" *ngIf="TestOrdetTemplateImageArray[0]"
                                     src="data:image/jpg;base64,{{TestOrdetTemplateImageArray[0].Image}}"
                                     id="photo-id" />
                             </div>

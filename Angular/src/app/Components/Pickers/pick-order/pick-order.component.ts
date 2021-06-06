@@ -252,11 +252,12 @@ export class PickOrderComponent implements OnInit, AfterViewInit {
         this.pickedOrder=new Order();
         this.router.navigate(["User_Orders"]);
       }else{
-        console.log("PostOrderError",data.info);
+        alert("PostOrderError"+data.info)
       }
     },
     (error:any)=>{
-      console.log("PostOrderError",error);
+      alert("PostOrderError");
+      console.log(error);
     }
     )
   }

@@ -11,79 +11,76 @@
         <div style="padding-left: 4px;"></div>
         <input type="button" class=" col btn btn-info btn-block" (click)="ShowFiltered(3)" value="Zakończone" />
         <div style="padding-left: 4px;"></div>
-        <input type="button" class=" col  btn btn-secondary btn-block" (click)="ShowFiltered(4)" value="Nie zakończone" />
+        <input type="button" class=" col  btn btn-secondary btn-block" (click)="ShowFiltered(4)"
+            value="Nie zakończone" />
         <div style="padding-left: 4px;"></div>
         <input type="button" class=" col  btn btn-info btn-block" (click)="ShowFiltered(5)" value="Opłacone" />
         <div style="padding-left: 4px;"></div>
         <input type="button" class=" col  btn btn-secondary btn-block" (click)="ShowFiltered(6)" value="Nie opłacone" />
+        <div style="padding-left: 4px;"></div>
+        <input type="button" class=" col  btn btn-info btn-block" (click)="ShowFiltered(7)" value="Tylko aktualne" />
     </div>
-    <div class="ScrollClass">
+    <div class="ScrollClass container-fluid">
         <div class="row  row-eq-height ">
-            <div class="col-md-1" width="100%" height="100%">
-                Id Zlecenia
+            <div class="col col-sm-1" width="100%" height="100%">
+                Id
             </div>
-            <!-- <div class="col-md-1" width="100%" height="100%">
+            <!-- <div class="col-sm-1" width="100%" height="100%">
             Id Użytkownika
         </div> -->
-            <div class="col-md-3 hoverable" width="100%" height="100%" (click)="SortByUserName()">
+            <div class="col col-sm-3" width="100%" height="100%" (click)="SortByUserName()">
                 Użytkownik
             </div>
-            <div class="col-md-2 hoverable" width="100%" height="100%" (click)="SortByTemplateName()">
+            <div class="col col-sm-2 hoverable" width="100%" height="100%" (click)="SortByTemplateName()">
                 Nazwa Szablonu
             </div>
 
-            <div class="col-md-2 hoverable" width="100%" height="100%" (click)="SortByDate()">
+            <div class="col col-sm-2 hoverable" width="100%" height="100%" (click)="SortByDate()">
                 Przewidywany start
             </div>
             <!-- <div class="col-sm-1" width="100%" height="100%">
             Data Zakończenia
         </div> -->
-            <div class="col-sm-1 hoverable" width="100%" height="100%" (click)="SortByCost()">
+            <div class="col col-sm-1 hoverable" width="100%" height="100%" (click)="SortByCost()">
                 Cena
             </div>
-            <div class="col-sm-1" width="100%" height="100%">
+            <div class="col col-sm-1" width="100%" height="100%">
                 Zaczęte
             </div>
-            <div class="col-sm-1" width="100%" height="100%">
+            <div class="col col-sm-1" width="100%" height="100%">
                 Zakończone
             </div>
-            <div class="col-sm-1" width="100%" height="100%">
+            <div class="col col-sm-1" width="100%" height="100%">
                 Opłacone
             </div>
         </div>
-
-
-        <div class="container-fluid" *ngFor="let ul of orderListShow">
-
-            <div class="row  row-eq-height hoverable" (click)="ShowOrder(ul)">
-                <div class="col col-sm-1" width="100%" height="100%">
-                    {{ul.OrderId}}
-                </div>
-                <!-- <div class="col-md-1" width="100%" height="100%">
+        <div *ngFor="let ul of orderListShow" class="row  row-eq-height hoverable" (click)="ShowOrder(ul)">
+            <div class="col col-sm-1" width="100%" height="100%">
+                {{ul.OrderId}}
+            </div>
+            <!-- <div class="col-sm-1" width="100%" height="100%">
             {{ul.UserId}}
         </div> -->
-                <div class="col col-md-3" width="100%" height="100%">
-                    {{ul.User.FirstName}} {{ul.User.Surname}}
-                </div>
-                <div class="col col-md-2" width="100%" height="100%">
-                    {{ul.OrdersTemplate.Name}}
-                </div>
-                <div class="col col-md-2" width="100%" height="100%">
-                    {{CutDate(ul.ExpectedStartOfOrder)}}
-                </div>
-                <div class="col col-md-1" width="100%" height="100%">
-                    {{ul.Cost}}
-                </div>
-                <div class="col col-md-1" width="100%" height="100%">
-                    {{ul.IsOrderStarted==true ? "Tak":"Nie"}}
-                </div>
-                <div class="col col-md-1" width="100%" height="100%">
-                    {{ul.IsOrderCompleted==true ? "Tak":"Nie"}}
-                </div>
-                <div class="col col-md-1" width="100%" height="100%">
-                    {{ul.IsPaid==true ? "Tak":"Nie"}}
-                </div>
-
+            <div class="col col-sm-3" width="100%" height="100%">
+                {{ul.User.FirstName}} {{ul.User.Surname}}
+            </div>
+            <div class="col col-sm-2" width="100%" height="100%">
+                {{ul.OrdersTemplate.Name}}
+            </div>
+            <div class="col col-sm-2" width="100%" height="100%">
+                {{CutDate(ul.ExpectedStartOfOrder)}}
+            </div>
+            <div class="col col-sm-1" width="100%" height="100%">
+                {{ul.Cost}}
+            </div>
+            <div class="col col-sm-1" width="100%" height="100%">
+                {{ul.IsOrderStarted==true ? "Tak":"Nie"}}
+            </div>
+            <div class="col col-sm-1" width="100%" height="100%">
+                {{ul.IsOrderCompleted==true ? "Tak":"Nie"}}
+            </div>
+            <div class="col col-sm-1" width="100%" height="100%">
+                {{ul.IsPaid==true ? "Tak":"Nie"}}
             </div>
 
         </div>

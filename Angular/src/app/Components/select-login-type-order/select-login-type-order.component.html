@@ -1,17 +1,49 @@
 <div class="container">
-
-    <div class="col-sm-10 col-offset-sm-2">
-        <app-login-component [LogInFromDiffrentSource]="LogInFromThere.bind(this)"></app-login-component>
-    </div>
-    <form #form="ngForm" autocomplete="off" >
-        <div class="row">
-            Zamów za pomocą tymczasowego konta bez rejestracji.
-            <input type="text" class="col-sm-4 col-offset-sm-2" name="Email" [(ngModel)]="Email" [pattern]="EmailRegex"
-                value="PrzykladowyEmail@gmail.com">
-
-            <input class="btn btn-primary" value=" Zamów bez logowania" (click)="OrderWithoutLogin()" [disabled]="form.invalid">
+    <div class="row">
+        <div class="col-offset-sm-2">
 
         </div>
-    </form>
+        <div class="col">
+            Aby kontynuować wybierz jedną z dostęptnych opcji:      <br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="row">
+          
+                <div class="col"> <b>Zaloguj się do istniejącego konta</b>     <br>    <br></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8 col-offset-sm-2">
+                    <app-login-component [LogInFromDiffrentSource]="LogInFromThere.bind(this)"></app-login-component>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col"><br></div>
+    </div>
+    <div class="row">
+        <form #form="ngForm" class="col" autocomplete="off">
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <div class="col">
+                            <b>Zamów za pomocą tymczasowego konta bez rejestracji.</b>  <br>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-sm-2">Podaj email:</div>
+                        <input type="text" class="col-sm-4 col-offset-sm-2" name="Email" [(ngModel)]="Email"
+                            [pattern]="EmailRegex" placeholder="PrzykladowyEmail@gmail.com">
 
+                        <input class="btn btn-primary" value=" Zamów bez logowania" (click)="OrderWithoutLogin()"
+                            [disabled]="form.invalid">
+                    </div>
+                    <br>  <br>  <br>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

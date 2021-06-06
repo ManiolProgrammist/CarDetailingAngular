@@ -16,8 +16,10 @@ export class ManageOrderComponent implements OnInit {
   constructor(private userService: UserService, private orderService: OrderService, private router: Router) { }
   @Input() set OrderInput(order: Order) {
     this.orderInput = order;
+    this.delayMinutes = 15;
   };
   orderInput: Order;
+  public delayMinutes: number;
   @Input() OnClickFunction: () => void;
   @Input() OnRemoveFunction: () => void;
   @Input() ShowUserData: () => void;
@@ -126,6 +128,22 @@ export class ManageOrderComponent implements OnInit {
           }
         }
       );
+    }
+  }
+  AddDelay() {
+    if (confirm("Na pewno to zlecenie będzie opóźnione?")) {
+
+      this.orderService.AddDelay(this.orderInput, (this.delayMinutes) / 15).subscribe(
+        (value) => {
+
+          if (this.OnClickFunction) {
+            this.OnClickFunction();
+          }
+
+          this.orderInput = value.value;
+
+        });
+      console.log("add delay", this.delayMinutes);
     }
   }
 }

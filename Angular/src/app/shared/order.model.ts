@@ -17,9 +17,10 @@ export class Order implements Deserializable {
     Cost: number;
     IsOrderCompleted: boolean;
     IsOrderStarted:boolean;
-    OrderInformations:OrderInformations[]|null;
+    OrdersInformations:OrderInformations[]|null;
     OrdersTemplate:OrderTemplate;
     IsPaid:boolean;
+    delays:number;
 
     deserialize(value: any): Order {
         var ret=new Order();
@@ -43,9 +44,10 @@ export class Order implements Deserializable {
         ret.Cost=value.Cost;
         ret.IsOrderCompleted=value.IsOrderCompleted;
         ret.IsOrderStarted=value.IsOrderStarted;
-        ret.OrderInformations=value.OrderInformations;
+        ret.OrdersInformations=value.OrdersInformations;
         ret.OrdersTemplate=value.OrdersTemplate;
         ret.IsPaid=value.IsPaid;
+        ret.delays=value.delays;
        
     }
     return ret;

@@ -50,8 +50,8 @@ export class OrderListComponentComponent implements OnInit {
       this.orderList.sort(this.dynamicSort("ExpectedStartOfOrder"));
     } else {
       this.orderList.sort(this.dynamicSort("-ExpectedStartOfOrder"));
-
     }
+    this.ShowFiltered(this.sortType);
     this.sortSideDate = !this.sortSideDate;
   }
   SortByCost() {
@@ -61,6 +61,7 @@ export class OrderListComponentComponent implements OnInit {
       this.orderList.sort(this.dynamicSort("-Cost"));
 
     }
+    this.ShowFiltered(this.sortType);
     this.sortSideCost = !this.sortSideCost;
   }
   SortByTemplateName(){
@@ -70,6 +71,7 @@ export class OrderListComponentComponent implements OnInit {
     } else {
       this.orderList.sort((a,b) =>( a.OrdersTemplate.Name> b.OrdersTemplate.Name) ? -1 : (a.OrdersTemplate.Name < b.OrdersTemplate.Name) ? 1 : 0)
     }
+    this.ShowFiltered(this.sortType);
     this.sortByTempName = !this.sortByTempName;
     
   }
@@ -81,6 +83,7 @@ export class OrderListComponentComponent implements OnInit {
       this.orderList.sort((a,b) =>( a.User.FirstName> b.User.FirstName) ? -1 : (a.User.FirstName < b.User.FirstName) ? 1 : 0)
     }
     this.sortByUserName = !this.sortByUserName;
+    this.ShowFiltered(this.sortType);
     
   }
   dynamicSort(property) {
@@ -145,6 +148,20 @@ export class OrderListComponentComponent implements OnInit {
         return obj.IsPaid == false;
       });
 
+    }
+    if(sortedType==7){
+      this.orderListShow=this.orderList.filter(obj=>{
+        var flag=false;
+        var date=new Date();
+        var start=new Date(obj.ExpectedStartOfOrder);
+        if(date.getFullYear()==start.getFullYear() 
+        && date.getMonth()<=start.getMonth() 
+        &&date.getDate()<=start.getDate()){
+          flag=true;
+        }
+        return flag;
+
+      })
     }
   }
 }

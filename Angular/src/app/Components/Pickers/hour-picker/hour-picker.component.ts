@@ -22,7 +22,6 @@ export class HourPickerComponent implements OnChanges {
   // dayInfo: DayInfo;
   constructor(private optionsService: OptionsService, private utilityService: UtilityService,private orderService:OrderService) { }
   ngOnChanges(): void { //za każdym razem gdy będzie nowa wartość któregokolwiek z parametrów. Od zewnątrz?
-    console.log(this.pickedDayInfo);
     if (this.pickedDayInfo != null) {
 
 

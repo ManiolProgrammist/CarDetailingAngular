@@ -84,7 +84,8 @@ export class UtilityService {
     return new Date(Data.getTime() + Days*24*60 * 60000);
   }
   AddTime(Data:Date,ExpectedTime:string){
-    return new Date(Data.getTime()+(Number(this.getHours(ExpectedTime))*60*60000+Number(this.getMinutes(ExpectedTime))*60000));
+    var data=new Date(Data);
+    return new Date(data.getTime()+(Number(this.getHours(ExpectedTime))*60*60000+Number(this.getMinutes(ExpectedTime))*60000));
   }
   SimpleClone(obj: any) {
     return Object.assign({}, obj);

@@ -40,7 +40,6 @@ import { SelectLoginTypeOrderComponent } from './Components/select-login-type-or
 import { AcceptOrderInfoComponent } from './Components/Order/accept-order-info/accept-order-info.component';
 import { TemporaryUserInfoOrderComponent } from './Components/Order/temporary-user-info-order/temporary-user-info-order.component';
 import { ImageRightComponent } from './Components/OrderTemplate/TemplateShow/image-right/image-right.component';
-import { NgxStripeModule } from 'ngx-stripe';
 import { Ng2CompleterModule } from 'ng2-completer';
 import { UserPickerComponent } from './Components/User_Components/user-picker/user-picker.component';
 import { AccountSettingsComponentComponent } from './Components/account-settings-component/account-settings-component.component';
@@ -79,7 +78,6 @@ import { ContactComponent } from './Components/contact/contact.component';
   imports: [
     NgbModule,
     BrowserModule,
-    NgxStripeModule.forRoot('pk_test_51HszhkD9xcu8ECH3qq2PWCmdpB9wWk1incGwq5hpyhxUuY8pVmu5ZbPdl9XETeO2TtnAoZ2s8RzFykhnTFjRJPwM00NeDuznWL'),
     AppRoutingModule,  // forms module importujemy wszędzie gdzie jest ngModule
     FormsModule,
     Ng2CompleterModule,
@@ -95,7 +93,7 @@ import { ContactComponent } from './Components/contact/contact.component';
       { path: 'Order_Template_Detail', component: OrderTemplateDetailsComponentComponent, canActivate: [AuthEmployeeGuard] },
       { path: 'Picked_User_Order_List', component: NormalUserOrderListComponent, canActivate: [AuthEmployeeGuard] },
       { path: 'Contact', component: ContactComponent },
-      { path: 'Account', component: AccountSettingsComponentComponent },
+      { path: 'Account', component: AccountSettingsComponentComponent, canActivate:[AuthGuard] },
       // {
       //   path: 'Order_List', component: OrderListComponentComponent
       // },

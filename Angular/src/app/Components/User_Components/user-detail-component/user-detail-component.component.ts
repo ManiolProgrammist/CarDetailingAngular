@@ -54,7 +54,9 @@ export class UserDetailComponentComponent implements OnInit {
 
   }
 
-
+  CutDate(date:Date){
+    return this.utilityService.CutDate(date);
+  }
 
   ngOnInit() {
     if (this.userFormData == null) {

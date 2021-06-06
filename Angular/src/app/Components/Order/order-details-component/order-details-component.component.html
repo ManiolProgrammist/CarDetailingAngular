@@ -5,6 +5,16 @@
 </app-order-template-component>
 <button *ngIf="editButton" (click)="EditButtonClick()">Edytuj ten template</button>
 <form #form="ngForm" autocomplete="off">
+    <div class="container-fluid" *ngIf="orderDetails.StartOfOrder">
+        <div class="row">
+            <div class="progress-bar col" [style]="{'--width':progressWidth}"
+                attr.data-label="Postęp w wykonywaniu zlecenia: {{progressWidth}} %"
+            >
+
+            </div>
+        </div>
+        <br>
+    </div>
 
     <div class="form-group">
 
@@ -78,7 +88,7 @@
             <div class="col-md-3 col-md-offset-3"></div>
             <!-- [co się dzieje z klasą]="warunek" -->
             <div class="col-md-3 input-group-text bg-info">
-                Imię i nazwisko Zamawiającego
+                Imię i nazwisko użytkownika
             </div>
             <!-- <div *ngIf="IsEdit" class="col-md-2 input-group-text" [class.bg-info]="!Surname.touched"
                     [class.bg-success]="Surname.valid && Surname.touched"
@@ -152,7 +162,7 @@
                     Nazwisko
                 </div> -->
                 <div class="col-md-3 input-group-text">
-                    {{ orderDetails.OrderDate}}
+                    {{ CutDate(orderDetails.OrderDate)}}
                 </div>
             </div>
         </div>
@@ -168,7 +178,7 @@
                         Nazwisko
                     </div> -->
             <div class="col-md-3 input-group-text">
-                {{ orderDetails.ExpectedStartOfOrder}}
+                {{ CutDate(orderDetails.ExpectedStartOfOrder)}}
             </div>
         </div>
         <div *ngIf=" orderDetails.StartOfOrder" class="row input-group">
@@ -183,7 +193,7 @@
                         Nazwisko
                     </div> -->
             <div class="col-md-3 input-group-text">
-                {{ orderDetails.StartOfOrder}}
+                {{ CutDate(orderDetails.StartOfOrder)}}
             </div>
         </div>
 
@@ -200,21 +210,57 @@
                             Nazwisko
                         </div> -->
             <div class="col-md-3 input-group-text">
-                {{ orderDetails.CompletedOrderDate}}
+                {{ CutDate(orderDetails.CompletedOrderDate)}}
             </div>
         </div>
-        <div *ngIf=" orderDetails.OrderInformations" class="row input-group">
-            <div class="container-fluid" *ngFor="let ul of  orderDetails.OrderInformations">
-                <div class="col-md-3 input-group-text">
-                    {{ul}}
-                </div>
+        <div *ngIf=" orderDetails.delays" class="row input-group">
+            <div class="col-md-3 col-md-offset-3"></div>
+            <div class="col-md-3 input-group-text bg-info">
+                Opóźnienia:
+            </div>
+            <div class="col-md-3 input-group-text">
+                {{ orderDetails.delays*15}} Min
             </div>
         </div>
         <br />
+        <div *ngIf=" orderDetails.OrdersInformations" class=" container-fluid ">
+           
+            <div class="row input-group" *ngFor="let ul of  orderDetails.OrdersInformations">
+                <div class="col-md-3 col-md-offset-3"></div>
+                <div class="col-md-3 input-group-text">
+                    {{ul.TypeOfInformation}}
+                </div>
+                <textarea class="col-md-3" value="{{ul.Information}}" style="word-wrap: break-word;" [disabled]="true">
+    
+                </textarea>
+                <div class="col-sm-1">
+                    <div class="row">
+                    
+                        <input class="col-sm-12 btn btn-danger" value="X" (click)="RemoveNotice(ul.InformationId)"/>
+                </div>
+                </div>
+                <div class="col-md-2 col-md-offset-2"></div>
+            </div>
+     
+        </div>
+        <div *ngIf="addNotice" class="row input-group">
+            <div class="col-md-3 col-md-offset-3"></div>
 
+            <textarea name="NoticeR" #NoticeR="ngModel" [(ngModel)]="notice" class="form-control col" rows="3"
+                placeholder="tekst notatki"></textarea>
+                <div class="col-md-3 col-md-offset-3"></div>
+        </div>
     </div>
-
+    <div class="container-fluid">
+        <div class="row input-group">
+            <div class="col-md-3 col-md-offset-3"></div>
+            <input class="col btn  btn-light" type="button" *ngIf="!addNotice" (click)="AddNotice()" value="Dodaj notatkę" />
+            <input class="col btn  btn-light" type="button" *ngIf="addNotice" (click)="AddNotice()" value="Zatwierdź notatkę" />
+            <input *ngIf="!orderDetails.IsPaid" type="button" (click)="PayForOrder()" class="col btn  btn-info"
+                value="Zapłać (PayU)" />
+            <input *ngIf="orderDetails.IsPaid" type="button" class="col btn  btn-info" value="Usługa Opłacona"
+                [disabled]="true" />
+            <div class="col-md-3 col-md-offset-3"></div>
+        </div>
+    </div>
 </form>
-
-<input *ngIf="!orderDetails.IsPaid" type="button" (click)="PayForOrder()" class="col-md-2 btn  btn-info"
-    value="Zapłać (PayU)" />

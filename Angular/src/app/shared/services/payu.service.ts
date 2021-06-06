@@ -3,11 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { Observable } from 'rxjs';
-import { PayuAuthorize } from '../payu-authorize.model';
 import { StaticInfo } from 'src/app/static-info';
 import { throwError as observableThrowError, observable } from 'rxjs';
-import { PayuOrder } from '../payu-order.model';
-import { stringify } from '@angular/compiler/src/util';
 import { Result } from '../result.model';
 @Injectable({
   providedIn: 'root'

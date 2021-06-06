@@ -1,3 +1,72 @@
-<app-user-detail-component  [userTypeIdDisplay]="loggedUser.UserTypeId" [userFormData]="loggedUser">
+<app-user-detail-component [userTypeIdDisplay]="loggedUser.UserTypeId" [userFormData]="loggedUser">
 
 </app-user-detail-component>
+<div class="container-fluid">
+    <div class="row" *ngIf="startChangingPasswFlag">
+        <div class="col"></div>
+        <button class="col btn btn-info" (click)="ChangeYourPasswordButton()">Zmień hasło</button>
+        <div class="col"></div>
+    </div>
+
+    <div class="row" *ngIf="!startChangingPasswFlag">
+        <div class="col">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <div class="row">
+                        <label class="col">Zmiana hasła:</label>
+                    </div>
+                    <div class="row">
+                        <label class="col" for="oldPasswordId">Stare hasło</label>
+
+                        <input name="PasswordR" id="oldPasswordId" autocomplete="off" type="Password"
+                            #PasswordR="ngModel" [(ngModel)]="oldPassword" class="col form-control"
+                            placeholder="stare hasło" required />
+                        <!-- <input type="text" name="Login" #Login="ngModel" [(ngModel)]="userFormData.Login"
+                        class="col-md-4 form-control" placeholder="Login" [readonly]="1" required /> -->
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <div class="row">
+                        <label class="col" for="newPasswordId">Nowe hasło</label>
+                        <input  class="col form-control" name="newPasswordName" autocomplete="off" id="newPasswordId"  
+                            type="Password" #newPasswordName="ngModel" [(ngModel)]="newPassword"  placeholder="nowe hasło" required/>
+                    </div>
+                </div>
+
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <div class="row">
+                        <label class="col" for="newPasswordRepeatId">Powtórz nowe hasło</label>
+                        <input class="col form-control" name="newPasswordRepeatName" #newPasswordRepeatName="ngModel"
+                            [(ngModel)]="newPasswordRepeat" type="password"  placeholder="powtórz hasło" id="newPasswordRepeatId" required/>
+                    </div>
+                </div>
+
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <div class="row">
+                        <button class="col btn btn-info" (click)="AcceptChangePassword()">Zatwierdź </button>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <button class="col btn btn-danger" (click)="CancelChangingPassword()">Anuluj </button>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,3 +1,16 @@
+<div class="container-fluid">
+<div class="row">
+    <div class="col-sm-4">Rezerwuj dla użytkownika tymczasowego:     <input class="btn btn-secondary" value="Użytkownik tymczasowy"/></div>
+
+    <div class="col"></div>
+    <div class="col"></div>
+</div>
+<div class="row">
+    <div class="col">Wybierz użytkownika:</div>
+</div>
+</div>
+
+
 <app-user-list-component [CustomPickUserBehaviour]="CustomUserPickBehaviour.bind(this)"
     [UserListFilter]="UserListFilter.bind(this)" [userList]="userList" [nameList]="nameList" [surnameList]="surnameList"
     [emailList]="emailList"></app-user-list-component>

@@ -19,13 +19,19 @@
         <input *ngIf="!orderInput.IsOrderCompleted&&orderInput.IsOrderStarted" type="button"
             class="col-md-2 btn btn-success" (click)="EndOrder()" value="Zakończ" />
 
-
         <input *ngIf="orderInput.IsOrderCompleted" type="button" (click)="BackEndOrder()" class="col-md-2 btn  btn-info"
             value="Cofnij Zakończenie Zleceina" />
         <input *ngIf="!orderInput.IsPaid" type="button" (click)="PaidOnSpot()" class="col-md-2 btn  btn-secondary"
             value="Zapłacone na miejscu" />
         <input type="button" (click)="RemoveOrder()" class="col-md-2 btn btn-danger" value="Anuluj zlecenie">
-
+ 
     </div>
+    <div class="row  input-group">
+        <div class="col-md-3 col-md-offset-3"></div>
+        <input type="button" (click)="AddDelay()" class="col btn btn-secondary" value="dodaj opóźnienie">
 
+            <input type="number" name="DelayMinutes" #DelayMinutes="ngModel"
+    [(ngModel)]="delayMinutes" class="col form-control" min="15" height="100%" step="15" />
+    <div class="col-md=1  form-control">Minut</div>
+    <div class="col-md-3 col-md-offset-3"></div>
 </div>

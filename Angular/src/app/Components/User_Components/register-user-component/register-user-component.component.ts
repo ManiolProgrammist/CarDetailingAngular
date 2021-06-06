@@ -30,11 +30,8 @@ export class RegisterUserComponentComponent implements OnInit {
   addSpacesNumber() {
     this.userService.userRegister.PhoneNumber=this.userService.userRegister.PhoneNumber.replace("/([0-9]{3})/", "$& ");
     this.userService.userRegister.PhoneNumber=this.userService.userRegister.PhoneNumber.replace("/[0-9]{3} ([0-9]{3})/", "$& ");
-    console.log( this.userService.userRegister.PhoneNumber);
   }
-  RegisterUser(input){
-    console.log(input,"register");
-   
+  RegisterUser(input){   
     if(this.singleRegister){
       this.singleRegister=false;
     this.userService.UserRegister(input).subscribe(    (value)=>{
